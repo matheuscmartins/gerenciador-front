@@ -60,8 +60,8 @@ import { NavComponent } from './components/nav/nav.component';
     MatListModule,
     MatCardModule,
     ],
-    providers: [AuthInterceptorProvider],
+    providers: [],
     bootstrap: [AppComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA] 
+    schemas: [] 
 })
 export class AppModule { }
