@@ -1,18 +1,53 @@
 <mat-drawer-container class="container" autosize>
-    <mat-drawer #drawer class="sidenav" mode="side">
-      <mat-nav-list class="nav-list">
-<a mat-list-item routerLink="/">
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <img src="assets/img/side-image.svg" alt="Imagem de navegação">
+    <mat-nav-list class="nav-list">
+      <a mat-list-item routerLink="/">
+        <i class="material-icons">home</i>
+        Home
+      </a>
+      <a mat-list-item routerLink="/">
+        <i class="material-icons">markunread_mailbox</i>
+        Endereços
+      </a>
+      <a mat-list-item routerLink="/">
+        <i class="material-icons">post_add</i>
+        Comunicados
+      </a>
+      <a mat-list-item routerLink="/">
+        <i class="material-icons">flag</i>
+        Sedes
+      </a>
+      <a mat-list-item routerLink="/">
+        <i class="material-icons">assignment_late</i>
+        Advertências
+      </a>
+       <a mat-list-item routerLink="/">
+        <i class="material-icons">sports_motorsports</i>
+        Membros
+      </a>
+       <a mat-list-item routerLink="/">
+        <i class="material-icons">school</i>
+        Graduações
+      </a>
+      <a mat-list-item routerLink="/">
+        <i class="material-icons">stars</i>
+        Cargos
+      </a>
+       <a mat-list-item routerLink="/">
+        <i class="material-icons">motorcycle</i>
+        Controle de Viagens
+      </a>
+       <a mat-list-item routerLink="/">
+        <i class="material-icons">logout</i>
+        Logout
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
 
-    <i class="material-icons">home</i>
-    Home
-</a>
-      </mat-nav-list>
-    </mat-drawer>
-  
-    <div class="sidenav-content">
-      <button type="button" mat-button (click)="drawer.toggle()">
-        Toggle sidenav
-      </button>
-    </div>
-  
-  </mat-drawer-container>
+  <div class="sidenav-content">
+    <button class="menu mat-elevation-z8" (click)="drawer.toggle()" mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+</mat-drawer-container>
