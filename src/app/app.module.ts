@@ -31,7 +31,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
-import { AdressListComponent } from './components/adress/adress-list/adress-list.component';
+import { AdressListComponent as AddressListComponent } from './components/address/address-list/address-list.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { AdressListComponent } from './components/adress/adress-list/adress-list
     NavComponent,
     HomeComponent,
     HeaderComponent,
-    AdressListComponent
+    AddressListComponent
   ],
   imports: [
     BrowserModule,
