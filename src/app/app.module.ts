@@ -35,6 +35,7 @@ import { AdressListComponent as AddressListComponent } from './components/addres
 import { LoginComponent } from './components/login/login.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ToastrModule } from 'ngx-toastr';
+import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,7 @@ import { ToastrModule } from 'ngx-toastr';
       progressBar: true
     })
   ],
-    providers: [],
+    providers: [AuthInterceptorProvider],
     bootstrap: [AppComponent],
     schemas: [] 
 })
