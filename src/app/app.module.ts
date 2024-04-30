@@ -36,6 +36,7 @@ import { LoginComponent } from './components/login/login.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
+import { AddressCreateComponent } from './components/address/address-create/address-create.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
     HomeComponent,
     HeaderComponent,
     AddressListComponent,
-    LoginComponent
+    LoginComponent,
+    AddressCreateComponent
   ],
   imports: [
     BrowserModule,

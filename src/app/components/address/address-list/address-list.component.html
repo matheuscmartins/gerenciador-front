@@ -1,6 +1,7 @@
 <div class="container">
   <h1>Listando Endereços</h1>
-  <button class="mat-elevation-z8" mat-button>Novo Endereço</button>
+  <button class="mat-elevation-z8" routerLink="create"
+  mat-button>Novo Endereço</button>
   <mat-form-field appearance="standard">
     <mat-label>Pesquisa</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Rua/Cidade/CEP" #input>
