@@ -23,6 +23,9 @@
             type="password" 
             matInput placeholder="Ex. 123456" >
           </mat-form-field>
-        <button class="full-width mat-elevation-z8" mat-stroked-button color="primary">Login</button>
+        <button 
+        (click)="logar()"
+        [disabled]="!validaCampos()" class="full-width mat-elevation-z8" 
+        mat-stroked-button color="primary">Login</button>
       </form>      
 </div>
