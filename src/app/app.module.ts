@@ -33,6 +33,8 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AdressListComponent as AddressListComponent } from './components/address/address-list/address-list.component';
 import { LoginComponent } from './components/login/login.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,12 @@ import { LoginComponent } from './components/login/login.component';
     MatIconModule,
     MatListModule,
     MatCardModule,
-    ],
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      closeButton: true,
+      progressBar: true
+    })
+  ],
     providers: [],
     bootstrap: [AppComponent],
     schemas: [] 
