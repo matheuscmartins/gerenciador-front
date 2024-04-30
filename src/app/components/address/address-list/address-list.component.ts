@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Address } from 'src/app/models/address';
+import { AddressService } from 'src/app/services/address.service';
 
 @Component({
   selector: 'app-address-list',
@@ -11,26 +12,30 @@ import { Address } from 'src/app/models/address';
 export class AdressListComponent implements OnInit {
 
   ELEMENT_DATA: Address[] = [
-    {
-      id: 1,
-      logradouro: 'Rua Brasil',
-      number: '505',
-      addressComplement: 'complemento',
-      postCode: '19040-003',
-      city: ['1']
-    }
+    
   ]
   displayedColumns: string[] = ['position', 'name', 'weight', 'city', 'symbol', 'acoes'];
   dataSource = new MatTableDataSource<Address>(this.ELEMENT_DATA);
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  constructor(
+    private service: AddressService
+  ) { }
+
+  ngOnInit(): void {
+    this.findAll();
+  }
+ 
+  findAll(){
+    this.service.findAll().subscribe(resposta =>{
+      this.ELEMENT_DATA = resposta
+      this.dataSource = new MatTableDataSource<Address>(resposta);
+      this.dataSource.paginator = this.paginator;
+    })
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
