@@ -5,7 +5,10 @@
 
         <mat-form-field class="fullWidth" appearance="legacy">
             <mat-label>Logradouro</mat-label>
-            <input [formControl]="logradouro"
+            <input 
+            [(ngModel)]="address.logradouro"
+            name="logradouro"
+            [formControl]="logradouro"
             required
              matInput placeholder="Rua/Av/Travessa"
              maxlength="99">
@@ -14,7 +17,10 @@
           </mat-form-field>
           <mat-form-field class="fullWidth" appearance="legacy">
             <mat-label>Numero</mat-label>
-            <input [formControl]="number"
+            <input 
+            [(ngModel)]="address.number"
+            name="number"
+            [formControl]="number"
             required
               matInput placeholder="Numero"
               maxlength="10">
@@ -23,7 +29,10 @@
           </mat-form-field>
           <mat-form-field class="fullWidth" appearance="legacy">
             <mat-label>CEP</mat-label>
-            <input [formControl]="postCode"
+            <input 
+            [(ngModel)]="address.postCode"
+            name="postCode"
+            [formControl]="postCode"
             required
             mask="00000-000"
               matInput placeholder="00000-000">
@@ -32,7 +41,10 @@
           </mat-form-field>
           <mat-form-field class="fullWidth" appearance="legacy">
             <mat-label>Complemento</mat-label>
-            <input [formControl]="complement"            
+            <input 
+            [(ngModel)]="address.addressComplement"
+            name="addressComplement"
+            [formControl]="addressComplement"            
               matInput placeholder="Ex. Bloco1/Ap1"
               maxlength="20">
             <mat-icon matSuffix>description</mat-icon>
@@ -52,11 +64,14 @@
               <mat-option value="option">Paraná</mat-option>
             </mat-select>            
           </mat-form-field>
-          <mat-form-field class="cbb" appearance="fill">
+          <mat-form-field 
+          [(ngModel)]="address.city"
+          [formControl]="city"  
+           class="cbb" appearance="fill">
             <mat-label>Selecione a Cidade</mat-label>
-            <mat-select>
-              <mat-option value="option">Maringá</mat-option>
-              <mat-option value="option">Pres. Prudente</mat-option>
+            <mat-select >
+              <mat-option [(ngModel)]="address.city" value="1">Maringá</mat-option>
+              <mat-option value="2">Pres. Prudente</mat-option>
             </mat-select>            
           </mat-form-field>
         
