@@ -11,8 +11,7 @@ import { AddressService } from 'src/app/services/address.service';
 })
 export class AdressListComponent implements OnInit {
 
-  ELEMENT_DATA: Address[] = [
-    
+  ELEMENT_DATA: Address[] = [    
   ]
   displayedColumns: string[] = ['position', 'name', 'weight', 'city', 'symbol', 'acoes'];
   dataSource = new MatTableDataSource<Address>(this.ELEMENT_DATA);

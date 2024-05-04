@@ -11,9 +11,9 @@ export class UfService {
 
   constructor(
     private http: HttpClient
-  ) { }
-  
-  findAll(): Observable<Uf[]> {
-    return this.http.get<Uf[]>(`${API_CONFIG.baseUrl}/ufs`);
+  ) { }  
+ 
+findByContryId(countryId: any): Observable<Uf[]> {
+  return this.http.get<Uf[]>(`${API_CONFIG.baseUrl}/ufs/pais/${countryId}`);
 }
 }

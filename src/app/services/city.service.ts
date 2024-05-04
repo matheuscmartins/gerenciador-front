@@ -16,4 +16,7 @@ export class CityService {
   findAll(): Observable<City[]> {
     return this.http.get<City[]>(`${API_CONFIG.baseUrl}/cidades`);
 }
+findByUfId(ufId: any): Observable<City[]> {
+  return this.http.get<City[]>(`${API_CONFIG.baseUrl}/cidades/uf/${ufId}`);
+}
 }

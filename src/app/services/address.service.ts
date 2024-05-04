@@ -19,5 +19,4 @@ export class AddressService {
 create(address: Address): Observable<Address>{
   return this.http.post<Address>(`${API_CONFIG.baseUrl}/enderecos`, address)
 }
-
 }
