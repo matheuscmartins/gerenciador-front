@@ -64,19 +64,18 @@
               <mat-option value="option">Paraná</mat-option>
             </mat-select>            
           </mat-form-field>
-          <mat-form-field 
-          [(ngModel)]="address.city"
-          [formControl]="city"  
-           class="cbb" appearance="fill">
-            <mat-label>Selecione a Cidade</mat-label>
-            <mat-select >
-              <mat-option [(ngModel)]="address.city" value="1">Maringá</mat-option>
+          <mat-form-field          
+           class="cbb" appearance="fill" >
+            <mat-label   >Selecione a Cidade</mat-label>
+            <mat-select [formControl]="city"  (selectionChange)="addCity(city.value)" >
+              <mat-option value="1">Maringá</mat-option>
               <mat-option value="2">Pres. Prudente</mat-option>
             </mat-select>            
           </mat-form-field>
         
           <button [disabled]="!validaCampos()"
-          class="button mat-elevation-z10" mat-raised-button color="success">Cadastrar</button>
+          class="button mat-elevation-z10" mat-raised-button color="success"
+           (click)="create()">Cadastrar</button>
           <button routerLink="../" class="button mat-elevation-z10" 
           mat-flat-button color="warn">Cancelar</button>
     </form>
