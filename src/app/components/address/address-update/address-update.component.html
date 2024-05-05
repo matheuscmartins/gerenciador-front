@@ -1,0 +1,101 @@
+<div class="container mat-elevation-z8">
+    <form class="form">
+        <h1 class="fullWidth">Atualizar Endereço</h1>
+        <img class="fullWidth" src="assets/img/create/address-create.svg" alt="Portal BDL">
+
+        <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Logradouro</mat-label>
+                <input 
+                [(ngModel)]="address.logradouro"
+                name="logradouro"
+                [formControl]="logradouro"
+                required
+                matInput placeholder="Rua/Av/Travessa"
+                maxlength="99">
+            <mat-icon matSuffix>signpost</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Numero</mat-label>
+                <input 
+                [(ngModel)]="address.number"
+                name="number"
+                [formControl]="number"
+                required
+                matInput placeholder="Numero"
+                maxlength="10">
+            <mat-icon matSuffix>pin</mat-icon>
+            <mat-hint>10</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>CEP</mat-label>
+                <input 
+                [(ngModel)]="address.postCode"
+                name="postCode"
+                [formControl]="postCode"
+                required
+                mask="00000-000"
+                matInput placeholder="00000-000">
+            <mat-icon matSuffix>local_post_office</mat-icon>
+            <mat-hint>7</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Complemento</mat-label>
+                <input 
+                [(ngModel)]="address.addressComplement"
+                name="addressComplement"
+                [formControl]="addressComplement"            
+                matInput placeholder="Ex. Bloco1/Ap1"
+                maxlength="20">
+            <mat-icon matSuffix>description</mat-icon>
+            <mat-hint>20</mat-hint>
+          </mat-form-field>
+           
+          <mat-form-field class="cbb" appearance="fill">
+            <mat-label>Selecione o Pais</mat-label>
+                <mat-select placeholder="Selecione o Pais"                 
+                name="countryMatSelected"
+                [formControl]="countryMatSelected"
+                (selectionChange)="ufFindByCountryId(countryMatSelected.value)">                
+                    <mat-option *ngFor="let countryElement of countryList" 
+                    [value]="countryElement.id" > {{countryElement.name}}
+                    </mat-option>
+              </mat-select>    
+          </mat-form-field>
+
+            <mat-form-field class="cbb" appearance="fill">
+                <mat-label>Selecione a Uf</mat-label>
+                <mat-select placeholder="Selecione a Uf" 
+                name="ufMatSelected"
+                [formControl]="ufMatSelected"
+                (selectionChange)="cityFindByUfId(ufMatSelected.value)">            
+                    <mat-option *ngFor="let ufElement of ufList" 
+                    [value]="ufElement.id" > {{ufElement.name}}
+                    </mat-option>
+                </mat-select>    
+            </mat-form-field>
+
+          <mat-form-field          
+           class="cbb" appearance="fill" >
+            <mat-label>Selecione a Cidade</mat-label>
+            <mat-select placeholder="Selecione a Cidade" 
+            name="cityMatSelected"
+            [formControl]="cityMatSelected" 
+            (selectionChange)="addCity(cityMatSelected.value)" 
+            required>   
+                <mat-option *ngFor="let cityElement of cityList" 
+                [value]="cityElement.id" > {{cityElement.name}}
+                </mat-option>           
+            </mat-select>            
+          </mat-form-field>
+        
+          <button [disabled]="!validaCampos()"
+          class="button mat-elevation-z10" mat-raised-button color="success"
+           (click)="update()">Atualizar</button>
+          <button routerLink="../../" class="button mat-elevation-z10" 
+          mat-flat-button color="warn">Cancelar</button>
+    </form>
+</div>

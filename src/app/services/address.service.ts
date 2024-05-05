@@ -13,10 +13,16 @@ export class AddressService {
     private http: HttpClient
   ) { }
   
+  findById(id: any): Observable<Address>{
+    return this.http.get<Address>(`${API_CONFIG.baseUrl}/enderecos/${id}`);
+  }
   findAll(): Observable<Address[]> {
     return this.http.get<Address[]>(`${API_CONFIG.baseUrl}/enderecos`);
-}
-create(address: Address): Observable<Address>{
-  return this.http.post<Address>(`${API_CONFIG.baseUrl}/enderecos`, address)
-}
+  }
+  create(address: Address): Observable<Address>{
+    return this.http.post<Address>(`${API_CONFIG.baseUrl}/enderecos`, address)
+  }
+  update(address: Address): Observable<Address>{
+    return this.http.put<Address>(`${API_CONFIG.baseUrl}/enderecos/${address.id}`, address);
+  }
 }

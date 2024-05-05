@@ -38,6 +38,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { AddressCreateComponent } from './components/address/address-create/address-create.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { AddressUpdateComponent } from './components/address/address-update/address-update.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { NgxMaskModule } from 'ngx-mask';
     HeaderComponent,
     AddressListComponent,
     LoginComponent,
-    AddressCreateComponent
+    AddressCreateComponent,
+    AddressUpdateComponent
   ],
   imports: [
     BrowserModule,

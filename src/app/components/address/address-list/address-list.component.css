@@ -15,3 +15,9 @@ table {
     width:  100%;
     text-align: center;
   }
+  .edit{
+    color: rgb(58, 57, 57);
+  }
+  .delete{
+    color: red;
+  }

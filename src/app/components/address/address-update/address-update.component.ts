@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, NgModel, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Address } from 'src/app/models/address';
 import { City } from 'src/app/models/city';
@@ -12,11 +12,11 @@ import { CountryService } from 'src/app/services/country.service';
 import { UfService } from 'src/app/services/uf.service';
 
 @Component({
-  selector: 'app-address-create',
-  templateUrl: './address-create.component.html',
-  styleUrls: ['./address-create.component.css']
+  selector: 'app-address-update',
+  templateUrl: './address-update.component.html',
+  styleUrls: ['./address-update.component.css']
 })
-export class AddressCreateComponent implements OnInit {  
+export class AddressUpdateComponent implements OnInit {
 
   address: Address = {
     id:'',
@@ -45,15 +45,25 @@ export class AddressCreateComponent implements OnInit {
     private addressService: AddressService,
     private toastr: ToastrService,
     private router: Router,
+    private activedRoute : ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.countryFindAll();
+    this.address.id = this.activedRoute.snapshot.paramMap.get('id');   
+    this.findbyId();  
+    console.log(this.address.city.name);
+  }
+  findbyId(): void{
+    this.addressService.findById(this.address.id).subscribe(resposta =>{      
+      this.address = resposta;       
+      this.listMatSelecteds();       
+    }) 
   }
 
-  create(): void{   
-    this.addressService.create(this.address).subscribe(() =>{      
-      this.toastr.success('Endereço cadastrado com Sucesso!', 'Cadastro');
+  update(): void{   
+    this.addressService.update(this.address).subscribe(() =>{      
+      this.toastr.success('Endereço atualizado com Sucesso!', 'Update');
       this.router.navigate(['address']);
     }, ex => {      
       if(ex.error.errors){
@@ -92,4 +102,12 @@ export class AddressCreateComponent implements OnInit {
     })
   }
   }
+  listMatSelecteds(){    
+    this.countryMatSelected.setValue(this.address.city.uf.country.id);
+      this.ufFindByCountryId(this.address.city.uf.country.id);
+      this.ufMatSelected.setValue(this.address.city.uf.id);
+      this.cityFindByUfId(this.address.city.uf.id);
+      this.cityMatSelected.setValue(this.address.city.id);         
+  }
 }
+
