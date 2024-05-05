@@ -39,6 +39,7 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { AddressCreateComponent } from './components/address/address-create/address-create.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { AddressUpdateComponent } from './components/address/address-update/address-update.component';
+import { AddressDeleteComponent } from './components/address/address-delete/address-delete.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { AddressUpdateComponent } from './components/address/address-update/addr
     AddressListComponent,
     LoginComponent,
     AddressCreateComponent,
-    AddressUpdateComponent
+    AddressUpdateComponent,
+    AddressDeleteComponent
   ],
   imports: [
     BrowserModule,
