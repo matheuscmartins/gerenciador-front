@@ -25,4 +25,7 @@ export class AddressService {
   update(address: Address): Observable<Address>{
     return this.http.put<Address>(`${API_CONFIG.baseUrl}/enderecos/${address.id}`, address);
   }
+  delete(id: any): Observable<Address>{
+    return this.http.delete<Address>(`${API_CONFIG.baseUrl}/enderecos/${id}`);
+  }
 }

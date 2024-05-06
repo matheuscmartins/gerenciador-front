@@ -40,6 +40,7 @@ import { AddressCreateComponent } from './components/address/address-create/addr
 import { NgxMaskModule } from 'ngx-mask';
 import { AddressUpdateComponent } from './components/address/address-update/address-update.component';
 import { AddressDeleteComponent } from './components/address/address-delete/address-delete.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { AddressDeleteComponent } from './components/address/address-delete/addr
     MatIconModule,
     MatListModule,
     MatCardModule,
+    MatDialogModule,
     ToastrModule.forRoot({
       timeOut: 4000,
       closeButton: true,

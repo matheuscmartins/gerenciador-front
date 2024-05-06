@@ -4,6 +4,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Address } from 'src/app/models/address';
 import { AddressService } from 'src/app/services/address.service';
 
+import {MatDialog} from '@angular/material/dialog';
+import { AddressDeleteComponent } from '../address-delete/address-delete.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+
 @Component({
   selector: 'app-address-list',
   templateUrl: './address-list.component.html',
@@ -18,8 +23,10 @@ export class AdressListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(
-    private service: AddressService
+  constructor(    
+    private service: AddressService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -37,4 +44,20 @@ export class AdressListComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+ 
+  openDialog(id: any) {
+    const dialogRef = this.dialog.open(AddressDeleteComponent,{
+      data:{
+        id: id ,
+        message: 'Você tem Certeza que quer Deletar?',
+        buttonText: {
+          ok: 'Deletar',
+          cancel: 'Cancelar'
+        }
+      }
+    }); 
+
+    
+  }
+ 
 }
