@@ -2,38 +2,36 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, NgModel, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Address } from 'src/app/models/address';
+import { HeadQuarter } from 'src/app/models/headQuarter';
 import { City } from 'src/app/models/city';
 import { Country } from 'src/app/models/country';
 import { Uf } from 'src/app/models/uf';
-import { AddressService } from 'src/app/services/address.service';
+import { HeadQuarterService } from 'src/app/services/headQuarter.service';
 import { CityService } from 'src/app/services/city.service';
 import { CountryService } from 'src/app/services/country.service';
 import { UfService } from 'src/app/services/uf.service';
 
 @Component({
-  selector: 'app-address-update',
-  templateUrl: './address-update.component.html',
-  styleUrls: ['./address-update.component.css']
+  selector: 'app-headQuarter-update',
+  templateUrl: './headQuarter-update.component.html',
+  styleUrls: ['./headQuarter-update.component.css']
 })
-export class AddressUpdateComponent implements OnInit {
+export class HeadQuarterUpdateComponent implements OnInit {
 
-  address: Address = {
+  headQuarter: HeadQuarter = {
     id:'',
-    logradouro:'',
-    number:'',
-    addressComplement:'',
-    postCode:'',
-    city: { }
+    description:'',    
+     address: {
+       logradouro: '',
+       number: '',
+       postCode: ''
+     }
   }  
   
   countryList: Country [];
   ufList: Uf [];
   cityList: City[];
-  logradouro: FormControl = new FormControl(null, Validators.minLength(4));
-  number: FormControl = new FormControl(null, Validators.minLength(1));
-  postCode: FormControl = new FormControl(null, Validators.minLength(8));
-  addressComplement: FormControl = new FormControl(null);  
+  description: FormControl = new FormControl(null, Validators.minLength(4));  
   countryMatSelected: FormControl = new FormControl(null);
   ufMatSelected: FormControl = new FormControl(null);
   cityMatSelected: FormControl = new FormControl(null, Validators.required);
@@ -42,7 +40,7 @@ export class AddressUpdateComponent implements OnInit {
     private countryService: CountryService,
     private ufService : UfService,
     private cityService: CityService,
-    private addressService: AddressService,
+    private headQuarterService: HeadQuarterService,
     private toastr: ToastrService,
     private router: Router,
     private activedRoute : ActivatedRoute
@@ -50,20 +48,21 @@ export class AddressUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.countryFindAll();
-    this.address.id = this.activedRoute.snapshot.paramMap.get('id');   
-    this.findbyId();      
+    this.headQuarter.id = this.activedRoute.snapshot.paramMap.get('id');   
+    this.findbyId();  
+    //console.log(this.headQuarter.city.name);
   }
   findbyId(): void{
-    this.addressService.findById(this.address.id).subscribe(resposta =>{      
-      this.address = resposta;       
-      this.listMatSelecteds();       
+    this.headQuarterService.findById(this.headQuarter.id).subscribe(resposta =>{      
+      this.headQuarter = resposta;       
+      //this.listMatSelecteds();       
     }) 
   }
 
   update(): void{   
-    this.addressService.update(this.address).subscribe(() =>{      
+    this.headQuarterService.update(this.headQuarter).subscribe(() =>{      
       this.toastr.success('Endereço atualizado com Sucesso!', 'Update');
-      this.router.navigate(['address']);
+      this.router.navigate(['headQuarter']);
     }, ex => {      
       if(ex.error.errors){
         ex.error.errors.array.forEach(element => {
@@ -75,12 +74,11 @@ export class AddressUpdateComponent implements OnInit {
     });
   }
   addCity(cityId: any): void{   
-    this.address.city.id = cityId;    
+    //this.headQuarter.city.id = cityId;    
   }
 
   validaCampos(): boolean{
-    return this.logradouro.valid && this.number.valid 
-    && this.postCode.valid && this.cityMatSelected.valid
+    return this.description.valid 
   }
   countryFindAll(){
     this.countryService.findAll().subscribe(resposta =>{       
@@ -101,12 +99,6 @@ export class AddressUpdateComponent implements OnInit {
     })
   }
   }
-  listMatSelecteds(){    
-    this.countryMatSelected.setValue(this.address.city.uf.country.id);
-      this.ufFindByCountryId(this.address.city.uf.country.id);
-      this.ufMatSelected.setValue(this.address.city.uf.id);
-      this.cityFindByUfId(this.address.city.uf.id);
-      this.cityMatSelected.setValue(this.address.city.id);         
-  }
+  
 }
 

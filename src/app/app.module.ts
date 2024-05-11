@@ -41,6 +41,10 @@ import { NgxMaskModule } from 'ngx-mask';
 import { AddressUpdateComponent } from './components/address/address-update/address-update.component';
 import { AddressDeleteComponent } from './components/address/address-delete/address-delete.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HeadQuarterCreateComponent } from './components/headQuarter/headQuarter-create/headQuarter-create.component';
+import { HeadQuarterListComponent } from './components/headQuarter/headQuarter-list/headQuarter-list.component';
+import { HeadQuarterDeleteComponent } from './components/headQuarter/headQuarter-delete/headQuarter-delete.component';
+import { HeadQuarterUpdateComponent } from './components/headQuarter/headQuarter-update/headQuarter-update.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +56,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     LoginComponent,
     AddressCreateComponent,
     AddressUpdateComponent,
-    AddressDeleteComponent
+    AddressDeleteComponent,
+    HeadQuarterCreateComponent,
+    HeadQuarterListComponent,
+    HeadQuarterUpdateComponent,
+    HeadQuarterDeleteComponent
   ],
   imports: [
     BrowserModule,

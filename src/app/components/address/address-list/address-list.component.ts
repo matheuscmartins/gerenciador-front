@@ -3,11 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Address } from 'src/app/models/address';
 import { AddressService } from 'src/app/services/address.service';
-
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AddressDeleteComponent } from '../address-delete/address-delete.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
 
 @Component({
   selector: 'app-address-list',
@@ -25,8 +22,7 @@ export class AdressListComponent implements OnInit {
 
   constructor(    
     private service: AddressService,
-    private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -55,9 +51,8 @@ export class AdressListComponent implements OnInit {
           cancel: 'Cancelar'
         }
       }
-    }); 
-
-    
+    });  
+    this.findAll();   
   }
  
 }

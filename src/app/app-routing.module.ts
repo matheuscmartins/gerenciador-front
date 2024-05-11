@@ -7,6 +7,9 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AddressCreateComponent } from './components/address/address-create/address-create.component';
 import { AddressUpdateComponent } from './components/address/address-update/address-update.component';
+import { HeadQuarterListComponent } from './components/headQuarter/headQuarter-list/headQuarter-list.component';
+import { HeadQuarterUpdateComponent } from './components/headQuarter/headQuarter-update/headQuarter-update.component';
+import { HeadQuarterCreateComponent } from './components/headQuarter/headQuarter-create/headQuarter-create.component';
 
 const routes: Routes = [
   {
@@ -17,7 +20,10 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'address', component: AdressListComponent},
       {path: 'address/create', component: AddressCreateComponent},
-      {path: 'address/update/:id', component: AddressUpdateComponent}
+      {path: 'address/update/:id', component: AddressUpdateComponent},
+      {path: 'headQuarter', component: HeadQuarterListComponent},
+      {path: 'headQuarter/create', component: HeadQuarterCreateComponent},
+      {path: 'headQuarter/update/:id', component: HeadQuarterUpdateComponent}
     ]
   }
 ];
