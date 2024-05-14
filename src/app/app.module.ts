@@ -45,6 +45,7 @@ import { HeadQuarterCreateComponent } from './components/headQuarter/headQuarter
 import { HeadQuarterListComponent } from './components/headQuarter/headQuarter-list/headQuarter-list.component';
 import { HeadQuarterDeleteComponent } from './components/headQuarter/headQuarter-delete/headQuarter-delete.component';
 import { HeadQuarterUpdateComponent } from './components/headQuarter/headQuarter-update/headQuarter-update.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { HeadQuarterUpdateComponent } from './components/headQuarter/headQuarter
     MatRadioModule,
     MatTableModule,
     MatIconModule,
+    MatTooltipModule,
     MatListModule,
     MatCardModule,
     MatDialogModule,

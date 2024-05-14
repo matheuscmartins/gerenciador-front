@@ -51,8 +51,12 @@
             <mat-hint>20</mat-hint>
           </mat-form-field>
            
-          <mat-form-field   class="cbb" appearance="fill">
-            <mat-label   >Selecione o Pais</mat-label>
+          <mat-form-field 
+            class="cbb" appearance="fill"
+            mat-raised-button
+            matTooltip="Campo de Pais"
+            aria-label="Pais" >
+            <mat-label  >Selecione o Pais</mat-label>
                 <mat-select placeholder="Selecione o Pais" 
                 name="countryMatSelected"
                 [formControl]="countryMatSelected"
@@ -63,8 +67,11 @@
               </mat-select>    
           </mat-form-field>
 
-          <mat-form-field   class="cbb" appearance="fill">
-            <mat-label   >Selecione a Uf</mat-label>
+          <mat-form-field class="cbb" appearance="fill"
+           mat-raised-button
+            matTooltip="Campo de Unidade Federativa"
+            aria-label="Uf" >
+            <mat-label >Selecione a Uf</mat-label>
             <mat-select placeholder="Selecione a Uf" 
             name="ufMatSelected"
             [formControl]="ufMatSelected"
@@ -76,8 +83,11 @@
       </mat-form-field>
 
           <mat-form-field          
-           class="cbb" appearance="fill" >
-            <mat-label   >Selecione a Cidade</mat-label>
+           class="cbb" appearance="fill" 
+           mat-raised-button
+            matTooltip="Campo de Cidade"
+            aria-label="Cidade" >
+            <mat-label >Selecione a Cidade</mat-label>
             <mat-select placeholder="Selecione a Cidade" 
             name="cityMatSelected"
             [formControl]="cityMatSelected" 
@@ -91,8 +101,14 @@
         
           <button [disabled]="!validaCampos()"
           class="button mat-elevation-z10" mat-raised-button color="success"
-           (click)="create()">Cadastrar</button>
+           (click)="create()"
+           mat-raised-button
+            matTooltip="Salvar Endereço"
+            aria-label="Salvar Endereço" >Cadastrar</button>
           <button routerLink="../" class="button mat-elevation-z10" 
-          mat-flat-button color="warn">Cancelar</button>
+          mat-flat-button color="warn"
+          mat-raised-button
+            matTooltip="Cancelar"
+            aria-label="Cancelar" >Cancelar</button>
     </form>
 </div>

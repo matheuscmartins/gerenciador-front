@@ -21,8 +21,7 @@
             <input matInput placeholder="Logradouro não selecionado" 
             name="addressLogradouro"
             [formControl]="addressLogradouro"
-            readonly 
-            />
+            readonly />
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="midWidth">
@@ -43,6 +42,9 @@
           
           <button mat-mini-fab  class="clearButton mat-elevation-z8" 
                     color="warn" aria-label="limpar"
+                    mat-raised-button
+                    matTooltip="Limpar Endereço"
+                    aria-label="Limpar Endereço"
                     (click)="clearAddress()">                    
                     <mat-icon>clear</mat-icon>
           </button>
@@ -55,6 +57,9 @@
 
           <button mat-mini-fab  class="addButton mat-elevation-z8" 
                     color="success" aria-label="Adicionar"
+                    mat-raised-button
+                    matTooltip="Ir para Cadastro de Endereço"
+                    aria-label="Cadastro Endereço"
                     routerLink="../../address/create">                    
                     <mat-icon>library_add</mat-icon>
           </button>
@@ -97,7 +102,9 @@
                     (click)="selctAddress(element.id, element.logradouro +' - ' + element.number
                     , element.city.name + ' - '+ element.city.uf.acronym + ' - '+ element.city.uf.country.name
                     , element.postCode)" >
-                      <mat-icon  >done_outline</mat-icon>
+                      <mat-icon mat-raised-button
+                      matTooltip="Selecionar este Endereço"
+                      aria-label="Selecionar Endereço" >done_outline</mat-icon>
                     </button>
                   </div>                   
                   
@@ -115,8 +122,14 @@
           </div>  
           <button [disabled]="!validaCampos()"
           class="button mat-elevation-z10" mat-raised-button color="success"
+          mat-raised-button
+            matTooltip="Salvar Sede"
+            aria-label="Salvar Sede"
            (click)="create()">Cadastrar</button>
           <button routerLink="../" class="button mat-elevation-z10" 
-          mat-flat-button color="warn">Cancelar</button>
+          mat-flat-button color="warn"
+          mat-raised-button
+            matTooltip="Cancelar"
+            aria-label="Cancelar" >Cancelar</button>
     </form>
 </div>

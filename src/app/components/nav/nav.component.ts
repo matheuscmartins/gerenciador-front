@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 
+
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -15,7 +16,7 @@ export class NavComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.router.navigate(['headQuarter'])
+    this.router.navigate(['home'])
   }
   logout(){
     this.router.navigate(['login'])

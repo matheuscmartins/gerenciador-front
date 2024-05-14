@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Address } from 'src/app/models/address';
@@ -6,10 +6,11 @@ import { AddressService } from 'src/app/services/address.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddressDeleteComponent } from '../address-delete/address-delete.component';
 
+
 @Component({
   selector: 'app-address-list',
   templateUrl: './address-list.component.html',
-  styleUrls: ['./address-list.component.css']
+  styleUrls: ['./address-list.component.css']  
 })
 export class AdressListComponent implements OnInit {
 
