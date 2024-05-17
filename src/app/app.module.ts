@@ -46,6 +46,7 @@ import { HeadQuarterListComponent } from './components/headQuarter/headQuarter-l
 import { HeadQuarterDeleteComponent } from './components/headQuarter/headQuarter-delete/headQuarter-delete.component';
 import { HeadQuarterUpdateComponent } from './components/headQuarter/headQuarter-update/headQuarter-update.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTableModule,
     MatIconModule,
     MatTooltipModule,
+    MatMenuModule ,
     MatListModule,
     MatCardModule,
     MatDialogModule,
@@ -98,6 +100,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
     providers: [AuthInterceptorProvider],
     bootstrap: [AppComponent],
-    schemas: [] 
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ] 
 })
 export class AppModule { }
