@@ -10,6 +10,7 @@ import { AddressUpdateComponent } from './components/address/address-update/addr
 import { HeadQuarterListComponent } from './components/headQuarter/headQuarter-list/headQuarter-list.component';
 import { HeadQuarterUpdateComponent } from './components/headQuarter/headQuarter-update/headQuarter-update.component';
 import { HeadQuarterCreateComponent } from './components/headQuarter/headQuarter-create/headQuarter-create.component';
+import { MemberListComponent } from './components/member/member-list/member-list.component';
 
 const routes: Routes = [
   {
@@ -23,7 +24,8 @@ const routes: Routes = [
       {path: 'address/update/:id', component: AddressUpdateComponent},
       {path: 'headQuarter', component: HeadQuarterListComponent},
       {path: 'headQuarter/create', component: HeadQuarterCreateComponent},
-      {path: 'headQuarter/update/:id', component: HeadQuarterUpdateComponent}
+      {path: 'headQuarter/update/:id', component: HeadQuarterUpdateComponent},
+      {path: 'member', component: MemberListComponent}
     ]
   }
 ];

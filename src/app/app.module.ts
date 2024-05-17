@@ -47,6 +47,7 @@ import { HeadQuarterDeleteComponent } from './components/headQuarter/headQuarter
 import { HeadQuarterUpdateComponent } from './components/headQuarter/headQuarter-update/headQuarter-update.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import { MemberListComponent } from './components/member/member-list/member-list.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { MatMenuModule } from '@angular/material/menu';
     HeadQuarterCreateComponent,
     HeadQuarterListComponent,
     HeadQuarterUpdateComponent,
-    HeadQuarterDeleteComponent
+    HeadQuarterDeleteComponent,
+    MemberListComponent
   ],
   imports: [
     BrowserModule,
