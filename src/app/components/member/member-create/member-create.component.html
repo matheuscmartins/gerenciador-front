@@ -1,0 +1,314 @@
+<div class="container mat-elevation-z8">
+    <form class="form">
+        <h1 class="fullWidth">Cadastrar Novo Associado</h1>
+        <img class="fullWidth" src="assets/img/create/address-create.svg" alt="Portal BDL">
+
+        <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Nome</mat-label>
+            <input 
+            [(ngModel)]="member.firstName"
+            name="firstName"
+            [formControl]="firstName"
+            required
+             matInput placeholder="Primeiro Nome"
+             maxlength="99">
+            <mat-icon matSuffix>Primeiro Nome</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field>  
+
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Sobre Nome</mat-label>
+            <input 
+            [(ngModel)]="member.lastName"
+            name="lastName"
+            [formControl]="lastName"
+            required
+             matInput placeholder="Sobre Nome"
+             maxlength="99">
+            <mat-icon matSuffix>Sobre Nome</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field> 
+
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Apelido</mat-label>
+            <input 
+            [(ngModel)]="member.nickName"
+            name="nickName"
+            [formControl]="nickName"
+            required
+             matInput placeholder="Apelido"
+             maxlength="99">
+            <mat-icon matSuffix>Apelido</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field> 
+
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>RG</mat-label>
+            <input 
+            [(ngModel)]="member.rg"
+            name="rg"
+            [formControl]="rg"
+            required
+             matInput placeholder="RG"
+             maxlength="99">
+            <mat-icon matSuffix>RG</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field> 
+
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>cpf</mat-label>
+            <input 
+            [(ngModel)]="member.cpf"
+            name="cpf"
+            [formControl]="cpf"
+            required
+             matInput placeholder="CPF"
+             maxlength="99">
+            <mat-icon matSuffix>CPF</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field> 
+
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Celular</mat-label>
+            <input 
+            [(ngModel)]="member.celPhone"
+            name="celPhone"
+            [formControl]="celPhone"
+            required
+             matInput placeholder="Celular"
+             maxlength="99">
+            <mat-icon matSuffix>Celular</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field> 
+
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Tel. Residencial</mat-label>
+            <input 
+            [(ngModel)]="member.phone"
+            name="phone"
+            [formControl]="phone"
+            required
+             matInput placeholder="Telefone Residencial"
+             maxlength="99">
+            <mat-icon matSuffix>Celular</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field> 
+          
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Tel. Recado 1</mat-label>
+            <input 
+            [(ngModel)]="member.familiarPhone1"
+            name="familiarPhone1"
+            [formControl]="familiarPhone1"
+            required
+             matInput placeholder="Telefone Recado 1"
+             maxlength="99">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field> 
+
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Tel. Recado 2</mat-label>
+            <input 
+            [(ngModel)]="member.familiarPhone2"
+            name="familiarPhone2"
+            [formControl]="familiarPhone2"
+            required
+             matInput placeholder="Telefone Recado 2"
+             maxlength="99">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field>           
+
+          <mat-form-field appearance="fill" class="fullWidth">
+            <mat-label>Logradouro selecionado</mat-label>
+            <input matInput placeholder="Logradouro não selecionado" 
+            name="addressLogradouro"
+            [formControl]="addressLogradouro"
+            readonly />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="midWidth">
+            <mat-label>Cidade selecionada</mat-label>
+            <input matInput placeholder="Cidade não selecionada" 
+            name="cityName"
+            [formControl]="cityName"
+            readonly 
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="midWidth">
+            <mat-label>CEP selecionado</mat-label>
+            <input matInput placeholder="CEP não selecionado" 
+            name="addressPostCode"
+            [formControl]="addressPostCode" readonly/>
+          </mat-form-field>    
+          
+          <button mat-mini-fab  class="clearButton mat-elevation-z8" 
+                    color="warn" aria-label="limpar"
+                    mat-raised-button
+                    matTooltip="Limpar Endereço"
+                    aria-label="Limpar Endereço"
+                    (click)="clearAddress()">                    
+                    <mat-icon>clear</mat-icon>
+          </button>
+
+          <mat-form-field appearance="standard" class="morLessWidth">
+            <mat-label>Pesquisar Endereço</mat-label>
+            <input matInput (keyup)="applyFilterAddress($event)" placeholder="Ex. Rua/Cidade/CEP" #input>
+            <mat-icon matSuffix>search</mat-icon>            
+          </mat-form-field>
+
+          <button mat-mini-fab  class="addButton mat-elevation-z8" 
+                    color="success" aria-label="Adicionar"
+                    mat-raised-button
+                    matTooltip="Ir para Cadastro de Endereço"
+                    aria-label="Cadastro Endereço"
+                    routerLink="../../address/create">                    
+                    <mat-icon>library_add</mat-icon>
+          </button>
+
+          <div class=" container-list mat-elevation-z8">
+            <table mat-table [dataSource]="dataSourceAddress">  
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> id </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+              </ng-container>      
+              
+              <ng-container matColumnDef="logradouro">
+                <th mat-header-cell *matHeaderCellDef> Logradouro </th>
+                <td mat-cell *matCellDef="let element"> {{element.logradouro}} </td>
+              </ng-container>      
+            
+              <ng-container matColumnDef="number">
+                <th mat-header-cell *matHeaderCellDef> Numero </th>
+                <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+              </ng-container>      
+              
+              <ng-container matColumnDef="city">
+                <th mat-header-cell *matHeaderCellDef> Cidade </th>
+                <td mat-cell *matCellDef="let element"> 
+                  {{element.city.name}} - {{element.city.uf.acronym}} - {{element.city.uf.country.name}}</td>
+              </ng-container>
+    
+              <ng-container matColumnDef="cep">
+                <th mat-header-cell *matHeaderCellDef> CEP </th>
+                <td mat-cell *matCellDef="let element"> {{element.postCode}} </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="acoes">
+                <th  mat-header-cell *matHeaderCellDef> Ações </th>
+                <td  mat-cell *matCellDef="let element"> 
+                  <div >
+                    <button  mat-mini-fab 
+                    class="mat-elevation-z8" placeholder="Selecionar"
+                    color="success" aria-label="Selecionar"
+                    (click)="selectAddress(element.id, element.logradouro +' - ' + element.number
+                    , element.city.name + ' - '+ element.city.uf.acronym + ' - '+ element.city.uf.country.name
+                    , element.postCode)" >
+                      <mat-icon mat-raised-button
+                      matTooltip="Selecionar este Endereço"
+                      aria-label="Selecionar Endereço" >done_outline</mat-icon>
+                    </button>
+                  </div>                   
+                  
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsAddress"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsAddress;"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 50]"
+                           showFirstLastButtons 
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>  
+
+          <mat-form-field appearance="fill" class="midWidth">
+            <mat-label>Sede selecionada</mat-label>
+            <input matInput placeholder="Sede não selecionada" 
+            name="headQuarterDescription"
+            [formControl]="headQuarterDescription" readonly/>
+          </mat-form-field>              
+          <mat-form-field appearance="fill" class="midWidth">
+            <mat-label>Sede selecionada</mat-label>
+            <input matInput placeholder="Sede não selecionada" 
+            name="headQuarterCity"
+            [formControl]="headQuarterCity" readonly/>
+          </mat-form-field>    
+
+          <button mat-mini-fab  class="clearButton mat-elevation-z8" 
+                    color="warn" aria-label="limpar sede"
+                    mat-raised-button
+                    matTooltip="Limpar Sede"
+                    aria-label="Limpar Sede"
+                    (click)="clearHeadQuarter()">                    
+                    <mat-icon>clear</mat-icon>
+          </button>
+
+          <mat-form-field appearance="standard" class="morLessWidth">
+            <mat-label>Pesquisar Sede</mat-label>
+            <input matInput (keyup)="applyFilterHeadQuarter($event)" placeholder="Ex. Sede/Cidade" #input>
+            <mat-icon matSuffix>search</mat-icon>            
+          </mat-form-field>
+
+          <div class=" container-list mat-elevation-z8">
+            <table mat-table [dataSource]="displayedColumnsHeadQuarter">  
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> id </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+              </ng-container>      
+              
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef> Sede </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+              </ng-container>      
+            
+              <ng-container matColumnDef="headQuarterCity">
+                <th mat-header-cell *matHeaderCellDef> Cidade </th>
+                <td mat-cell *matCellDef="let element"> 
+                  {{element.headquarter.address.city.name}} - {{element.headquarter.address.city.uf.acronym}}
+                </td>
+              </ng-container>  
+    
+              <ng-container matColumnDef="acoes">
+                <th  mat-header-cell *matHeaderCellDef> Ações </th>
+                <td  mat-cell *matCellDef="let element"> 
+                  <div >
+                    <button  mat-mini-fab 
+                    class="mat-elevation-z8" placeholder="Selecionar"
+                    color="success" aria-label="Selecionar"
+                    (click)="selectHeadQuarter(element.id, element.description, element.address.city.name)" >
+                      <mat-icon mat-raised-button
+                      matTooltip="Selecionar esta Sede"
+                      aria-label="Selecionar Sede" >done_outline</mat-icon>
+                    </button>
+                  </div>                   
+                  
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsHeadQuarter"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsHeadQuarter;"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 50]"
+                           showFirstLastButtons 
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div> 
+
+          <button [disabled]="!validaCampos()"
+          class="button mat-elevation-z10" mat-raised-button color="success"
+          mat-raised-button
+            matTooltip="Salvar Associado"
+            aria-label="Salvar Associado"
+           (click)="create()">Cadastrar</button>
+          <button routerLink="../" class="button mat-elevation-z10" 
+          mat-flat-button color="warn"
+          mat-raised-button
+            matTooltip="Cancelar"
+            aria-label="Cancelar" >Cancelar</button>
+    </form>
+</div>

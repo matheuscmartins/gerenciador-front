@@ -13,7 +13,7 @@ export class MemberListComponent implements OnInit {
 
   ELEMENT_DATA: Member[] = [    
   ]
-  displayedColumns: string[] = ['position', 'fistName', 'lastName', 'nickName', 'headQuarter', 'acoes'];
+  displayedColumns: string[] = ['position', 'firstName', 'lastName', 'nickName', 'headQuarter', 'acoes'];
   dataSource = new MatTableDataSource<Member>(this.ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -29,7 +29,7 @@ export class MemberListComponent implements OnInit {
  
   findAll(){
     this.service.findAll().subscribe(resposta =>{
-      this.ELEMENT_DATA = resposta
+      this.ELEMENT_DATA = resposta;      
       this.dataSource = new MatTableDataSource<Member>(resposta);
       this.dataSource.paginator = this.paginator;
     })
@@ -37,8 +37,6 @@ export class MemberListComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
- 
-  
+  }  
  
 }

@@ -4,7 +4,7 @@ import { HeadQuarter } from "./headQuarter";
 
 export interface Member{
     id?: any;
-    firtsName: string;
+    firstName: string;
     lastName: string;
     nickName: string;
     rg: string;
@@ -16,11 +16,11 @@ export interface Member{
     familiarPhone2: string;
     email: string;
     password: string;
-    birthDate: Date;
-    admissionDate: Date;
-    shutdowDate: Date;
-    headQuarter: HeadQuarter;
-    address: Address;
+    birthDate: string;
+    admissionDate: string;
+    shutdowDate: string;
+    headQuarter?: HeadQuarter;
+    address?: Address;
     imagePath: string;
     profile: string[];
     bloodType: BloodType;
