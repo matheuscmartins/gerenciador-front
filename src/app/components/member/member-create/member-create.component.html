@@ -12,7 +12,7 @@
             required
              matInput placeholder="Primeiro Nome"
              maxlength="99">
-            <mat-icon matSuffix>Primeiro Nome</mat-icon>
+            <mat-icon matSuffix>description</mat-icon>
             <mat-hint>100</mat-hint>
           </mat-form-field>  
 
@@ -25,7 +25,7 @@
             required
              matInput placeholder="Sobre Nome"
              maxlength="99">
-            <mat-icon matSuffix>Sobre Nome</mat-icon>
+            <mat-icon matSuffix>description</mat-icon>
             <mat-hint>100</mat-hint>
           </mat-form-field> 
 
@@ -37,9 +37,9 @@
             [formControl]="nickName"
             required
              matInput placeholder="Apelido"
-             maxlength="99">
-            <mat-icon matSuffix>Apelido</mat-icon>
-            <mat-hint>100</mat-hint>
+             maxlength="20">
+            <mat-icon matSuffix>description</mat-icon>
+            <mat-hint>20</mat-hint>
           </mat-form-field> 
 
           <mat-form-field class="fullWidth" appearance="legacy">
@@ -49,10 +49,10 @@
             name="rg"
             [formControl]="rg"
             required
-             matInput placeholder="RG"
-             maxlength="99">
-            <mat-icon matSuffix>RG</mat-icon>
-            <mat-hint>100</mat-hint>
+            mask="00.000.000-0"
+             matInput placeholder="00.000.000-0"
+             maxlength="9">
+            <mat-icon matSuffix>id_card</mat-icon>
           </mat-form-field> 
 
           <mat-form-field class="fullWidth" appearance="legacy">
@@ -62,10 +62,10 @@
             name="cpf"
             [formControl]="cpf"
             required
-             matInput placeholder="CPF"
-             maxlength="99">
-            <mat-icon matSuffix>CPF</mat-icon>
-            <mat-hint>100</mat-hint>
+            mask="000.000.000-00"
+             matInput placeholder="000.000.000-00"
+             maxlength="11">
+            <mat-icon matSuffix>id_card</mat-icon>            
           </mat-form-field> 
 
           <mat-form-field class="fullWidth" appearance="legacy">
@@ -75,10 +75,11 @@
             name="celPhone"
             [formControl]="celPhone"
             required
-             matInput placeholder="Celular"
-             maxlength="99">
-            <mat-icon matSuffix>Celular</mat-icon>
-            <mat-hint>100</mat-hint>
+            mask="(00)00000-0000"
+             matInput placeholder="(00)00000-0000"
+             maxlength="11">
+            <mat-icon matSuffix>phone_iphone</mat-icon>
+           
           </mat-form-field> 
 
           <mat-form-field class="fullWidth" appearance="legacy">
@@ -87,11 +88,10 @@
             [(ngModel)]="member.phone"
             name="phone"
             [formControl]="phone"
-            required
-             matInput placeholder="Telefone Residencial"
-             maxlength="99">
-            <mat-icon matSuffix>Celular</mat-icon>
-            <mat-hint>100</mat-hint>
+            mask="(00)0000-0000"
+             matInput placeholder="(00)0000-0000"
+             maxlength="10">
+            <mat-icon matSuffix>call</mat-icon>
           </mat-form-field> 
           
           <mat-form-field class="fullWidth" appearance="legacy">
@@ -100,11 +100,10 @@
             [(ngModel)]="member.familiarPhone1"
             name="familiarPhone1"
             [formControl]="familiarPhone1"
-            required
-             matInput placeholder="Telefone Recado 1"
-             maxlength="99">
-            <mat-icon matSuffix>phone</mat-icon>
-            <mat-hint>100</mat-hint>
+            mask="(00)0000-0000"
+             matInput placeholder="(00)0000-0000"
+             maxlength="10">
+            <mat-icon matSuffix>contacts</mat-icon>
           </mat-form-field> 
 
           <mat-form-field class="fullWidth" appearance="legacy">
@@ -113,13 +112,14 @@
             [(ngModel)]="member.familiarPhone2"
             name="familiarPhone2"
             [formControl]="familiarPhone2"
-            required
-             matInput placeholder="Telefone Recado 2"
-             maxlength="99">
-            <mat-icon matSuffix>phone</mat-icon>
-            <mat-hint>100</mat-hint>
+            mask="(00)0000-0000"
+             matInput placeholder="(00)0000-0000"
+             maxlength="10">
+            <mat-icon matSuffix>contacts</mat-icon>
           </mat-form-field>           
 
+
+          
           <mat-form-field appearance="fill" class="fullWidth">
             <mat-label>Logradouro selecionado</mat-label>
             <input matInput placeholder="Logradouro não selecionado" 
@@ -172,40 +172,40 @@
             <table mat-table [dataSource]="dataSourceAddress">  
               <ng-container matColumnDef="position">
                 <th mat-header-cell *matHeaderCellDef> id </th>
-                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                <td mat-cell *matCellDef="let elementAdress"> {{elementAdress.id}} </td>
               </ng-container>      
               
               <ng-container matColumnDef="logradouro">
                 <th mat-header-cell *matHeaderCellDef> Logradouro </th>
-                <td mat-cell *matCellDef="let element"> {{element.logradouro}} </td>
+                <td mat-cell *matCellDef="let elementAdress"> {{elementAdress.logradouro}} </td>
               </ng-container>      
             
               <ng-container matColumnDef="number">
                 <th mat-header-cell *matHeaderCellDef> Numero </th>
-                <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+                <td mat-cell *matCellDef="let elementAdress"> {{elementAdress.number}} </td>
               </ng-container>      
               
               <ng-container matColumnDef="city">
                 <th mat-header-cell *matHeaderCellDef> Cidade </th>
-                <td mat-cell *matCellDef="let element"> 
-                  {{element.city.name}} - {{element.city.uf.acronym}} - {{element.city.uf.country.name}}</td>
+                <td mat-cell *matCellDef="let elementAdress"> 
+                  {{elementAdress.city.name}} - {{elementAdress.city.uf.acronym}} - {{elementAdress.city.uf.country.name}}</td>
               </ng-container>
     
               <ng-container matColumnDef="cep">
                 <th mat-header-cell *matHeaderCellDef> CEP </th>
-                <td mat-cell *matCellDef="let element"> {{element.postCode}} </td>
+                <td mat-cell *matCellDef="let elementAdress"> {{elementAdress.postCode}} </td>
               </ng-container>
     
               <ng-container matColumnDef="acoes">
                 <th  mat-header-cell *matHeaderCellDef> Ações </th>
-                <td  mat-cell *matCellDef="let element"> 
+                <td  mat-cell *matCellDef="let elementAdress"> 
                   <div >
                     <button  mat-mini-fab 
                     class="mat-elevation-z8" placeholder="Selecionar"
                     color="success" aria-label="Selecionar"
-                    (click)="selectAddress(element.id, element.logradouro +' - ' + element.number
-                    , element.city.name + ' - '+ element.city.uf.acronym + ' - '+ element.city.uf.country.name
-                    , element.postCode)" >
+                    (click)="selectAddress(elementAdress.id, elementAdress.logradouro +' - ' + elementAdress.number
+                    , elementAdress.city.name + ' - '+ elementAdress.city.uf.acronym + ' - '+ elementAdress.city.uf.country.name
+                    , elementAdress.postCode)" >
                       <mat-icon mat-raised-button
                       matTooltip="Selecionar este Endereço"
                       aria-label="Selecionar Endereço" >done_outline</mat-icon>
@@ -224,7 +224,8 @@
                            aria-label="Select page of periodic elements">
             </mat-paginator>
           </div>  
-
+    </form>
+    <form class="form2">
           <mat-form-field appearance="fill" class="midWidth">
             <mat-label>Sede selecionada</mat-label>
             <input matInput placeholder="Sede não selecionada" 
@@ -254,32 +255,32 @@
           </mat-form-field>
 
           <div class=" container-list mat-elevation-z8">
-            <table mat-table [dataSource]="displayedColumnsHeadQuarter">  
+            <table mat-table [dataSource]="dataSourceHeadQuarter">  
               <ng-container matColumnDef="position">
                 <th mat-header-cell *matHeaderCellDef> id </th>
-                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                <td mat-cell *matCellDef="let elementHeadQuarter"> {{elementHeadQuarter.id}} </td>
               </ng-container>      
               
               <ng-container matColumnDef="description">
                 <th mat-header-cell *matHeaderCellDef> Sede </th>
-                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                <td mat-cell *matCellDef="let elementHeadQuarter"> {{elementHeadQuarter.description}} </td>
               </ng-container>      
             
-              <ng-container matColumnDef="headQuarterCity">
+              <ng-container matColumnDef="city">
                 <th mat-header-cell *matHeaderCellDef> Cidade </th>
-                <td mat-cell *matCellDef="let element"> 
-                  {{element.headquarter.address.city.name}} - {{element.headquarter.address.city.uf.acronym}}
+                <td mat-cell *matCellDef="let elementHeadQuarter"> 
+                  {{elementHeadQuarter.address.city.name}} - {{elementHeadQuarter.address.city.uf.acronym}}
                 </td>
               </ng-container>  
     
               <ng-container matColumnDef="acoes">
                 <th  mat-header-cell *matHeaderCellDef> Ações </th>
-                <td  mat-cell *matCellDef="let element"> 
+                <td  mat-cell *matCellDef="let elementHeadQuarter"> 
                   <div >
                     <button  mat-mini-fab 
                     class="mat-elevation-z8" placeholder="Selecionar"
                     color="success" aria-label="Selecionar"
-                    (click)="selectHeadQuarter(element.id, element.description, element.address.city.name)" >
+                    (click)="selectHeadQuarter(elementHeadQuarter.id, elementHeadQuarter.description, elementHeadQuarter.address.city.name)" >
                       <mat-icon mat-raised-button
                       matTooltip="Selecionar esta Sede"
                       aria-label="Selecionar Sede" >done_outline</mat-icon>

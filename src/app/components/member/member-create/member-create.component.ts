@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, NgModel, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Member } from 'src/app/models/member';
@@ -17,7 +17,7 @@ import { HeadQuarterService } from 'src/app/services/headQuarter.service';
   styleUrls: ['./member-create.component.css']
 })
 export class MemberCreateComponent implements OnInit {  
-
+ 
   ELEMENT_DATA_Adress: Address[] = [    ]
   @ViewChild(MatPaginator) paginatorAdress: MatPaginator;
   ELEMENT_DATA_HeadQuarter: HeadQuarter[] = [    ]
@@ -40,20 +40,21 @@ export class MemberCreateComponent implements OnInit {
     birthDate:  '',
     admissionDate:  '',
     shutdowDate:  '',    
-    imagePath: '',
-    profile: [],
-    headQuarter: {
-      description: ''
-     },
-    bloodType: {
-      description: ''
-    },
+    imagePath: '',    
     address: {
       logradouro: '',
       number: '',
       postCode: ''
+    },
+    profile: [],
+    headQuarter: {      
+     },
+    bloodType: {
+      description: ''
     }
   }  
+  
+  //Member fields
   firstName: FormControl = new FormControl(null, Validators.minLength(4)); 
   lastName: FormControl = new FormControl(null, Validators.minLength(4));  
   nickName: FormControl = new FormControl(null, Validators.minLength(4));  
@@ -68,16 +69,18 @@ export class MemberCreateComponent implements OnInit {
   birthDate: FormControl = new FormControl(null, Validators.minLength(4));  
   admissionDate: FormControl = new FormControl(null, Validators.minLength(4));  
   shutdowDate: FormControl = new FormControl(null, Validators.minLength(4));  
-  //Adress
+  
+  //Adress fields
   displayedColumnsAddress: string[] = ['position', 'logradouro', 'number', 'city', 'cep','acoes'];
   dataSourceAddress = new MatTableDataSource<Address>(this.ELEMENT_DATA_Adress);  
   addressLogradouro: FormControl = new FormControl(null, Validators.required);
   addressPostCode: FormControl = new FormControl(null, Validators.required);      
   cityName: FormControl = new FormControl(null, Validators.required);    
-  
-  displayedColumnsHeadQuarter: string[] = ['position', 'description', 'headQuarterCity', 'acoes'];
-  dataSourceHeadQuarter = new MatTableDataSource<HeadQuarter>(this.ELEMENT_DATA_HeadQuarter);  
+
+  //HeadQuarter fields
   headQuarterDescription: FormControl = new FormControl(null, Validators.required);
+  displayedColumnsHeadQuarter: string[] = ['position', 'description', 'city', 'acoes'];
+  dataSourceHeadQuarter = new MatTableDataSource<HeadQuarter>(this.ELEMENT_DATA_HeadQuarter);  
   headQuarterCity: FormControl = new FormControl(null, Validators.required);
   
   constructor(
@@ -95,19 +98,17 @@ export class MemberCreateComponent implements OnInit {
   
   findAllAddress(){
     this.addressService.findAll().subscribe(resposta =>{
-      this.ELEMENT_DATA_Adress = resposta;      
+      this.ELEMENT_DATA_Adress = resposta;
       this.dataSourceAddress = new MatTableDataSource<Address>(resposta);
-      this.dataSourceAddress.paginator = this.paginatorAdress;      
+      this.dataSourceAddress.paginator = this.paginatorAdress;
     })
   }
   
   findAllHeadQuarter(){
     this.headQuarterService.findAll().subscribe(resposta =>{
-      this.ELEMENT_DATA_HeadQuarter = resposta;      
-      
+      this.ELEMENT_DATA_HeadQuarter = resposta;     
       this.dataSourceHeadQuarter = new MatTableDataSource<HeadQuarter>(resposta);
       this.dataSourceHeadQuarter.paginator = this.paginatorHeadQuarter;
-      console.log(this.dataSourceHeadQuarter);
     })
   }
 
@@ -145,7 +146,7 @@ export class MemberCreateComponent implements OnInit {
   }
 
   selectAddress(id: any, logradouroNumber : string, cityUf: string, postcode: string): void{   
-    this.member.address.id =id;
+    this.member.address.id = id;
     this.addressLogradouro.setValue (logradouroNumber);
     this.cityName.setValue(cityUf);
     this.addressPostCode.setValue(postcode);
@@ -157,7 +158,7 @@ export class MemberCreateComponent implements OnInit {
     this.addressPostCode.setValue("");
   }
   selectHeadQuarter(id: any, description: string, city: string): void{   
-    this.member.headQuarter.id =id;
+    this.member.headQuarter.id = id;
     this.headQuarterDescription.setValue(description);    
     this.headQuarterCity.setValue(city);   
   }
