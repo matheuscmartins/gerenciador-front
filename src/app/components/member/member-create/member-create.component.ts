@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import {MatAccordion} from '@angular/material/expansion';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Member } from 'src/app/models/member';
@@ -10,6 +11,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HeadQuarter } from 'src/app/models/headQuarter';
 import { HeadQuarterService } from 'src/app/services/headQuarter.service';
+import { DateAdapter } from '@angular/material/core';
+import { BloodTypeService } from 'src/app/services/bloodType.service';
+import { BloodType } from 'src/app/models/bloodType';
 
 @Component({
   selector: 'app-member-create',
@@ -17,12 +21,14 @@ import { HeadQuarterService } from 'src/app/services/headQuarter.service';
   styleUrls: ['./member-create.component.css']
 })
 export class MemberCreateComponent implements OnInit {  
+  
  
   ELEMENT_DATA_Adress: Address[] = [    ]
   @ViewChild(MatPaginator) paginatorAdress: MatPaginator;
   ELEMENT_DATA_HeadQuarter: HeadQuarter[] = [    ]
   @ViewChild(MatPaginator) paginatorHeadQuarter: MatPaginator;
-
+  @ViewChild(MatAccordion) accordion: MatAccordion;
+  
   member: Member = {
     id:'',
     firstName: '',
@@ -66,9 +72,8 @@ export class MemberCreateComponent implements OnInit {
   familiarPhone2: FormControl = new FormControl(null, Validators.minLength(4));  
   email: FormControl = new FormControl(null, Validators.minLength(4));  
   password: FormControl = new FormControl(null, Validators.minLength(4));  
-  birthDate: FormControl = new FormControl(null, Validators.minLength(4));  
-  admissionDate: FormControl = new FormControl(null, Validators.minLength(4));  
-  shutdowDate: FormControl = new FormControl(null, Validators.minLength(4));  
+  bloodTypeMatSelected: FormControl = new FormControl(null); 
+  bloodTypeList: BloodType [];
   
   //Adress fields
   displayedColumnsAddress: string[] = ['position', 'logradouro', 'number', 'city', 'cep','acoes'];
@@ -82,18 +87,23 @@ export class MemberCreateComponent implements OnInit {
   displayedColumnsHeadQuarter: string[] = ['position', 'description', 'city', 'acoes'];
   dataSourceHeadQuarter = new MatTableDataSource<HeadQuarter>(this.ELEMENT_DATA_HeadQuarter);  
   headQuarterCity: FormControl = new FormControl(null, Validators.required);
+
   
   constructor(
     private addressService: AddressService,
     private headQuarterService: HeadQuarterService,
     private memberService: MemberService,
+    private bloodTypeService: BloodTypeService,
     private toastr: ToastrService,
     private router: Router,
+    private _adapter: DateAdapter<any>
   ) { }
   
   ngOnInit(): void {
     this.findAllAddress();
     this.findAllHeadQuarter();
+   this. findAllBloodType();
+    this._adapter.setLocale('fr');
   }
   
   findAllAddress(){
@@ -109,6 +119,11 @@ export class MemberCreateComponent implements OnInit {
       this.ELEMENT_DATA_HeadQuarter = resposta;     
       this.dataSourceHeadQuarter = new MatTableDataSource<HeadQuarter>(resposta);
       this.dataSourceHeadQuarter.paginator = this.paginatorHeadQuarter;
+    })
+  }
+  findAllBloodType(){
+    this.bloodTypeService.findAll().subscribe(resposta =>{
+      this.bloodTypeList = resposta;
     })
   }
 

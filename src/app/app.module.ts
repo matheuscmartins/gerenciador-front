@@ -49,6 +49,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MemberListComponent } from './components/member/member-list/member-list.component';
 import { MemberCreateComponent } from './components/member/member-create/member-create.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -95,6 +98,9 @@ import { MemberCreateComponent } from './components/member/member-create/member-
     MatListModule,
     MatCardModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatExpansionModule,
     ToastrModule.forRoot({
       timeOut: 4000,
       closeButton: true,
