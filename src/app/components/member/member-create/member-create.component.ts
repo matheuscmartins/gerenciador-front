@@ -11,17 +11,18 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HeadQuarter } from 'src/app/models/headQuarter';
 import { HeadQuarterService } from 'src/app/services/headQuarter.service';
-import { DateAdapter } from '@angular/material/core';
+import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { BloodTypeService } from 'src/app/services/bloodType.service';
 import { BloodType } from 'src/app/models/bloodType';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-member-create',
   templateUrl: './member-create.component.html',
   styleUrls: ['./member-create.component.css']
 })
-export class MemberCreateComponent implements OnInit {  
-  
+export class MemberCreateComponent implements OnInit {
+   
  
   ELEMENT_DATA_Adress: Address[] = [    ]
   @ViewChild(MatPaginator) paginatorAdress: MatPaginator;
@@ -69,9 +70,8 @@ export class MemberCreateComponent implements OnInit {
   celPhone: FormControl = new FormControl(null, Validators.minLength(4));  
   phone: FormControl = new FormControl(null, Validators.minLength(4));  
   familiarPhone1: FormControl = new FormControl(null, Validators.minLength(4));  
-  familiarPhone2: FormControl = new FormControl(null, Validators.minLength(4));  
-  email: FormControl = new FormControl(null, Validators.minLength(4));  
-  password: FormControl = new FormControl(null, Validators.minLength(4));  
+  familiarPhone2: FormControl = new FormControl(null, Validators.minLength(4)); 
+  date:  FormControl = new FormControl(null);
   bloodTypeMatSelected: FormControl = new FormControl(null); 
   bloodTypeList: BloodType [];
   
@@ -87,7 +87,12 @@ export class MemberCreateComponent implements OnInit {
   displayedColumnsHeadQuarter: string[] = ['position', 'description', 'city', 'acoes'];
   dataSourceHeadQuarter = new MatTableDataSource<HeadQuarter>(this.ELEMENT_DATA_HeadQuarter);  
   headQuarterCity: FormControl = new FormControl(null, Validators.required);
-
+  admissionDate: FormControl = new FormControl(null); 
+  shutdowDate: FormControl = new FormControl(null);
+  
+  //acess fields
+  email: FormControl = new FormControl(null, Validators.minLength(4));  
+  password: FormControl = new FormControl(null, Validators.minLength(4));  
   
   constructor(
     private addressService: AddressService,
@@ -96,14 +101,14 @@ export class MemberCreateComponent implements OnInit {
     private bloodTypeService: BloodTypeService,
     private toastr: ToastrService,
     private router: Router,
-    private _adapter: DateAdapter<any>
-  ) { }
+    public _adapter: DateAdapter<Date>
+  ) {   }
   
   ngOnInit(): void {
     this.findAllAddress();
     this.findAllHeadQuarter();
    this. findAllBloodType();
-    this._adapter.setLocale('fr');
+    this._adapter.setLocale('en-GB');
   }
   
   findAllAddress(){
@@ -129,8 +134,8 @@ export class MemberCreateComponent implements OnInit {
 
   validaCampos(): boolean{
     return this.firstName.valid && this.lastName.valid && this.firstName.valid && this.rg.valid &&
-    this.cpf.valid && this.celPhone.valid && this.email.valid && this.password.valid &&
-    this.addressLogradouro.valid &&
+    this.cpf.valid && this.celPhone.valid  && this.addressLogradouro.valid &&
+    this.headQuarterDescription.valid && this.email.valid && this.password.valid &&    
     this.cityName.valid &&  this.addressPostCode.valid &&  this.headQuarterDescription.valid
   }
 
@@ -168,6 +173,7 @@ export class MemberCreateComponent implements OnInit {
   }
 
   clearAddress(): void{
+    this.member.address.id = null;
     this.addressLogradouro.setValue ("");
     this.cityName.setValue("");
     this.addressPostCode.setValue("");
@@ -178,10 +184,32 @@ export class MemberCreateComponent implements OnInit {
     this.headQuarterCity.setValue(city);   
   }
   clearHeadQuarter(): void{
+    this.member.headQuarter.id = null;
     this.headQuarterDescription.setValue("");  
-    this.headQuarterCity.setValue("");    
+    this.headQuarterCity.setValue(""); 
+    this.admissionDate.setValue(""); 
+    this.shutdowDate.setValue("");
+  }
+  addBirthDate(date: Date): void{
+    if(date != null){
+    this.member.birthDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });   
+    
+   }
+  }
+  addAdmissionDate(date: Date): void{
+    if(date != null){
+    this.member.admissionDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });    
+   }
+  }
+  addShutdowDate(date: Date): void{
+    if(date != null){
+    this.member.shutdowDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });    
+   }
   }
 
+  addBloodType(bloodTypeId: any): void{   
+    this.member.bloodType.id = bloodTypeId;    
+  }
   addPerfil(profile: any): void {
     if(this.member.profile.includes(profile)) {
       this.member.profile.splice(this.member.profile.indexOf(profile), 1);
@@ -189,5 +217,5 @@ export class MemberCreateComponent implements OnInit {
       this.member.profile.push(profile);
     }    
   }
-  
+   
 }

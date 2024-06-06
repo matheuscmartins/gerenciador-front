@@ -56,8 +56,7 @@
           <input
             [(ngModel)]="member.nickName"
             name="nickName"
-            [formControl]="nickName"
-            required
+            [formControl]="nickName"            
             matInput
             placeholder="Apelido"
             maxlength="20"
@@ -76,7 +75,7 @@
             mask="00.000.000-0"
             matInput
             placeholder="00.000.000-0"
-            maxlength="9"
+            maxlength="12"
           />
           <mat-icon matSuffix>id_card</mat-icon>
         </mat-form-field>
@@ -91,7 +90,7 @@
             mask="000.000.000-00"
             matInput
             placeholder="000.000.000-00"
-            maxlength="11"
+            maxlength="14"
           />
           <mat-icon matSuffix>id_card</mat-icon>
         </mat-form-field>
@@ -106,7 +105,7 @@
             mask="(00)00000-0000"
             matInput
             placeholder="(00)00000-0000"
-            maxlength="11"
+            maxlength="14"
           />
           <mat-icon matSuffix>phone_iphone</mat-icon>
         </mat-form-field>
@@ -120,7 +119,7 @@
             mask="(00)0000-0000"
             matInput
             placeholder="(00)0000-0000"
-            maxlength="10"
+            maxlength="13"
           />
           <mat-icon matSuffix>call</mat-icon>
         </mat-form-field>
@@ -134,7 +133,7 @@
             mask="(00)0000-0000"
             matInput
             placeholder="(00)0000-0000"
-            maxlength="10"
+            maxlength="13"
           />
           <mat-icon matSuffix>contacts</mat-icon>
         </mat-form-field>
@@ -148,18 +147,21 @@
             mask="(00)0000-0000"
             matInput
             placeholder="(00)0000-0000"
-            maxlength="10"
+            maxlength="13"
           />
           <mat-icon matSuffix>contacts</mat-icon>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Data de Nascimento</mat-label>
-          <input matInput required [matDatepicker]="birthDatePicker" />
+          <input name="birthDatePicker" matInput required           
+          readonly   
+          [formControl]="date"       
+          [matDatepicker]="birthDatePicker"           
+          (dateChange)="addBirthDate( $event.target.value)"  />
           <mat-datepicker-toggle
             matSuffix
-            [for]="birthDatePicker"
-          ></mat-datepicker-toggle>
+            [for]="$any(birthDatePicker)"></mat-datepicker-toggle>
           <mat-datepicker #birthDatePicker color="primary"></mat-datepicker>
         </mat-form-field>
 
@@ -168,24 +170,23 @@
           appearance="fill"
           mat-raised-button
           matTooltip="Tipo sanguíneo"
-          aria-label="bloodType"
-        >
+          aria-label="bloodType">
           <mat-label>Selecione o Tipo sanguíneo</mat-label>
           <mat-select
             placeholder="Selecione o Tipo sanguíneo"
             name="bloodTypeMatSelected"
             [formControl]="bloodTypeMatSelected"
-          >
+            (selectionChange)="addBloodType(bloodTypeMatSelected.value)">
             <mat-option
               *ngFor="let bloodTypeElement of bloodTypeList"
-              [value]="bloodTypeElement.id"
-            >
+              [value]="bloodTypeElement.id">
               {{ bloodTypeElement.description }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </mat-expansion-panel>
       <br />
+
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title> Dados de Endereço </mat-panel-title>
@@ -198,11 +199,11 @@
           <mat-label>Logradouro selecionado</mat-label>
           <input
             matInput
+            required
             placeholder="Logradouro não selecionado"
             name="addressLogradouro"
             [formControl]="addressLogradouro"
-            readonly
-          />
+            readonly/>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="midWidth">
@@ -235,8 +236,7 @@
           mat-raised-button
           matTooltip="Limpar Endereço"
           aria-label="Limpar Endereço"
-          (click)="clearAddress()"
-        >
+          (click)="clearAddress()">
           <mat-icon>clear</mat-icon>
         </button>
 
@@ -259,8 +259,7 @@
           mat-raised-button
           matTooltip="Ir para Cadastro de Endereço"
           aria-label="Cadastro Endereço"
-          routerLink="../../address/create"
-        >
+          routerLink="../../address/create">
           <mat-icon>library_add</mat-icon>
         </button>
 
@@ -365,6 +364,7 @@
           <mat-label>Sede selecionada</mat-label>
           <input
             matInput
+            required
             placeholder="Sede não selecionada"
             name="headQuarterDescription"
             [formControl]="headQuarterDescription"
@@ -372,10 +372,10 @@
           />
         </mat-form-field>
         <mat-form-field appearance="fill" class="midWidth">
-          <mat-label>Sede selecionada</mat-label>
+          <mat-label>Cidade da Sede selecionada</mat-label>
           <input
             matInput
-            placeholder="Sede não selecionada"
+            placeholder="Cidade não selecionada"
             name="headQuarterCity"
             [formControl]="headQuarterCity"
             readonly
@@ -478,7 +478,11 @@
         </div>
         <mat-form-field appearance="fill">
           <mat-label>Data de Admissão</mat-label>
-          <input matInput required [matDatepicker]="admissionDatePicker" />
+          <input matInput required [matDatepicker]="admissionDatePicker" 
+           matInput required 
+           [formControl]="admissionDate"  
+          readonly    
+          (dateChange)="addAdmissionDate( $event.value)" />
           <mat-datepicker-toggle
             matSuffix
             [for]="admissionDatePicker"
@@ -487,7 +491,11 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Data de Desligamento</mat-label>
-          <input matInput [matDatepicker]="shutdowDatePicker" />
+          <input matInput [matDatepicker]="shutdowDatePicker" 
+          name="shutdowDatePicker" matInput  
+          [formControl]="shutdowDate"  
+          readonly     
+          (dateChange)="addShutdowDate( $event.value)" />
           <mat-datepicker-toggle
             matSuffix
             [for]="shutdowDatePicker"
@@ -563,8 +571,7 @@
         mat-raised-button
         matTooltip="Salvar Associado"
         aria-label="Salvar Associado"
-        (click)="create()"
-      >
+        (click)="create()">
         Cadastrar
       </button>
       <button
@@ -574,8 +581,7 @@
         color="warn"
         mat-raised-button
         matTooltip="Cancelar"
-        aria-label="Cancelar"
-      >
+        aria-label="Cancelar">
         Cancelar
       </button>
     </mat-accordion>

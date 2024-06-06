@@ -82,7 +82,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     HttpClientModule,
     // Angular Material
     MatFormFieldModule,
-    MatPaginatorModule,
+    MatPaginatorModule,   
     MatCheckboxModule,
     MatSnackBarModule,
     MatToolbarModule,

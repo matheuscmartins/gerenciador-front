@@ -25,7 +25,3 @@ export interface Member{
     profile: string[];
     bloodType: BloodType;
 }
-/* 
-    private List<MemberPatch> memberPatchList = new ArrayList<>();
-    */
-    
