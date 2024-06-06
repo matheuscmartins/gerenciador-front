@@ -5,7 +5,12 @@
     border-radius: .6rem;
 }
 .fullWidth{
+    width: 100%;    
+}
+.container-list {
     width: 100%;
+    margin: auto;
+    border-radius: 1rem;
 }
 h1{
     text-align: center;
@@ -18,6 +23,7 @@ img{
 .mat-success {
     background-color: green;
     color: #fff;
+    opacity: .8;
 }
 button{
     width: 40%;
@@ -26,11 +32,28 @@ button{
     margin-right: 5%;
     border-radius: .4rem;
 }
-.cbb{
-    margin-left: 8%;
-    margin-right: 4%;
-    color: black;
-}
+
 mat-icon{
     opacity: .5;
+}
+.midWidth{
+    align-items: center;
+    width: 40%;
+    padding-right: 3.5%;
+    padding-top: 1%;
+}
+table {
+    width: 100%;
+    align-content: center;
+}
+
+.morLessWidth{    
+        width: 87%; 
+}
+.addButton{
+    width: 3%;    
+}
+.clearButton{
+    width: 3%;  
+   
 }

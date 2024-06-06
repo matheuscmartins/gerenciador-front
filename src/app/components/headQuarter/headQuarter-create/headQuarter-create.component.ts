@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, NgModel, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HeadQuarter } from 'src/app/models/headQuarter';
@@ -90,6 +90,7 @@ export class HeadQuarterCreateComponent implements OnInit {
   }
 
   clearAddress(): void{
+    this.headQuarter.address.id = null;
     this.addressLogradouro.setValue ("");
     this.cityName.setValue("");
     this.addressPostCode.setValue("");

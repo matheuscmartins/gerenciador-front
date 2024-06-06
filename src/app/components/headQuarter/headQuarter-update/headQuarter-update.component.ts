@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, NgModel, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HeadQuarter } from 'src/app/models/headQuarter';
-import { City } from 'src/app/models/city';
-import { Country } from 'src/app/models/country';
-import { Uf } from 'src/app/models/uf';
+import { Address } from 'src/app/models/address';
 import { HeadQuarterService } from 'src/app/services/headQuarter.service';
-import { CityService } from 'src/app/services/city.service';
-import { CountryService } from 'src/app/services/country.service';
-import { UfService } from 'src/app/services/uf.service';
+import { AddressService } from 'src/app/services/address.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-headQuarter-update',
@@ -17,6 +15,9 @@ import { UfService } from 'src/app/services/uf.service';
   styleUrls: ['./headQuarter-update.component.css']
 })
 export class HeadQuarterUpdateComponent implements OnInit {
+
+  ELEMENT_DATA: Address[] = [    ]
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   headQuarter: HeadQuarter = {
     id:'',
@@ -28,18 +29,15 @@ export class HeadQuarterUpdateComponent implements OnInit {
      }
   }  
   
-  countryList: Country [];
-  ufList: Uf [];
-  cityList: City[];
+  displayedColumns: string[] = ['position', 'logradouro', 'number', 'city', 'cep','acoes'];
+  dataSource = new MatTableDataSource<Address>(this.ELEMENT_DATA);
   description: FormControl = new FormControl(null, Validators.minLength(4));  
-  countryMatSelected: FormControl = new FormControl(null);
-  ufMatSelected: FormControl = new FormControl(null);
-  cityMatSelected: FormControl = new FormControl(null, Validators.required);
+  addressLogradouro: FormControl = new FormControl(null, Validators.required);
+  addressPostCode: FormControl = new FormControl(null, Validators.required);      
+  cityName: FormControl = new FormControl(null, Validators.required); 
 
   constructor(
-    private countryService: CountryService,
-    private ufService : UfService,
-    private cityService: CityService,
+    private addressService: AddressService,
     private headQuarterService: HeadQuarterService,
     private toastr: ToastrService,
     private router: Router,
@@ -47,21 +45,32 @@ export class HeadQuarterUpdateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.countryFindAll();
-    this.headQuarter.id = this.activedRoute.snapshot.paramMap.get('id');   
+    this.findAllAddress();
+   this.headQuarter.id = this.activedRoute.snapshot.paramMap.get('id');   
     this.findbyId();  
-    //console.log(this.headQuarter.city.name);
+  
   }
   findbyId(): void{
     this.headQuarterService.findById(this.headQuarter.id).subscribe(resposta =>{      
-      this.headQuarter = resposta;       
-      //this.listMatSelecteds();       
+      this.headQuarter = resposta;  
+      this.selectAddress(this.headQuarter.address.id,
+         this.headQuarter.address.logradouro + " - " + this.headQuarter.address.number, 
+      this.headQuarter.address.city.name + " - " + this.headQuarter.address.city.uf.acronym,
+      this.headQuarter.address.postCode );
     }) 
+  }
+
+  findAllAddress(){
+    this.addressService.findAll().subscribe(resposta =>{
+      this.ELEMENT_DATA = resposta;      
+      this.dataSource = new MatTableDataSource<Address>(resposta);
+      this.dataSource.paginator = this.paginator;
+    })
   }
 
   update(): void{   
     this.headQuarterService.update(this.headQuarter).subscribe(() =>{      
-      this.toastr.success('Endereço atualizado com Sucesso!', 'Update');
+      this.toastr.success('Sede atualizada com Sucesso!', 'Update');
       this.router.navigate(['headQuarter']);
     }, ex => {      
       if(ex.error.errors){
@@ -73,32 +82,30 @@ export class HeadQuarterUpdateComponent implements OnInit {
       }
     });
   }
-  addCity(cityId: any): void{   
-    //this.headQuarter.city.id = cityId;    
+  
+  validaCampos(): boolean{
+    return this.description.valid && this.addressLogradouro.valid &&
+    this.cityName.valid &&  this.addressPostCode.valid
   }
 
-  validaCampos(): boolean{
-    return this.description.valid 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  countryFindAll(){
-    this.countryService.findAll().subscribe(resposta =>{       
-     this.countryList = resposta 
-    })
+
+  selectAddress(id: any, logradouroNumber : string, cityUf: string, postcode: string): void{   
+    this.headQuarter.address.id =id;
+    this.addressLogradouro.setValue (logradouroNumber);
+    this.cityName.setValue(cityUf);
+    this.addressPostCode.setValue(postcode);
   }
-  ufFindByCountryId(countryId: any ){
-    if(countryId!= null){
-    this.ufService.findByContryId(countryId).subscribe(resposta =>{     
-     this.ufList = resposta      
-    })
-  }
-  }
-  cityFindByUfId(ufId: any ){
-    if(ufId!= null){
-    this.cityService.findByUfId(ufId).subscribe(resposta =>{     
-     this.cityList = resposta 
-    })
-  }
-  }
+
+  clearAddress(): void{
+    this.headQuarter.address.id = null;
+    this.addressLogradouro.setValue ("");
+    this.cityName.setValue("");
+    this.addressPostCode.setValue("");
+  }    
   
 }
 
