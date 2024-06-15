@@ -1,0 +1,612 @@
+<div class="container mat-elevation-z8">
+    <form class="form">
+      <h1 class="fullWidth">Atualizar Novo Associado</h1>
+      <img
+        class="fullWidth"
+        src="assets/img/create/address-create.svg"
+        alt="Portal BDL"
+      />
+      <div class="example-action-buttons">
+        <button class="mat-elevation-z8" mat-button (click)="accordion.openAll()">Expandir Todos</button>
+        <button class="mat-elevation-z8" mat-button (click)="accordion.closeAll()">Minimizar Todos</button>
+      </div>
+      <br />
+  
+      <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Dados Pessoais </mat-panel-title>
+            <mat-panel-description>
+              Digite os dados pessoais
+              <mat-icon>account_circle</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Nome</mat-label>
+            <input
+              [(ngModel)]="member.firstName"
+              name="firstName"
+              [formControl]="firstName"
+              required
+              matInput
+              placeholder="Primeiro Nome"
+              maxlength="99"
+            />
+            <mat-icon matSuffix>description</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field>
+  
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Sobre Nome</mat-label>
+            <input
+              [(ngModel)]="member.lastName"
+              name="lastName"
+              [formControl]="lastName"
+              required
+              matInput
+              placeholder="Sobre Nome"
+              maxlength="99"
+            />
+            <mat-icon matSuffix>description</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field>
+  
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Apelido</mat-label>
+            <input
+              [(ngModel)]="member.nickName"
+              name="nickName"
+              [formControl]="nickName"            
+              matInput
+              placeholder="Apelido"
+              maxlength="20"
+            />
+            <mat-icon matSuffix>description</mat-icon>
+            <mat-hint>20</mat-hint>
+          </mat-form-field>
+  
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>RG</mat-label>
+            <input
+              [(ngModel)]="member.rg"
+              name="rg"
+              [formControl]="rg"
+              required
+              mask="00.000.000-0"
+              matInput
+              placeholder="00.000.000-0"
+              maxlength="12"
+            />
+            <mat-icon matSuffix>id_card</mat-icon>
+          </mat-form-field>
+  
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>cpf</mat-label>
+            <input
+              [(ngModel)]="member.cpf"
+              name="cpf"
+              [formControl]="cpf"
+              required
+              mask="000.000.000-00"
+              matInput
+              placeholder="000.000.000-00"
+              maxlength="14"
+            />
+            <mat-icon matSuffix>id_card</mat-icon>
+          </mat-form-field>
+  
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>cnh</mat-label>
+            <input
+              [(ngModel)]="member.cnh"
+              name="cnh"
+              [formControl]="cnh"            
+              mask="00000000000"
+              matInput
+              placeholder="00000000000"
+              maxlength="11"/>
+            <mat-icon matSuffix>id_card</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Celular</mat-label>
+            <input
+              [(ngModel)]="member.celPhone"
+              name="celPhone"
+              [formControl]="celPhone"
+              required
+              mask="(00)00000-0000"
+              matInput
+              placeholder="(00)00000-0000"
+              maxlength="14"
+            />
+            <mat-icon matSuffix>phone_iphone</mat-icon>
+          </mat-form-field>
+  
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Tel. Residencial</mat-label>
+            <input
+              [(ngModel)]="member.phone"
+              name="phone"
+              [formControl]="phone"
+              mask="(00)0000-0000"
+              matInput
+              placeholder="(00)0000-0000"
+              maxlength="13"
+            />
+            <mat-icon matSuffix>call</mat-icon>
+          </mat-form-field>
+  
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Tel. Recado 1</mat-label>
+            <input
+              [(ngModel)]="member.familiarPhone1"
+              name="familiarPhone1"
+              [formControl]="familiarPhone1"
+              mask="(00)0000-0000"
+              matInput
+              placeholder="(00)0000-0000"
+              maxlength="13"
+            />
+            <mat-icon matSuffix>contacts</mat-icon>
+          </mat-form-field>
+  
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Tel. Recado 2</mat-label>
+            <input
+              [(ngModel)]="member.familiarPhone2"
+              name="familiarPhone2"
+              [formControl]="familiarPhone2"
+              mask="(00)0000-0000"
+              matInput
+              placeholder="(00)0000-0000"
+              maxlength="13"/>
+            <mat-icon matSuffix>contacts</mat-icon>
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>Data de Nascimento</mat-label>
+            <input name="birthDate" matInput required     
+            [value]="birthDateStart"
+            readonly   
+            [matDatepicker]="birthDatePicker"  
+            [formControl]="birthDateForm"          
+            (dateChange)="addBirthDate( $event.target.value)"  />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(birthDatePicker)"></mat-datepicker-toggle>
+            <mat-datepicker  #birthDatePicker color="primary"            
+            ></mat-datepicker>
+          </mat-form-field>
+  
+          <mat-form-field
+            class="cbb"
+            appearance="fill"
+            mat-raised-button
+            matTooltip="Tipo sanguíneo"
+            aria-label="bloodType">
+            <mat-label>Selecione o Tipo sanguíneo</mat-label>
+            <mat-select
+              placeholder="Selecione o Tipo sanguíneo"
+              name="bloodTypeMatSelected"
+              [formControl]="bloodTypeMatSelected"
+              (selectionChange)="addBloodType(bloodTypeMatSelected.value)">
+              <mat-option
+                *ngFor="let bloodTypeElement of bloodTypeList"
+                [value]="bloodTypeElement.id">
+                {{ bloodTypeElement.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-expansion-panel>
+        <br />
+  
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Dados de Endereço </mat-panel-title>
+            <mat-panel-description>
+              Selecione um Endereço
+              <mat-icon>signpost</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field appearance="fill" class="fullWidth">
+            <mat-label>Logradouro selecionado</mat-label>
+            <input
+              matInput
+              required
+              placeholder="Logradouro não selecionado"
+              name="addressLogradouro"
+              [formControl]="addressLogradouro"
+              readonly/>
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="midWidth">
+            <mat-label>Cidade selecionada</mat-label>
+            <input
+              matInput
+              placeholder="Cidade não selecionada"
+              name="cityName"
+              [formControl]="cityName"
+              readonly
+            />
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="midWidth">
+            <mat-label>CEP selecionado</mat-label>
+            <input
+              matInput
+              placeholder="CEP não selecionado"
+              name="addressPostCode"
+              [formControl]="addressPostCode"
+              readonly
+            />
+          </mat-form-field>
+  
+          <button
+            mat-mini-fab
+            class="clearButton mat-elevation-z8"
+            color="warn"
+            aria-label="limpar"
+            mat-raised-button
+            matTooltip="Limpar Endereço"
+            aria-label="Limpar Endereço"
+            (click)="clearAddress()">
+            <mat-icon>clear</mat-icon>
+          </button>
+  
+          <mat-form-field appearance="standard" class="morLessWidth">
+            <mat-label>Pesquisar Endereço</mat-label>
+            <input
+              matInput
+              (keyup)="applyFilterAddress($event)"
+              placeholder="Ex. Rua/Cidade/CEP"
+              #input
+            />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+  
+          <button
+            mat-mini-fab
+            class="addButton mat-elevation-z8"
+            color="success"
+            aria-label="Adicionar"
+            mat-raised-button
+            matTooltip="Ir para Cadastro de Endereço"
+            aria-label="Cadastro Endereço"
+            routerLink="../../address/create">
+            <mat-icon>library_add</mat-icon>
+          </button>
+  
+          <div class="container-list mat-elevation-z8">
+            <table mat-table [dataSource]="dataSourceAddress">
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef>id</th>
+                <td mat-cell *matCellDef="let elementAdress">
+                  {{ elementAdress.id }}
+                </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="logradouro">
+                <th mat-header-cell *matHeaderCellDef>Logradouro</th>
+                <td mat-cell *matCellDef="let elementAdress">
+                  {{ elementAdress.logradouro }}
+                </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="number">
+                <th mat-header-cell *matHeaderCellDef>Numero</th>
+                <td mat-cell *matCellDef="let elementAdress">
+                  {{ elementAdress.number }}
+                </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="city">
+                <th mat-header-cell *matHeaderCellDef>Cidade</th>
+                <td mat-cell *matCellDef="let elementAdress">
+                  {{ elementAdress.city.name }} -
+                  {{ elementAdress.city.uf.acronym }} -
+                  {{ elementAdress.city.uf.country.name }}
+                </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="cep">
+                <th mat-header-cell *matHeaderCellDef>CEP</th>
+                <td mat-cell *matCellDef="let elementAdress">
+                  {{ elementAdress.postCode }}
+                </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="acoes">
+                <th mat-header-cell *matHeaderCellDef>Ações</th>
+                <td mat-cell *matCellDef="let elementAdress">
+                  <div>
+                    <button
+                      mat-mini-fab
+                      class="mat-elevation-z8"
+                      placeholder="Selecionar"
+                      color="success"
+                      aria-label="Selecionar"
+                      (click)="
+                        selectAddress(
+                          elementAdress.id,
+                          elementAdress.logradouro + ' - ' + elementAdress.number,
+                          elementAdress.city.name +
+                            ' - ' +
+                            elementAdress.city.uf.acronym +
+                            ' - ' +
+                            elementAdress.city.uf.country.name,
+                          elementAdress.postCode
+                        )
+                      "
+                    >
+                      <mat-icon
+                        mat-raised-button
+                        matTooltip="Selecionar este Endereço"
+                        aria-label="Selecionar Endereço"
+                        >done_outline</mat-icon
+                      >
+                    </button>
+                  </div>
+                </td>
+              </ng-container>
+  
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsAddress"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumnsAddress"
+              ></tr>
+            </table>
+  
+            <mat-paginator
+              [pageSizeOptions]="[5, 10, 50]"
+              showFirstLastButtons
+              aria-label="Select page of periodic elements"
+            >
+            </mat-paginator>
+          </div>
+        </mat-expansion-panel>
+        <br />
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Dados da Sede </mat-panel-title>
+            <mat-panel-description>
+              Selecione uma Sede
+              <mat-icon>flag</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field appearance="fill" class="midWidth">
+            <mat-label>Sede selecionada</mat-label>
+            <input
+              matInput
+              required
+              placeholder="Sede não selecionada"
+              name="headQuarterDescription"
+              [formControl]="headQuarterDescription"
+              readonly
+            />
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="midWidth">
+            <mat-label>Cidade da Sede selecionada</mat-label>
+            <input
+              matInput
+              placeholder="Cidade não selecionada"
+              name="headQuarterCity"
+              [formControl]="headQuarterCity"
+              readonly
+            />
+          </mat-form-field>
+  
+          <button
+            mat-mini-fab
+            class="clearButton mat-elevation-z8"
+            color="warn"
+            aria-label="limpar sede"
+            mat-raised-button
+            matTooltip="Limpar Sede"
+            aria-label="Limpar Sede"
+            (click)="clearHeadQuarter()"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+  
+          <mat-form-field appearance="standard" class="morLessWidth">
+            <mat-label>Pesquisar Sede</mat-label>
+            <input
+              matInput
+              (keyup)="applyFilterHeadQuarter($event)"
+              placeholder="Ex. Sede/Cidade"
+              #input
+            />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+  
+          <div class="container-list mat-elevation-z8">
+            <table mat-table [dataSource]="dataSourceHeadQuarter">
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef>id</th>
+                <td mat-cell *matCellDef="let elementHeadQuarter">
+                  {{ elementHeadQuarter.id }}
+                </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>Sede</th>
+                <td mat-cell *matCellDef="let elementHeadQuarter">
+                  {{ elementHeadQuarter.description }}
+                </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="city">
+                <th mat-header-cell *matHeaderCellDef>Cidade</th>
+                <td mat-cell *matCellDef="let elementHeadQuarter">
+                  {{ elementHeadQuarter.address.city.name }} -
+                  {{ elementHeadQuarter.address.city.uf.acronym }}
+                </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="acoes">
+                <th mat-header-cell *matHeaderCellDef>Ações</th>
+                <td mat-cell *matCellDef="let elementHeadQuarter">
+                  <div>
+                    <button
+                      mat-mini-fab
+                      class="mat-elevation-z8"
+                      placeholder="Selecionar"
+                      color="success"
+                      aria-label="Selecionar"
+                      (click)="
+                        selectHeadQuarter(
+                          elementHeadQuarter.id,
+                          elementHeadQuarter.description,
+                          elementHeadQuarter.address.city.name)">
+                      <mat-icon
+                        mat-raised-button
+                        matTooltip="Selecionar esta Sede"
+                        aria-label="Selecionar Sede"
+                        >done_outline</mat-icon
+                      >
+                    </button>
+                  </div>
+                </td>
+              </ng-container>
+  
+              <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumnsHeadQuarter"
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumnsHeadQuarter"
+              ></tr>
+            </table>
+  
+            <mat-paginator
+              [pageSizeOptions]="[5, 10, 50]"
+              showFirstLastButtons
+              aria-label="Select page of periodic elements"
+            >
+            </mat-paginator>
+          </div>
+          <mat-form-field appearance="fill">
+            <mat-label>Data de Admissão</mat-label>
+            <input name="admissionDate"
+            matInput required [matDatepicker]="admissionDatePicker" 
+            [value]="admissionDateStart"
+             matInput required 
+             [formControl]="admissionDateForm"  
+            readonly    
+            (dateChange)="addAdmissionDate( $event.value)" />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="admissionDatePicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #admissionDatePicker color="primary"></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field  class="cbb" appearance="fill">
+            <mat-label>Data de Desligamento</mat-label>
+            <input name="shutdowDate"
+            [value]="shutdowDateStart"
+            matInput [matDatepicker]="shutdowDatePicker" 
+            name="shutdowDatePicker" matInput  
+            [formControl]="shutdowDateForm"  
+            readonly     
+            (dateChange)="addShutdowDate( $event.value)" />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="shutdowDatePicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #shutdowDatePicker color="primary"></mat-datepicker>
+          </mat-form-field>
+
+          <button
+          mat-mini-fab
+          class="clearButton mat-elevation-z8"
+          color="warn"
+          aria-label="limpar"
+          mat-raised-button
+          matTooltip="Limpar Data de Desligamento"
+          aria-label="Limpar Data de Desligamento"
+          (click)="clearShutdowDate()">
+          <mat-icon>clear</mat-icon>
+        </button>
+
+        </mat-expansion-panel>
+
+        <br />
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Dados de Acesso </mat-panel-title>
+            <mat-panel-description>
+              Informe os Dados e Perfil de Acesso
+              <mat-icon>key</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+  
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>E-mail</mat-label>
+            <input
+              [(ngModel)]="member.email"
+              name="email"
+              [formControl]="email"
+              required
+              matInput
+              placeholder="Ex.. fulano@mail.com"
+              maxlength="99"
+            />
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field>
+  
+          <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Senha</mat-label>
+            <input
+              [(ngModel)]="member.password"
+              name="password"
+              [formControl]="password"
+              required
+              matInput
+              type="password"
+              placeholder="Ex.. 1234"
+              maxlength="99"            />
+            <mat-icon matSuffix>password</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field>
+          
+          <section class="section" required  [formGroup]="profiles">
+            <mat-checkbox formControlName="ADMIN" (click)="addPerfil('ADMIN')" class="margin" color="primary">Admin</mat-checkbox>
+            <mat-checkbox formControlName="COMANDO" (click)="addPerfil('COMANDO')" class="margin" color="primary">Comando</mat-checkbox> 
+            <mat-checkbox formControlName="DIRETOR" (click)="addPerfil('DIRETOR')" class="margin" color="primary">Diretor</mat-checkbox>
+            <mat-checkbox formControlName="EDITOR" (click)="addPerfil('EDITOR')" class="margin" color="primary">Editor</mat-checkbox>
+            <mat-checkbox formControlName="USUARIO" (click)="addPerfil('USUARIO')" class="margin" color="primary">Usuario</mat-checkbox>
+            <mat-checkbox formControlName="DESLIGADO" (click)="addPerfil('DESLIGADO')" class="margin" color="primary">Desligado</mat-checkbox>
+          </section>
+        </mat-expansion-panel>
+  
+        <button
+          [disabled]="!validaCampos()"
+          class="button mat-elevation-z10"
+          mat-raised-button
+          color="success"
+          mat-raised-button
+          matTooltip="Salvar Associado"
+          aria-label="Salvar Associado"
+          (click)="update()">
+          Atualizar
+        </button>
+
+        <button
+          routerLink="../../"
+          class="button mat-elevation-z10"
+          mat-flat-button
+          color="warn"
+          mat-raised-button
+          matTooltip="Cancelar"
+          aria-label="Cancelar">
+          Cancelar
+        </button>
+      </mat-accordion>
+    </form>
+  </div>
+  

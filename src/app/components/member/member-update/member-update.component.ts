@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAccordion } from '@angular/material/expansion';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Member } from 'src/app/models/member';
 import { Address } from 'src/app/models/address';
@@ -15,13 +15,13 @@ import { DateAdapter } from '@angular/material/core';
 import { BloodTypeService } from 'src/app/services/bloodType.service';
 import { BloodType } from 'src/app/models/bloodType';
 
+
 @Component({
-  selector: 'app-member-create',
-  templateUrl: './member-create.component.html',
-  styleUrls: ['./member-create.component.css']
+  selector: 'app-member-update',
+  templateUrl: './member-update.component.html',
+  styleUrls: ['./member-update.component.css']
 })
-export class MemberCreateComponent implements OnInit {
-   
+export class MemberUpdateComponent implements OnInit {
  
   ELEMENT_DATA_Adress: Address[] = [    ]
   @ViewChild(MatPaginator) paginatorAdress: MatPaginator;
@@ -65,15 +65,16 @@ export class MemberCreateComponent implements OnInit {
   lastName: FormControl = new FormControl(null, Validators.minLength(4));  
   nickName: FormControl = new FormControl(null, Validators.minLength(4));  
   rg: FormControl = new FormControl(null, Validators.minLength(4));  
-  cpf: FormControl = new FormControl(null, Validators.minLength(4));  
-  cnh: FormControl = new FormControl(null, Validators.minLength(4));  
+  cpf: FormControl = new FormControl(null, Validators.minLength(4)); 
+  cnh: FormControl = new FormControl(null, Validators.minLength(4));   
   celPhone: FormControl = new FormControl(null, Validators.minLength(4));  
   phone: FormControl = new FormControl(null, Validators.minLength(4));  
   familiarPhone1: FormControl = new FormControl(null, Validators.minLength(4));  
   familiarPhone2: FormControl = new FormControl(null, Validators.minLength(4)); 
-  date:  FormControl = new FormControl(null);
+  birthDateForm:  FormControl = new FormControl(null);
   bloodTypeMatSelected: FormControl = new FormControl(null); 
   bloodTypeList: BloodType [];
+  birthDateStart: Date;
   
   //Adress fields
   displayedColumnsAddress: string[] = ['position', 'logradouro', 'number', 'city', 'cep','acoes'];
@@ -89,11 +90,14 @@ export class MemberCreateComponent implements OnInit {
   headQuarterCity: FormControl = new FormControl(null, Validators.required);
   admissionDateForm: FormControl = new FormControl(null); 
   shutdowDateForm: FormControl = new FormControl(null);
+  admissionDateStart: Date;
+  shutdowDateStart: Date;
   
   //acess fields
   email: FormControl = new FormControl(null, Validators.minLength(4));  
   password: FormControl = new FormControl(null, Validators.minLength(4));  
-  
+  profiles: FormGroup;
+
   constructor(
     private addressService: AddressService,
     private headQuarterService: HeadQuarterService,
@@ -101,16 +105,55 @@ export class MemberCreateComponent implements OnInit {
     private bloodTypeService: BloodTypeService,
     private toastr: ToastrService,
     private router: Router,
-    public _adapter: DateAdapter<Date>
-  ) {   }
+    public _adapter: DateAdapter<Date>,    
+    private activedRoute : ActivatedRoute,
+    fb: FormBuilder
+  ) {   
+    this.profiles = fb.group({
+      ADMIN: false,
+      COMANDO: false,
+      DIRETOR: false,
+      EDITOR: false,
+      USUARIO: false,
+      DESLIGADO: false
+    });
+  }
   
   ngOnInit(): void {
     this.findAllAddress();
     this.findAllHeadQuarter();
-   this. findAllBloodType();
+    this.findAllBloodType();
     this._adapter.setLocale('en-GB');
+    this.member.id = this.activedRoute.snapshot.paramMap.get('id'); 
+    this.findbyId();   
   }
-  
+
+  findbyId(): void{
+    this.memberService.findById(this.member.id).subscribe(resposta =>{      
+      this.member = resposta;       
+      
+      var [dia, mes, ano] = this.member.birthDate.split('/');
+      this.birthDateStart = new Date(Number(ano), Number(mes) - 1, Number(dia)); 
+      this.bloodTypeMatSelected.setValue(this.member.bloodType.id);
+
+      this.selectAddress(this.member.address.id,
+      this.member.address.logradouro + " - " + this.member.address.number, 
+      this.member.address.city.name + " - " + this.member.address.city.uf.acronym,
+      this.member.address.postCode );
+      this.selectHeadQuarter(this.member.headQuarter.id, this.member.headQuarter.description,
+      this.member.headQuarter.address.city.name);
+
+      [dia, mes, ano] = this.member.admissionDate.split('/');
+      this.admissionDateStart = new Date(Number(ano), Number(mes) - 1, Number(dia)); 
+
+      if(this.member.shutdowDate != null){
+      [dia, mes, ano] = this.member.shutdowDate.split('/');
+      this.shutdowDateStart = new Date(Number(ano), Number(mes) - 1, Number(dia));                
+    }
+    this.bringProfiles(); 
+    })
+  }
+
   findAllAddress(){
     this.addressService.findAll().subscribe(resposta =>{
       this.ELEMENT_DATA_Adress = resposta;
@@ -148,14 +191,22 @@ export class MemberCreateComponent implements OnInit {
     this.dataSourceHeadQuarter.filter = filterValue.trim().toLowerCase();
   }
 
-  addBirthDate(date: Date): void{
-    if(date != null){
-    this.member.birthDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });   
-   }
-  }
-
-  addBloodType(bloodTypeId: any): void{   
-    this.member.bloodType.id = bloodTypeId;    
+  update(): void{  
+    if(this.member.address.id != null) {
+      this.parseProfiles();
+        this.memberService.update(this.member).subscribe(() =>{      
+          this.toastr.success('Associado atualizado com Sucesso!', 'Update');
+          this.router.navigate(['member']);
+        }, ex => {      
+          if(ex.error.errors){
+            ex.error.errors.array.forEach(element => {
+              this.toastr.error(element.message);
+            });
+          }else{
+            this.toastr.error(ex.error.message);
+          }
+        });         
+    }  
   }
 
   selectAddress(id: any, logradouroNumber : string, cityUf: string, postcode: string): void{   
@@ -183,7 +234,11 @@ export class MemberCreateComponent implements OnInit {
     this.admissionDateForm.setValue(""); 
     this.shutdowDateForm.setValue("");
   }
-  
+  addBirthDate(date: Date): void{
+    if(date != null){
+    this.member.birthDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });       
+   }
+  }
   addAdmissionDate(date: Date): void{
     if(date != null){
     this.member.admissionDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });    
@@ -194,33 +249,73 @@ export class MemberCreateComponent implements OnInit {
     this.member.shutdowDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });    
    }
   }
+
   clearShutdowDate():void{
     this.member.shutdowDate = null;
     this.shutdowDateForm.setValue("");
   }
 
-  addPerfil(profile: any): void {
+  addBloodType(bloodTypeId: any): void{   
+    this.member.bloodType.id = bloodTypeId;    
+  }
+  addPerfil(profile: any): void {  
     if(this.member.profile.includes(profile)) {
       this.member.profile.splice(this.member.profile.indexOf(profile), 1);
     } else {
       this.member.profile.push(profile);
-    } 
+    }   
   }
 
-  create(): void{  
-    if(this.member.address.id != null) {
-        this.memberService.create(this.member).subscribe(() =>{      
-          this.toastr.success('Associado cadastrada com Sucesso!', 'Cadastro');
-          this.router.navigate(['member']);
-        }, ex => {      
-          if(ex.error.errors){
-            ex.error.errors.array.forEach(element => {
-              this.toastr.error(element.message);
-            });
-          }else{
-            this.toastr.error(ex.error.message);
-          }
-        });
+   bringProfiles(): void{
+    if(this.member.profile.find(x=>x == "ADMIN")){
+      this.profiles.patchValue({
+        ADMIN: true        
+      });
     }
-  }   
+    if(this.member.profile.find(x=>x == "COMANDO")){
+      this.profiles.patchValue({
+        COMANDO: true        
+      });
+    }
+    if(this.member.profile.find(x=>x == "DIRETOR")){
+      this.profiles.patchValue({
+        DIRETOR: true        
+      });
+    }
+    if(this.member.profile.find(x=>x == "EDITOR")){
+      this.profiles.patchValue({
+        EDITOR: true        
+      });
+    }
+    if(this.member.profile.find(x=>x == "USUARIO")){
+      this.profiles.patchValue({
+        USUARIO: true        
+      });
+    }
+    if(this.member.profile.find(x=>x == "DESLIGADO")){
+      this.profiles.patchValue({
+        DESLIGADO: true        
+      });
+    }    
+   }   
+   parseProfiles(): void{
+    if(this.member.profile.find(x=>x == "ADMIN")){
+      this.member.profile[this.member.profile.indexOf("ADMIN")] = "0";
+    }
+    if(this.member.profile.find(x=>x == "COMANDO")){
+      this.member.profile[this.member.profile.indexOf("COMANDO")] = "1";
+    }
+    if(this.member.profile.find(x=>x == "DIRETOR")){
+      this.member.profile[this.member.profile.indexOf("DIRETOR")] = "2";
+    }
+    if(this.member.profile.find(x=>x == "EDITOR")){
+      this.member.profile[this.member.profile.indexOf("EDITOR")] = "3";
+    }
+    if(this.member.profile.find(x=>x == "USUARIO")){
+      this.member.profile[this.member.profile.indexOf("USUARIO")] = "4";
+    }
+    if(this.member.profile.find(x=>x == "DESLIGADO")){
+      this.member.profile[this.member.profile.indexOf("DESLIGADO")] = "5";
+    }    
+   }   
 }

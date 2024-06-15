@@ -52,6 +52,8 @@ import { MemberCreateComponent } from './components/member/member-create/member-
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MemberUpdateComponent } from './components/member/member-update/member-update.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     HeadQuarterUpdateComponent,
     HeadQuarterDeleteComponent,
     MemberListComponent,
-    MemberCreateComponent
+    MemberCreateComponent,
+    MemberUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +111,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     }),
     NgxMaskModule.forRoot()
   ],
-    providers: [AuthInterceptorProvider],
+    providers: [AuthInterceptorProvider, DatePipe],    
     bootstrap: [AppComponent],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ] 
 })

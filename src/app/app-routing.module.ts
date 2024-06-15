@@ -12,6 +12,7 @@ import { HeadQuarterUpdateComponent } from './components/headQuarter/headQuarter
 import { HeadQuarterCreateComponent } from './components/headQuarter/headQuarter-create/headQuarter-create.component';
 import { MemberListComponent } from './components/member/member-list/member-list.component';
 import { MemberCreateComponent } from './components/member/member-create/member-create.component';
+import { MemberUpdateComponent } from './components/member/member-update/member-update.component';
 
 const routes: Routes = [
   {
@@ -27,7 +28,8 @@ const routes: Routes = [
       {path: 'headQuarter/create', component: HeadQuarterCreateComponent},
       {path: 'headQuarter/update/:id', component: HeadQuarterUpdateComponent},
       {path: 'member', component: MemberListComponent},
-      {path: 'member/create', component: MemberCreateComponent}     
+      {path: 'member/create', component: MemberCreateComponent},     
+      {path: 'member/update/:id', component: MemberUpdateComponent}     
     ]
   }
 ];

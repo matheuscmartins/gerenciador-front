@@ -4,11 +4,13 @@
     <img
       class="fullWidth"
       src="assets/img/create/address-create.svg"
-      alt="Portal BDL"
-    />
+      alt="Portal BDL"    />
+
     <div class="example-action-buttons">
-      <button mat-button (click)="accordion.openAll()">Expandir Todos</button>
-      <button mat-button (click)="accordion.closeAll()">Minimizar Todos</button>
+      <button class="mat-elevation-z8" mat-button (click)="accordion.openAll()"
+      >Expandir Todos</button>
+      <button class="mat-elevation-z8" mat-button (click)="accordion.closeAll()"
+      >Minimizar Todos</button>
     </div>
     <br />
 
@@ -75,8 +77,7 @@
             mask="00.000.000-0"
             matInput
             placeholder="00.000.000-0"
-            maxlength="12"
-          />
+            maxlength="12"/>
           <mat-icon matSuffix>id_card</mat-icon>
         </mat-form-field>
 
@@ -90,8 +91,20 @@
             mask="000.000.000-00"
             matInput
             placeholder="000.000.000-00"
-            maxlength="14"
-          />
+            maxlength="14"/>
+          <mat-icon matSuffix>id_card</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="fullWidth" appearance="legacy">
+          <mat-label>cnh</mat-label>
+          <input
+            [(ngModel)]="member.cnh"
+            name="cnh"
+            [formControl]="cnh"            
+            mask="00000000000"
+            matInput
+            placeholder="00000000000"
+            maxlength="11"/>
           <mat-icon matSuffix>id_card</mat-icon>
         </mat-form-field>
 
@@ -105,8 +118,7 @@
             mask="(00)00000-0000"
             matInput
             placeholder="(00)00000-0000"
-            maxlength="14"
-          />
+            maxlength="14"/>
           <mat-icon matSuffix>phone_iphone</mat-icon>
         </mat-form-field>
 
@@ -133,8 +145,7 @@
             mask="(00)0000-0000"
             matInput
             placeholder="(00)0000-0000"
-            maxlength="13"
-          />
+            maxlength="13"/>
           <mat-icon matSuffix>contacts</mat-icon>
         </mat-form-field>
 
@@ -147,8 +158,7 @@
             mask="(00)0000-0000"
             matInput
             placeholder="(00)0000-0000"
-            maxlength="13"
-          />
+            maxlength="13"/>
           <mat-icon matSuffix>contacts</mat-icon>
         </mat-form-field>
 
@@ -158,7 +168,7 @@
           readonly   
           [formControl]="date"       
           [matDatepicker]="birthDatePicker"           
-          (dateChange)="addBirthDate( $event.target.value)"  />
+          (dateChange)="addBirthDate( $event.target.value)"/>
           <mat-datepicker-toggle
             matSuffix
             [for]="$any(birthDatePicker)"></mat-datepicker-toggle>
@@ -195,6 +205,7 @@
             <mat-icon>signpost</mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
+
         <mat-form-field appearance="fill" class="fullWidth">
           <mat-label>Logradouro selecionado</mat-label>
           <input
@@ -213,8 +224,7 @@
             placeholder="Cidade não selecionada"
             name="cityName"
             [formControl]="cityName"
-            readonly
-          />
+            readonly/>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="midWidth">
@@ -224,8 +234,7 @@
             placeholder="CEP não selecionado"
             name="addressPostCode"
             [formControl]="addressPostCode"
-            readonly
-          />
+            readonly/>
         </mat-form-field>
 
         <button
@@ -246,8 +255,7 @@
             matInput
             (keyup)="applyFilterAddress($event)"
             placeholder="Ex. Rua/Cidade/CEP"
-            #input
-          />
+            #input/>
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
@@ -306,8 +314,7 @@
               <th mat-header-cell *matHeaderCellDef>Ações</th>
               <td mat-cell *matCellDef="let elementAdress">
                 <div>
-                  <button
-                    mat-mini-fab
+                  <button mat-mini-fab
                     class="mat-elevation-z8"
                     placeholder="Selecionar"
                     color="success"
@@ -316,21 +323,15 @@
                       selectAddress(
                         elementAdress.id,
                         elementAdress.logradouro + ' - ' + elementAdress.number,
-                        elementAdress.city.name +
-                          ' - ' +
+                        elementAdress.city.name +' - ' +
                           elementAdress.city.uf.acronym +
-                          ' - ' +
-                          elementAdress.city.uf.country.name,
-                        elementAdress.postCode
-                      )
-                    "
-                  >
+                          ' - ' +elementAdress.city.uf.country.name,
+                        elementAdress.postCode)">
                     <mat-icon
                       mat-raised-button
                       matTooltip="Selecionar este Endereço"
                       aria-label="Selecionar Endereço"
-                      >done_outline</mat-icon
-                    >
+                      >done_outline</mat-icon>
                   </button>
                 </div>
               </td>
@@ -346,12 +347,13 @@
           <mat-paginator
             [pageSizeOptions]="[5, 10, 50]"
             showFirstLastButtons
-            aria-label="Select page of periodic elements"
-          >
+            aria-label="Select page of periodic elements">
           </mat-paginator>
         </div>
       </mat-expansion-panel>
+
       <br />
+
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title> Dados da Sede </mat-panel-title>
@@ -360,6 +362,7 @@
             <mat-icon>flag</mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
+
         <mat-form-field appearance="fill" class="midWidth">
           <mat-label>Sede selecionada</mat-label>
           <input
@@ -368,9 +371,9 @@
             placeholder="Sede não selecionada"
             name="headQuarterDescription"
             [formControl]="headQuarterDescription"
-            readonly
-          />
+            readonly/>
         </mat-form-field>
+
         <mat-form-field appearance="fill" class="midWidth">
           <mat-label>Cidade da Sede selecionada</mat-label>
           <input
@@ -378,8 +381,7 @@
             placeholder="Cidade não selecionada"
             name="headQuarterCity"
             [formControl]="headQuarterCity"
-            readonly
-          />
+            readonly/>
         </mat-form-field>
 
         <button
@@ -390,8 +392,7 @@
           mat-raised-button
           matTooltip="Limpar Sede"
           aria-label="Limpar Sede"
-          (click)="clearHeadQuarter()"
-        >
+          (click)="clearHeadQuarter()">
           <mat-icon>clear</mat-icon>
         </button>
 
@@ -400,9 +401,7 @@
           <input
             matInput
             (keyup)="applyFilterHeadQuarter($event)"
-            placeholder="Ex. Sede/Cidade"
-            #input
-          />
+            placeholder="Ex. Sede/Cidade" #input/>
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
@@ -440,70 +439,77 @@
                     placeholder="Selecionar"
                     color="success"
                     aria-label="Selecionar"
-                    (click)="
-                      selectHeadQuarter(
+                    (click)="selectHeadQuarter(
                         elementHeadQuarter.id,
                         elementHeadQuarter.description,
-                        elementHeadQuarter.address.city.name
-                      )
-                    "
-                  >
+                        elementHeadQuarter.address.city.name)">
                     <mat-icon
                       mat-raised-button
                       matTooltip="Selecionar esta Sede"
                       aria-label="Selecionar Sede"
-                      >done_outline</mat-icon
-                    >
+                      >done_outline</mat-icon>
                   </button>
                 </div>
               </td>
             </ng-container>
 
-            <tr
-              mat-header-row
-              *matHeaderRowDef="displayedColumnsHeadQuarter"
-            ></tr>
-            <tr
-              mat-row
-              *matRowDef="let row; columns: displayedColumnsHeadQuarter"
-            ></tr>
+            <tr mat-header-row
+              *matHeaderRowDef="displayedColumnsHeadQuarter">
+            </tr>
+            <tr mat-row
+              *matRowDef="let row; columns: displayedColumnsHeadQuarter">
+            </tr>
           </table>
 
           <mat-paginator
             [pageSizeOptions]="[5, 10, 50]"
             showFirstLastButtons
-            aria-label="Select page of periodic elements"
-          >
+            aria-label="Select page of periodic elements">
           </mat-paginator>
         </div>
+
         <mat-form-field appearance="fill">
           <mat-label>Data de Admissão</mat-label>
           <input matInput required [matDatepicker]="admissionDatePicker" 
            matInput required 
-           [formControl]="admissionDate"  
+           [formControl]="admissionDateForm"  
           readonly    
           (dateChange)="addAdmissionDate( $event.value)" />
           <mat-datepicker-toggle
             matSuffix
-            [for]="admissionDatePicker"
-          ></mat-datepicker-toggle>
+            [for]="admissionDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #admissionDatePicker color="primary"></mat-datepicker>
         </mat-form-field>
-        <mat-form-field appearance="fill">
+
+        <mat-form-field class="cbb" appearance="fill">
           <mat-label>Data de Desligamento</mat-label>
           <input matInput [matDatepicker]="shutdowDatePicker" 
           name="shutdowDatePicker" matInput  
-          [formControl]="shutdowDate"  
+          [formControl]="shutdowDateForm"  
           readonly     
-          (dateChange)="addShutdowDate( $event.value)" />
+          (dateChange)="addShutdowDate($event.value)" />
           <mat-datepicker-toggle
             matSuffix
-            [for]="shutdowDatePicker"
-          ></mat-datepicker-toggle>
+            [for]="shutdowDatePicker">
+          </mat-datepicker-toggle>
           <mat-datepicker #shutdowDatePicker color="primary"></mat-datepicker>
         </mat-form-field>
+
+        <button
+          mat-mini-fab
+          class="clearButton mat-elevation-z8"
+          color="warn"
+          aria-label="limpar"
+          mat-raised-button
+          matTooltip="Limpar Data de Desligamento"
+          aria-label="Limpar Data de Desligamento"
+          (click)="clearShutdowDate()">
+          <mat-icon>clear</mat-icon>
+        </button>
       </mat-expansion-panel>
+
       <br />
+
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title> Dados de Acesso </mat-panel-title>
@@ -522,8 +528,7 @@
             required
             matInput
             placeholder="Ex.. fulano@mail.com"
-            maxlength="99"
-          />
+            maxlength="99"/>
           <mat-icon matSuffix>email</mat-icon>
           <mat-hint>100</mat-hint>
         </mat-form-field>
@@ -538,28 +543,18 @@
             matInput
             type="password"
             placeholder="Ex.. 1234"
-            maxlength="99"
-          />
+            maxlength="99"/>
           <mat-icon matSuffix>password</mat-icon>
           <mat-hint>100</mat-hint>
         </mat-form-field>
+        
         <section class="section">
-          <mat-checkbox (click)="addPerfil(0)" class="margin" color="primary">Admin</mat-checkbox>
-      <mat-checkbox (click)="addPerfil(1)" class="margin" color="primary">Comando</mat-checkbox> 
-      <mat-checkbox (click)="addPerfil(2)" class="margin" color="primary">Diretor</mat-checkbox>
-          <mat-checkbox (click)="addPerfil(3)" class="margin" color="primary"
-            >Editor</mat-checkbox
-          >
-          <mat-checkbox
-            (click)="addPerfil(4)"
-            [checked]="true"
-            class="margin"
-            color="primary"
-            >Usuario</mat-checkbox
-          >
-          <mat-checkbox (click)="addPerfil(5)" class="margin" color="primary"
-            >Desligado</mat-checkbox
-          >
+         <mat-checkbox (click)="addPerfil(0)" class="margin" color="primary">Admin</mat-checkbox>
+         <mat-checkbox (click)="addPerfil(1)" class="margin" color="primary">Comando</mat-checkbox> 
+         <mat-checkbox (click)="addPerfil(2)" class="margin" color="primary">Diretor</mat-checkbox>
+         <mat-checkbox (click)="addPerfil(3)" class="margin" color="primary">Editor</mat-checkbox>
+         <mat-checkbox (click)="addPerfil(4)" [checked]="true" class="margin" color="primary">Usuario</mat-checkbox>            
+         <mat-checkbox (click)="addPerfil(5)" class="margin" color="primary">Desligado</mat-checkbox>
         </section>
       </mat-expansion-panel>
 
