@@ -54,6 +54,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MemberUpdateComponent } from './components/member/member-update/member-update.component';
 import { DatePipe } from '@angular/common';
+import { InfractionListComponent } from './components/infraction/infraction-list/infraction-list.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { DatePipe } from '@angular/common';
     HeadQuarterDeleteComponent,
     MemberListComponent,
     MemberCreateComponent,
-    MemberUpdateComponent
+    MemberUpdateComponent,
+    InfractionListComponent
   ],
   imports: [
     BrowserModule,
