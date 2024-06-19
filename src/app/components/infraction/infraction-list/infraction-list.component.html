@@ -1,1 +1,62 @@
-<p>infraction-list works!</p>
+<div class="container">
+    <h1>Listando Advertências</h1>
+    <button class="mat-elevation-z8" routerLink="create"
+    mat-raised-button
+    matTooltip="Criar uma nova Advertência"
+    aria-label="criar Advertência" 
+    mat-button>Nova Advertência</button>
+    <mat-form-field appearance="standard">
+      <mat-label>Pesquisa</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. tipo/associado" #input>
+    </mat-form-field>
+    
+      <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource">  
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> id </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>      
+            
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Associado </th>
+              <td mat-cell *matCellDef="let element"> {{element.member.firstName}} </td>
+            </ng-container>      
+          
+            <ng-container matColumnDef="infractionType">
+              <th mat-header-cell *matHeaderCellDef> Advertência </th>
+              <td mat-cell *matCellDef="let element"> {{element.infractionType}} </td>
+            </ng-container>     
+
+            <ng-container matColumnDef="infractionDate">
+              <th mat-header-cell *matHeaderCellDef> Data da Advertência </th>
+              <td mat-cell *matCellDef="let element"> {{element.infractionDate}} </td>
+            </ng-container> 
+
+            <ng-container matColumnDef="acoes">
+              <th mat-header-cell *matHeaderCellDef> Ações </th>
+              <td mat-cell *matCellDef="let element"> 
+              <a  routerLink="update/{{element.id}}" >             
+                 <i mat-raised-button
+                 matTooltip="Editar Esta Advertência"
+                 aria-label="Editar Advertência"          
+                  class="material-icons edit">edit</i>
+              </a>
+  
+              <a >
+                <!-- (click)="openDialog(element.id)"  HAbilitar o Delete na LINHA 49-->
+                <i class="material-icons delete" 
+                disable="true"
+                >delete</i>
+              </a>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        
+          <mat-paginator [pageSizeOptions]="[5, 10, 50]"
+                         showFirstLastButtons 
+                         aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>      
+  </div>

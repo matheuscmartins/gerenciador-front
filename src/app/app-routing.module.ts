@@ -13,6 +13,7 @@ import { HeadQuarterCreateComponent } from './components/headQuarter/headQuarter
 import { MemberListComponent } from './components/member/member-list/member-list.component';
 import { MemberCreateComponent } from './components/member/member-create/member-create.component';
 import { MemberUpdateComponent } from './components/member/member-update/member-update.component';
+import { InfractionListComponent } from './components/infraction/infraction-list/infraction-list.component';
 
 const routes: Routes = [
   {
@@ -29,7 +30,8 @@ const routes: Routes = [
       {path: 'headQuarter/update/:id', component: HeadQuarterUpdateComponent},
       {path: 'member', component: MemberListComponent},
       {path: 'member/create', component: MemberCreateComponent},     
-      {path: 'member/update/:id', component: MemberUpdateComponent}     
+      {path: 'member/update/:id', component: MemberUpdateComponent} ,
+      {path: 'infraction', component: InfractionListComponent}    
     ]
   }
 ];

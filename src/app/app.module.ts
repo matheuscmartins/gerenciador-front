@@ -56,6 +56,7 @@ import { MemberUpdateComponent } from './components/member/member-update/member-
 import { DatePipe } from '@angular/common';
 import { InfractionListComponent } from './components/infraction/infraction-list/infraction-list.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,6 +76,7 @@ import { InfractionListComponent } from './components/infraction/infraction-list
     MemberCreateComponent,
     MemberUpdateComponent,
     InfractionListComponent
+   
   ],
   imports: [
     BrowserModule,
