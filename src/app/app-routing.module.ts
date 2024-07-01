@@ -14,6 +14,7 @@ import { MemberListComponent } from './components/member/member-list/member-list
 import { MemberCreateComponent } from './components/member/member-create/member-create.component';
 import { MemberUpdateComponent } from './components/member/member-update/member-update.component';
 import { InfractionListComponent } from './components/infraction/infraction-list/infraction-list.component';
+import { InfractionCreateComponent } from './components/infraction/infraction-create/infraction-create.component';
 
 const routes: Routes = [
   {
@@ -31,7 +32,8 @@ const routes: Routes = [
       {path: 'member', component: MemberListComponent},
       {path: 'member/create', component: MemberCreateComponent},     
       {path: 'member/update/:id', component: MemberUpdateComponent} ,
-      {path: 'infraction', component: InfractionListComponent}    
+      {path: 'infraction', component: InfractionListComponent} ,
+      {path: 'infraction/create', component: InfractionCreateComponent}   
     ]
   }
 ];

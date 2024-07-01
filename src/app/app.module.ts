@@ -55,6 +55,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MemberUpdateComponent } from './components/member/member-update/member-update.component';
 import { DatePipe } from '@angular/common';
 import { InfractionListComponent } from './components/infraction/infraction-list/infraction-list.component';
+import { InfractionCreateComponent } from './components/infraction/infraction-create/infraction-create.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { InfractionListComponent } from './components/infraction/infraction-list
     MemberListComponent,
     MemberCreateComponent,
     MemberUpdateComponent,
-    InfractionListComponent
+    InfractionListComponent,
+    InfractionCreateComponent
    
   ],
   imports: [
