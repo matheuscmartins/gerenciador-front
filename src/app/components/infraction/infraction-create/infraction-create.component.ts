@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Infraction } from 'src/app/models/infraction';
@@ -9,6 +9,7 @@ import { MemberService } from 'src/app/services/member.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DateAdapter } from '@angular/material/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-infraction-create',
@@ -56,6 +57,12 @@ export class InfractionCreateComponent implements OnInit {
   memberName: FormControl = new FormControl(null, Validators.required);
   headQuarter: FormControl = new FormControl(null, Validators.required); 
   infractionDateForm: FormControl = new FormControl(null, Validators.required); 
+  escrita: boolean = false;
+  suspensao: boolean = false;
+  verbal: boolean = true;
+  desligamento: boolean = false;
+  rebaixamento: boolean = false;
+  expulsao: boolean = false;
 
   constructor(
     private memberService: MemberService,
@@ -80,7 +87,7 @@ export class InfractionCreateComponent implements OnInit {
 
   validaCampos(): boolean{
     return this.description.valid && this.memberName.valid &&
-    this.headQuarter.valid &&  this.headQuarter.valid
+    this.headQuarter.valid &&  this.headQuarter.valid && this.infractionDateForm.valid && this.infraction.infractionType != null
   }
 
   applyFilter(event: Event) {
@@ -119,9 +126,79 @@ export class InfractionCreateComponent implements OnInit {
     this.infraction.member.id = null;
     this.memberName.setValue ("");
     this.headQuarter.setValue("");    
-  }  
-  infractionType(infractionType: any): void{
-    this.infraction.infractionType = infractionType;
   }
-  
+    
+  infractionType(checked: boolean, infractionType: string): void{
+    console.log(checked);
+    console.log(infractionType);
+    if(infractionType != null && checked){
+      switch (infractionType) {        
+        case '0':
+          this.infraction.infractionType = infractionType;
+          this.escrita= true;
+          this.suspensao = false;
+          this.verbal = false;
+          this.desligamento = false;
+          this.rebaixamento = false;
+          this.expulsao = false;
+          break;
+        case '1':
+          this.infraction.infractionType = infractionType;
+          this.escrita= false;
+          this.suspensao = true;
+          this.verbal = false;
+          this.desligamento = false;
+          this.rebaixamento = false;
+          this.expulsao = false;
+          break;
+          case '2':
+          this.infraction.infractionType = infractionType;
+          this.escrita= false;
+          this.suspensao = false;
+          this.verbal = true;
+          this.desligamento = false;
+          this.rebaixamento = false;
+          this.expulsao = false;
+          break;
+          case '3':
+          this.infraction.infractionType = infractionType;
+          this.escrita= false;
+          this.suspensao = false;
+          this.verbal = false;
+          this.desligamento = true;
+          this.rebaixamento = false;
+          this.expulsao = false;
+          break;
+          case '4':
+          this.infraction.infractionType = infractionType;
+          this.escrita= false;
+          this.suspensao = false;
+          this.verbal = false;
+          this.desligamento = false;
+          this.rebaixamento = true;
+          this.expulsao = false;
+          break;
+          case '5':
+          this.infraction.infractionType = infractionType;
+          this.escrita= false;
+          this.suspensao = false;
+          this.verbal = false;
+          this.desligamento = false;
+          this.rebaixamento = false;
+          this.expulsao = true;
+          break;   
+      }
+    }
+      if(!checked){
+        if(this.verbal){
+          this.infraction.infractionType = null;
+      }else {this.infraction.infractionType = '0';}
+          this.escrita= false;
+          this.suspensao = false;
+          this.verbal = true;
+          this.desligamento = false;
+          this.rebaixamento = false;
+          this.expulsao = false;
+      }
+  }
 }

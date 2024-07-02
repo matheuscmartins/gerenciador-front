@@ -3,13 +3,19 @@
         <h1 class="fullWidth">Cadastrar Advertência</h1>
         <img class="fullWidth" src="assets/img/create/address-create.svg" alt="Portal BDL">
 
-        <section class="section">
-          <mat-checkbox (click)="infractionType(0)" class="margin" color="primary">Escrita</mat-checkbox>
-          <mat-checkbox (click)="infractionType(1)" class="margin" color="primary">Suspensão</mat-checkbox> 
-          <mat-checkbox (click)="infractionType(2)" [checked]="true" class="margin" color="primary">Verbal</mat-checkbox>
-          <mat-checkbox (click)="infractionType(3)" class="margin" color="primary">Desligamento</mat-checkbox>
-          <mat-checkbox (click)="infractionType(4)" class="margin" color="primary">Rebaixamento</mat-checkbox>            
-          <mat-checkbox (click)="infractionType(5)" class="margin" color="primary">Expulsão</mat-checkbox>
+        <section class="section" >
+          <mat-checkbox  (change)="infractionType($event.checked, '0')" class="margin" color="primary"  [checked]="escrita">
+            Escrita</mat-checkbox>
+          <mat-checkbox  (change)="infractionType($event.checked, '1')" class="margin" color="primary" [checked]="suspensao">
+            Suspensão</mat-checkbox> 
+          <mat-checkbox   (change)="infractionType($event.checked, '2')"  class="margin" color="primary" [checked]="verbal">
+            Verbal</mat-checkbox>
+          <mat-checkbox (change)="infractionType($event.checked, '3')" class="margin" color="primary" [checked]="desligamento">
+            Desligamento</mat-checkbox>
+          <mat-checkbox (change)="infractionType($event.checked, '4')" class="margin" color="primary" [checked]="rebaixamento">
+            Rebaixamento</mat-checkbox>            
+          <mat-checkbox (change)="infractionType($event.checked, '5')" class="margin" color="primary" [checked]="expulsao">
+            Expulsão</mat-checkbox>
          </section>
 
          <mat-form-field appearance="fill">
