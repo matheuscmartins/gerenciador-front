@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Infraction } from 'src/app/models/infraction';
 import { InfractionService } from 'src/app/services/infraction.service';
 import { MatDialog } from '@angular/material/dialog';
-//import { InfractionDeleteComponent } from '../infraction-delete/infraction-delete.component';
+import { InfractionDeleteComponent } from '../infraction-delete/infraction-delete.component';
 
 
 @Component({
@@ -41,7 +41,7 @@ export class InfractionListComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
- /*
+ 
   openDialog(id: any) {
     const dialogRef = this.dialog.open(InfractionDeleteComponent,{
       data:{
@@ -55,5 +55,5 @@ export class InfractionListComponent implements OnInit {
     });  
     this.findAll();   
   }
- */
+ 
 }

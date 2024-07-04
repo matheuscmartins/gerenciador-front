@@ -25,7 +25,7 @@
           readonly  
           [matDatepicker]="infractionDatePicker"             
           [formControl]="infractionDateForm"
-          (dateChange)="addInfractionDate( $event.target.value)" />
+          (dateChange)="addInfractionDate($event.target.value)" />
           <mat-datepicker-toggle
             matSuffix
             [for]="$any(infractionDatePicker)"></mat-datepicker-toggle>

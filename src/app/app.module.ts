@@ -57,6 +57,7 @@ import { DatePipe } from '@angular/common';
 import { InfractionListComponent } from './components/infraction/infraction-list/infraction-list.component';
 import { InfractionCreateComponent } from './components/infraction/infraction-create/infraction-create.component';
 import { InfractionUpdateComponent } from './components/infraction/infraction-update/infraction-update.component';
+import { InfractionDeleteComponent } from './components/infraction/infraction-delete/infraction-delete.component';
 
 
 @NgModule({
@@ -79,7 +80,8 @@ import { InfractionUpdateComponent } from './components/infraction/infraction-up
     MemberUpdateComponent,
     InfractionListComponent,
     InfractionCreateComponent,
-    InfractionUpdateComponent   
+    InfractionUpdateComponent,
+    InfractionDeleteComponent   
   ],
   imports: [
     BrowserModule,

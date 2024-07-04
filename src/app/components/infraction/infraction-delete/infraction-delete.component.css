@@ -1,0 +1,10 @@
+
+button{
+    margin-left: 8%;
+    margin-right: 5%;
+    border-radius: .4rem;
+}
+.mat-success {
+    background-color: green;
+    color: #fff;
+}

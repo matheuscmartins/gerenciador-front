@@ -41,12 +41,13 @@
                  aria-label="Editar Advertência"          
                   class="material-icons edit">edit</i>
               </a>
-  
-              <a >
-                <!-- (click)="openDialog(element.id)"  HAbilitar o Delete na LINHA 49-->
-                <i class="material-icons delete" 
-                disable="true"
-                >delete</i>
+              
+              <a>                
+                <i mat-raised-button
+                class="material-icons delete"  
+                (click)="openDialog(element.id)"  
+                 matTooltip="Deletar Esta Advertência"
+                 aria-label="Deletar Advertência">delete</i>
               </a>
               </td>
             </ng-container>

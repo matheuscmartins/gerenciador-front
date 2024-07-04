@@ -53,6 +53,6 @@ export class AddressDeleteComponent  {
   onCancelClick(): void{
     this.dialogRef.close(true);
     this.toastr.success('Cancelado com Sucesso!', 'Cancel');
-      this.router.navigate(['address']);
+    this.router.navigate(['address']);
   }
 }
