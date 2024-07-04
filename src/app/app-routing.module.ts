@@ -15,6 +15,7 @@ import { MemberCreateComponent } from './components/member/member-create/member-
 import { MemberUpdateComponent } from './components/member/member-update/member-update.component';
 import { InfractionListComponent } from './components/infraction/infraction-list/infraction-list.component';
 import { InfractionCreateComponent } from './components/infraction/infraction-create/infraction-create.component';
+import { InfractionUpdateComponent } from './components/infraction/infraction-update/infraction-update.component';
 
 const routes: Routes = [
   {
@@ -31,9 +32,10 @@ const routes: Routes = [
       {path: 'headQuarter/update/:id', component: HeadQuarterUpdateComponent},
       {path: 'member', component: MemberListComponent},
       {path: 'member/create', component: MemberCreateComponent},     
-      {path: 'member/update/:id', component: MemberUpdateComponent} ,
-      {path: 'infraction', component: InfractionListComponent} ,
-      {path: 'infraction/create', component: InfractionCreateComponent}   
+      {path: 'member/update/:id', component: MemberUpdateComponent},
+      {path: 'infraction', component: InfractionListComponent},
+      {path: 'infraction/create', component: InfractionCreateComponent},
+      {path: 'infraction/update/:id', component: InfractionUpdateComponent}
     ]
   }
 ];

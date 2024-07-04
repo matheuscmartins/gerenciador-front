@@ -164,7 +164,7 @@
             <mat-icon matSuffix>contacts</mat-icon>
           </mat-form-field>
   
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="fill" class="midWidth">
             <mat-label>Data de Nascimento</mat-label>
             <input name="birthDate" matInput required     
             [value]="birthDateStart"
@@ -180,7 +180,7 @@
           </mat-form-field>
   
           <mat-form-field
-            class="cbb"
+          class="midWidth"
             appearance="fill"
             mat-raised-button
             matTooltip="Tipo sanguíneo"
@@ -409,14 +409,13 @@
             <mat-icon>clear</mat-icon>
           </button>
   
-          <mat-form-field appearance="standard" class="morLessWidth">
+          <mat-form-field appearance="standard" class="fullWidth">
             <mat-label>Pesquisar Sede</mat-label>
             <input
               matInput
               (keyup)="applyFilterHeadQuarter($event)"
               placeholder="Ex. Sede/Cidade"
-              #input
-            />
+              #input />
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field>
   
@@ -487,7 +486,7 @@
             >
             </mat-paginator>
           </div>
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="fill" class="midWidth">
             <mat-label>Data de Admissão</mat-label>
             <input name="admissionDate"
             matInput required [matDatepicker]="admissionDatePicker" 
@@ -503,7 +502,7 @@
             <mat-datepicker #admissionDatePicker color="primary"></mat-datepicker>
           </mat-form-field>
 
-          <mat-form-field  class="cbb" appearance="fill">
+          <mat-form-field  class="midWidth" appearance="fill">
             <mat-label>Data de Desligamento</mat-label>
             <input name="shutdowDate"
             [value]="shutdowDateStart"

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Infraction } from 'src/app/models/infraction';
 import { Member } from 'src/app/models/member';
@@ -11,11 +11,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DateAdapter } from '@angular/material/core';
 
 @Component({
-  selector: 'app-infraction-create',
-  templateUrl: './infraction-create.component.html',
-  styleUrls: ['./infraction-create.component.css']
+  selector: 'app-infraction-update',
+  templateUrl: './infraction-update.component.html',
+  styleUrls: ['./infraction-update.component.css']
 })
-export class InfractionCreateComponent implements OnInit {  
+export class InfractionUpdateComponent implements OnInit {
 
   ELEMENT_DATA: Member[] = [    ]
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -55,10 +55,11 @@ export class InfractionCreateComponent implements OnInit {
   description: FormControl = new FormControl(null, Validators.minLength(4));  
   memberName: FormControl = new FormControl(null, Validators.required);
   headQuarter: FormControl = new FormControl(null, Validators.required); 
-  infractionDateForm: FormControl = new FormControl(null, Validators.required); 
+  infractionDateForm: FormControl = new FormControl(null); 
+  infractionDateStart: Date;
   escrita: boolean = false;
   suspensao: boolean = false;
-  verbal: boolean = true;
+  verbal: boolean = false;
   desligamento: boolean = false;
   rebaixamento: boolean = false;
   expulsao: boolean = false;
@@ -68,14 +69,28 @@ export class InfractionCreateComponent implements OnInit {
     private infractionService: InfractionService,
     private toastr: ToastrService,
     private router: Router,
-    public _adapter: DateAdapter<Date>
+    public _adapter: DateAdapter<Date>,
+    private activedRoute : ActivatedRoute,
   ) { }
   
   ngOnInit(): void {
     this.findAllMember();
      this._adapter.setLocale('en-GB');
+     this.infraction.id = this.activedRoute.snapshot.paramMap.get('id'); 
+     this.findbyId();  
   }
-  
+  findbyId(): void{
+    this.infractionService.findById(this.infraction.id).subscribe(resposta =>{      
+      this.infraction = resposta;
+      var [dia, mes, ano] = this.infraction.infractionDate.split('/');
+      this.infractionDateStart = new Date(Number(ano), Number(mes) - 1, Number(dia)); 
+      
+      this.selectMember(this.infraction.member.id, this.infraction.member.firstName + 
+        ' - ' + this.infraction.member.lastName, this.infraction.member.headQuarter.description)
+        this.infractionType(true, this.infraction.infractionType); 
+      })
+  }
+
   findAllMember(){
     this.memberService.findAll().subscribe(resposta =>{
       this.ELEMENT_DATA = resposta;      
@@ -86,7 +101,7 @@ export class InfractionCreateComponent implements OnInit {
 
   validaCampos(): boolean{
     return this.description.valid && this.memberName.valid &&
-    this.headQuarter.valid &&  this.headQuarter.valid && this.infractionDateForm.valid && this.infraction.infractionType != null
+    this.headQuarter.valid &&  this.headQuarter.valid  && this.infraction.infractionType != null
   }
 
   applyFilter(event: Event) {
@@ -94,10 +109,10 @@ export class InfractionCreateComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  create(): void{  
+  update(): void{  
     if(this.infraction.member.id != null) {
-        this.infractionService.create(this.infraction).subscribe(() =>{      
-          this.toastr.success('Advertência cadastrada com Sucesso!', 'Cadastro');
+        this.infractionService.update(this.infraction).subscribe(() =>{      
+          this.toastr.success('Advertência atualizada com Sucesso!', 'Update');
           this.router.navigate(['infraction']);
         }, ex => {      
           if(ex.error.errors){
@@ -130,7 +145,7 @@ export class InfractionCreateComponent implements OnInit {
   infractionType(checked: boolean, infractionType: string): void{
     if(infractionType != null && checked){
       switch (infractionType) {        
-        case '0':
+        case 'ESCRITA':
           this.infraction.infractionType = infractionType;
           this.escrita= true;
           this.suspensao = false;
@@ -139,7 +154,7 @@ export class InfractionCreateComponent implements OnInit {
           this.rebaixamento = false;
           this.expulsao = false;
           break;
-        case '1':
+        case 'SUSPENSAO':
           this.infraction.infractionType = infractionType;
           this.escrita= false;
           this.suspensao = true;
@@ -148,7 +163,7 @@ export class InfractionCreateComponent implements OnInit {
           this.rebaixamento = false;
           this.expulsao = false;
           break;
-          case '2':
+          case 'VERBAL':
           this.infraction.infractionType = infractionType;
           this.escrita= false;
           this.suspensao = false;
@@ -157,7 +172,7 @@ export class InfractionCreateComponent implements OnInit {
           this.rebaixamento = false;
           this.expulsao = false;
           break;
-          case '3':
+          case 'DESLIGAMENTO':
           this.infraction.infractionType = infractionType;
           this.escrita= false;
           this.suspensao = false;
@@ -166,7 +181,7 @@ export class InfractionCreateComponent implements OnInit {
           this.rebaixamento = false;
           this.expulsao = false;
           break;
-          case '4':
+          case 'REBAIXAMENTO':
           this.infraction.infractionType = infractionType;
           this.escrita= false;
           this.suspensao = false;
@@ -175,7 +190,7 @@ export class InfractionCreateComponent implements OnInit {
           this.rebaixamento = true;
           this.expulsao = false;
           break;
-          case '5':
+          case 'EXPULSAO':
           this.infraction.infractionType = infractionType;
           this.escrita= false;
           this.suspensao = false;
