@@ -58,6 +58,9 @@ import { InfractionListComponent } from './components/infraction/infraction-list
 import { InfractionCreateComponent } from './components/infraction/infraction-create/infraction-create.component';
 import { InfractionUpdateComponent } from './components/infraction/infraction-update/infraction-update.component';
 import { InfractionDeleteComponent } from './components/infraction/infraction-delete/infraction-delete.component';
+import { RoleDutyListComponent } from './components/roleDuty/roleDuty-list/roleDuty-list.component';
+import { RoleDutyCreateComponent } from './components/roleDuty/roleDuty-create/roleDuty-create.component';
+
 
 
 @NgModule({
@@ -81,7 +84,9 @@ import { InfractionDeleteComponent } from './components/infraction/infraction-de
     InfractionListComponent,
     InfractionCreateComponent,
     InfractionUpdateComponent,
-    InfractionDeleteComponent   
+    InfractionDeleteComponent,    
+    RoleDutyListComponent,
+    RoleDutyCreateComponent  
   ],
   imports: [
     BrowserModule,

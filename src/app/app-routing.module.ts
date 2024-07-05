@@ -16,6 +16,8 @@ import { MemberUpdateComponent } from './components/member/member-update/member-
 import { InfractionListComponent } from './components/infraction/infraction-list/infraction-list.component';
 import { InfractionCreateComponent } from './components/infraction/infraction-create/infraction-create.component';
 import { InfractionUpdateComponent } from './components/infraction/infraction-update/infraction-update.component';
+import { RoleDutyCreateComponent } from './components/roleDuty/role-duty-create/role-duty-create.component';
+import { RoleDutyListComponent } from './components/roleDuty/role-duty-list/role-duty-list.component';
 
 const routes: Routes = [
   {
@@ -35,7 +37,9 @@ const routes: Routes = [
       {path: 'member/update/:id', component: MemberUpdateComponent},
       {path: 'infraction', component: InfractionListComponent},
       {path: 'infraction/create', component: InfractionCreateComponent},
-      {path: 'infraction/update/:id', component: InfractionUpdateComponent}
+      {path: 'infraction/update/:id', component: InfractionUpdateComponent},
+      {path: 'roleDuty', component: RoleDutyListComponent},
+      {path: 'roleDuty/create', component: RoleDutyCreateComponent}
     ]
   }
 ];
