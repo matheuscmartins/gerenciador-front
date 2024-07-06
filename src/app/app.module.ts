@@ -60,6 +60,7 @@ import { InfractionUpdateComponent } from './components/infraction/infraction-up
 import { InfractionDeleteComponent } from './components/infraction/infraction-delete/infraction-delete.component';
 import { RoleDutyListComponent } from './components/roleDuty/roleDuty-list/roleDuty-list.component';
 import { RoleDutyCreateComponent } from './components/roleDuty/roleDuty-create/roleDuty-create.component';
+import { RoleDutyUpdateComponent } from './components/roleDuty/role-duty-update/role-duty-update.component';
 
 
 
@@ -86,7 +87,8 @@ import { RoleDutyCreateComponent } from './components/roleDuty/roleDuty-create/r
     InfractionUpdateComponent,
     InfractionDeleteComponent,    
     RoleDutyListComponent,
-    RoleDutyCreateComponent  
+    RoleDutyCreateComponent,
+    RoleDutyUpdateComponent  
   ],
   imports: [
     BrowserModule,

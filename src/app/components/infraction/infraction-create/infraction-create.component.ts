@@ -50,7 +50,6 @@ export class InfractionCreateComponent implements OnInit {
     }    
   
   displayedColumns: string[] = ['position', 'firstName', 'lastName', 'nickName', 'headQuarter','acoes'];
-  
   dataSource = new MatTableDataSource<Member>(this.ELEMENT_DATA);
   description: FormControl = new FormControl(null, Validators.minLength(4));  
   memberName: FormControl = new FormControl(null, Validators.required);
@@ -110,11 +109,13 @@ export class InfractionCreateComponent implements OnInit {
         });
     }
   }
+
   addInfractionDate(date: Date): void{
     if(date != null){
     this.infraction.infractionDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });    
    }
   }
+  
   selectMember(id: any, memberName : string, headQuarter: string): void{   
     this.infraction.member.id = id;
     this.memberName.setValue (memberName);

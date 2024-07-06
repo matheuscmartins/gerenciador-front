@@ -16,8 +16,9 @@ import { MemberUpdateComponent } from './components/member/member-update/member-
 import { InfractionListComponent } from './components/infraction/infraction-list/infraction-list.component';
 import { InfractionCreateComponent } from './components/infraction/infraction-create/infraction-create.component';
 import { InfractionUpdateComponent } from './components/infraction/infraction-update/infraction-update.component';
-import { RoleDutyCreateComponent } from './components/roleDuty/role-duty-create/role-duty-create.component';
-import { RoleDutyListComponent } from './components/roleDuty/role-duty-list/role-duty-list.component';
+import { RoleDutyCreateComponent } from './components/roleDuty/roleDuty-create/roleDuty-create.component';
+import { RoleDutyListComponent } from './components/roleDuty/roleDuty-list/roleDuty-list.component';
+import { RoleDutyUpdateComponent } from './components/roleDuty/role-duty-update/role-duty-update.component';
 
 const routes: Routes = [
   {
@@ -39,7 +40,8 @@ const routes: Routes = [
       {path: 'infraction/create', component: InfractionCreateComponent},
       {path: 'infraction/update/:id', component: InfractionUpdateComponent},
       {path: 'roleDuty', component: RoleDutyListComponent},
-      {path: 'roleDuty/create', component: RoleDutyCreateComponent}
+      {path: 'roleDuty/create', component: RoleDutyCreateComponent},
+      {path: 'roleDuty/update/:id', component: RoleDutyUpdateComponent}
     ]
   }
 ];

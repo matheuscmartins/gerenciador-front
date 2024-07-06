@@ -1,21 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { RoleDuty } from 'src/app/models/roleDuty';
 import { Member } from 'src/app/models/member';
 import { RoleDutyService } from 'src/app/services/roleDuty.service';
 import { MemberService } from 'src/app/services/member.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DateAdapter } from '@angular/material/core';
-import { RoleDuty } from 'src/app/models/roleDuty';
 
 @Component({
-  selector: 'app-roleDuty-create',
-  templateUrl: './roleDuty-create.component.html',
-  styleUrls: ['./roleDuty-create.component.css']
+  selector: 'app-role-duty-update',
+  templateUrl: './role-duty-update.component.html',
+  styleUrls: ['./role-duty-update.component.css']
 })
-export class RoleDutyCreateComponent implements OnInit {
+export class RoleDutyUpdateComponent implements OnInit {
 
   ELEMENT_DATA: Member[] = [    ]
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -56,18 +56,39 @@ export class RoleDutyCreateComponent implements OnInit {
     headQuarter: FormControl = new FormControl(null, Validators.required); 
     startDateForm: FormControl = new FormControl(null, Validators.required); 
     endDateForm: FormControl = new FormControl(null); 
-    
+    startDateStart: Date;
+    endDateStart: Date;
+
   constructor(
     private memberService: MemberService,
     private roleDutyService: RoleDutyService,
     private toastr: ToastrService,
     private router: Router,
-    public _adapter: DateAdapter<Date>
-    ) { }
+    public _adapter: DateAdapter<Date>,
+    private activedRoute : ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.findAllMember();
-    this._adapter.setLocale('en-GB');
+     this._adapter.setLocale('en-GB');
+     this.roleDuty.id = this.activedRoute.snapshot.paramMap.get('id'); 
+     this.findbyId();  
+  }
+
+  findbyId(): void{
+    this.roleDutyService.findById(this.roleDuty.id).subscribe(resposta =>{      
+      this.roleDuty = resposta;
+      var [dia, mes, ano] = this.roleDuty.startDate.split('/');
+      this.startDateStart = new Date(Number(ano), Number(mes) - 1, Number(dia)); 
+      
+      if(this.roleDuty.endDate != null){
+        [dia, mes, ano] = this.roleDuty.endDate.split('/');
+        this.endDateStart = new Date(Number(ano), Number(mes) - 1, Number(dia));                
+      }
+
+      this.selectMember(this.roleDuty.member.id, this.roleDuty.member.firstName + 
+        ' - ' + this.roleDuty.member.lastName, this.roleDuty.member.headQuarter.description)        
+      })
   }
 
   findAllMember(){
@@ -80,7 +101,7 @@ export class RoleDutyCreateComponent implements OnInit {
 
   validaCampos(): boolean{
     return this.roleName.valid && this.memberName.valid &&
-    this.headQuarter.valid &&  this.headQuarter.valid && this.startDateForm.valid 
+    this.headQuarter.valid ;
   }
 
   applyFilter(event: Event) {
@@ -88,10 +109,10 @@ export class RoleDutyCreateComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  create(): void{  
+  update(): void{  
     if(this.roleDuty.member.id != null) {
-        this.roleDutyService.create(this.roleDuty).subscribe(() =>{      
-          this.toastr.success('Cargo cadastrado com Sucesso!', 'Cadastro');
+        this.roleDutyService.update(this.roleDuty).subscribe(() =>{      
+          this.toastr.success('Cargo atualizado com Sucesso!', 'Update');
           this.router.navigate(['roleDuty']);
         }, ex => {      
           if(ex.error.errors){

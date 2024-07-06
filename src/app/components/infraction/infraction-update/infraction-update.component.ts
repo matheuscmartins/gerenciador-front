@@ -70,7 +70,7 @@ export class InfractionUpdateComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     public _adapter: DateAdapter<Date>,
-    private activedRoute : ActivatedRoute,
+    private activedRoute : ActivatedRoute
   ) { }
   
   ngOnInit(): void {
@@ -101,7 +101,7 @@ export class InfractionUpdateComponent implements OnInit {
 
   validaCampos(): boolean{
     return this.description.valid && this.memberName.valid &&
-    this.headQuarter.valid &&  this.headQuarter.valid  && this.infraction.infractionType != null
+    this.headQuarter.valid  && this.infraction.infractionType != null;
   }
 
   applyFilter(event: Event) {
@@ -125,11 +125,13 @@ export class InfractionUpdateComponent implements OnInit {
         });
     }
   }
+
   addInfractionDate(date: Date): void{
     if(date != null){
     this.infraction.infractionDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });    
    }
   }
+  
   selectMember(id: any, memberName : string, headQuarter: string): void{   
     this.infraction.member.id = id;
     this.memberName.setValue (memberName);

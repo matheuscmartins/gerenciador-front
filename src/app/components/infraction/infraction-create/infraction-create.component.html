@@ -18,7 +18,7 @@
             Expulsão</mat-checkbox>
          </section>
 
-         <mat-form-field appearance="fill">
+         <mat-form-field appearance="fill" class="midWidth">
           <mat-label>Data da Advertência</mat-label>
           <input matInput required [matDatepicker]="infractionDatePicker" 
            matInput required 
@@ -64,8 +64,8 @@
           <button mat-mini-fab  class="clearButton mat-elevation-z8" 
                     color="warn" aria-label="limpar"
                     mat-raised-button
-                    matTooltip="Limpar Endereço"
-                    aria-label="Limpar Endereço"
+                    matTooltip="Limpar Associado"
+                    aria-label="Limpar Associado"
                     (click)="clearMember()">                    
                     <mat-icon>clear</mat-icon>
           </button>
