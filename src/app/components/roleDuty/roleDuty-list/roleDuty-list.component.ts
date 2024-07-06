@@ -18,7 +18,7 @@ export class RoleDutyListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private service: RoleDutyService,
+    private service: RoleDutyService
   ) { }
 
   ngOnInit(): void {

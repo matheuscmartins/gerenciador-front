@@ -19,6 +19,7 @@ import { InfractionUpdateComponent } from './components/infraction/infraction-up
 import { RoleDutyCreateComponent } from './components/roleDuty/roleDuty-create/roleDuty-create.component';
 import { RoleDutyListComponent } from './components/roleDuty/roleDuty-list/roleDuty-list.component';
 import { RoleDutyUpdateComponent } from './components/roleDuty/role-duty-update/role-duty-update.component';
+import { MemberPatchListComponent } from './components/memberPatch/memberPatch-list/memberPatch-list.component';
 
 const routes: Routes = [
   {
@@ -41,7 +42,8 @@ const routes: Routes = [
       {path: 'infraction/update/:id', component: InfractionUpdateComponent},
       {path: 'roleDuty', component: RoleDutyListComponent},
       {path: 'roleDuty/create', component: RoleDutyCreateComponent},
-      {path: 'roleDuty/update/:id', component: RoleDutyUpdateComponent}
+      {path: 'roleDuty/update/:id', component: RoleDutyUpdateComponent},
+      {path: 'memberPatch', component: MemberPatchListComponent}
     ]
   }
 ];
