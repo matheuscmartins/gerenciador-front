@@ -48,12 +48,16 @@
                 class="material-icons edit">edit</i>
             </a>
 
-            <a >
-              <!-- (click)="openDialog(element.id)"  HAbilitar o Delete na LINHA 49-->
+            <!-- 
+            <a routerLink="">
               <i class="material-icons delete" 
-              disable="true"
-              >delete</i>
-            </a>
+                  mat-raised-button
+                  (click)="openDialog(element.id)"
+                  matTooltip="Deletar Este Endereço"
+                  aria-label="Deletar Endereço" >
+                delete
+              </i>
+            </a> -->
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

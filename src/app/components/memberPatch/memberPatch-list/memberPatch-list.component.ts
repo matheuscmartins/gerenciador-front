@@ -50,7 +50,7 @@ export class MemberPatchListComponent implements OnInit {
           cancel: 'Cancelar'
         }
       }      
-    }) ;  
+    });  
     this.findAll();
   }
 

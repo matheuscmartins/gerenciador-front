@@ -1,28 +1,29 @@
 <div class="container mat-elevation-z8">
     <form class="form">
-        <h1 class="fullWidth">Cadastrar Advertência</h1>
+        <h1 class="fullWidth">Cadastrar Novo Cargo</h1>
         <img class="fullWidth" src="assets/img/create/address-create.svg" alt="Portal BDL">        
 
         <mat-form-field class="fullWidth" appearance="legacy">
             <mat-label>Nome do Cargo</mat-label>
             <input 
-            [(ngModel)]="roleDuty.roleName"
-            name="roleName"
-            [formControl]="roleName"
-            required
-             matInput placeholder="Nome do Cargo"
-             maxlength="99">
+                [(ngModel)]="roleDuty.roleName"
+                name="roleName"
+                [formControl]="roleName"
+                required
+                matInput placeholder="Nome do Cargo"
+                maxlength="99">
             <mat-icon matSuffix>description</mat-icon>
             <mat-hint>100</mat-hint>
           </mat-form-field>  
 
          <mat-form-field appearance="fill" class="midWidth">
           <mat-label>Data de Inicio</mat-label>
-          <input [matDatepicker]="startDatePicker" 
-           matInput required 
-           [formControl]="startDateForm"  
-          readonly    
-          (dateChange)="addStartDate($event.value)"/>
+          <input 
+              [matDatepicker]="startDatePicker" 
+              matInput required 
+              [formControl]="startDateForm"  
+              readonly    
+              (dateChange)="addStartDate($event.value)"/>
           <mat-datepicker-toggle
             matSuffix
             [for]="startDatePicker"></mat-datepicker-toggle>
@@ -31,11 +32,12 @@
 
         <mat-form-field appearance="fill" class="midWidth">
             <mat-label>Data de Inativação</mat-label>
-            <input [matDatepicker]="endDatePicker" 
-             matInput 
-             [formControl]="endDateForm"  
-            readonly    
-            (dateChange)="addEndDate($event.value)"/>
+            <input 
+                [matDatepicker]="endDatePicker" 
+                matInput 
+                [formControl]="endDateForm"  
+                readonly    
+                (dateChange)="addEndDate($event.value)"/>
             <mat-datepicker-toggle
               matSuffix
               [for]="endDatePicker"></mat-datepicker-toggle>
@@ -43,32 +45,31 @@
           </mat-form-field>
 
           <button
-          mat-mini-fab
-          class="clearButton mat-elevation-z8"
-          color="warn"
-          aria-label="limpar"
-          mat-raised-button
-          matTooltip="Limpar Data de Inativação"
-          aria-label="Limpar Data de Inativação"
-          (click)="clearEndDate()">
+            mat-mini-fab
+            class="clearButton mat-elevation-z8"
+            color="warn"
+            aria-label="limpar"
+            mat-raised-button
+            matTooltip="Limpar Data de Inativação"
+            aria-label="Limpar Data de Inativação"
+            (click)="clearEndDate()">
           <mat-icon>clear</mat-icon>
         </button>        
 
           <mat-form-field appearance="fill" class="midWidth">
             <mat-label>Associado selecionado</mat-label>
             <input matInput placeholder="Associado não selecionado" 
-            name="memberName"
-            [formControl]="memberName"
-            readonly />
+              name="memberName"
+              [formControl]="memberName"
+              readonly/>
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="midWidth">
             <mat-label>Sede selecionada</mat-label>
             <input matInput placeholder="Sede não selecionada" 
-            name="headQuarter"
-            [formControl]="headQuarter"
-            readonly 
-            />
+              name="headQuarter"
+              [formControl]="headQuarter"
+              readonly/>
           </mat-form-field>            
           
           <button mat-mini-fab  class="clearButton mat-elevation-z8" 
@@ -119,13 +120,13 @@
                 <td  mat-cell *matCellDef="let element"> 
                   <div >
                     <button  mat-mini-fab 
-                    class="mat-elevation-z8" placeholder="Selecionar"
-                    color="success" aria-label="Selecionar"
-                    (click)="selectMember(element.id, element.firstName +' - ' + element.lastName
-                    , element.headQuarter.description)" >
+                      class="mat-elevation-z8" placeholder="Selecionar"
+                      color="success" aria-label="Selecionar"
+                      (click)="selectMember(element.id, element.firstName +' - ' + element.lastName
+                      , element.headQuarter.description)">
                       <mat-icon mat-raised-button
-                      matTooltip="Selecionar este Associado"
-                      aria-label="Selecionar Associado" >done_outline</mat-icon>
+                        matTooltip="Selecionar este Associado"
+                        aria-label="Selecionar Associado" >done_outline</mat-icon>
                     </button>
                   </div>                   
                   
@@ -142,15 +143,17 @@
             </mat-paginator>
           </div>  
           <button [disabled]="!validaCampos()"
-          class="button mat-elevation-z10" mat-raised-button color="success"
-          mat-raised-button
-            matTooltip="Salvar Cargo"
-            aria-label="Salvar Cargo"
-           (click)="create()">Cadastrar</button>
+              class="button mat-elevation-z10" mat-raised-button color="success"
+              mat-raised-button
+              matTooltip="Salvar Cargo"
+              aria-label="Salvar Cargo"
+              (click)="create()">Cadastrar
+          </button>
           <button routerLink="../" class="button mat-elevation-z10" 
-          mat-flat-button color="warn"
-          mat-raised-button
-            matTooltip="Cancelar"
-            aria-label="Cancelar" >Cancelar</button>
+              mat-flat-button color="warn"
+              mat-raised-button
+              matTooltip="Cancelar"
+              aria-label="Cancelar" >Cancelar
+          </button>
     </form>
 </div>

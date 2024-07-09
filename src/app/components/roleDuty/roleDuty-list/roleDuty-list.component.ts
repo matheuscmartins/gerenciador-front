@@ -11,8 +11,7 @@ import { RoleDutyService } from 'src/app/services/roleDuty.service';
 })
 export class RoleDutyListComponent implements OnInit {
 
-  ELEMENT_DATA: RoleDuty[] = [    
-  ]
+  ELEMENT_DATA: RoleDuty[] = [ ]
   displayedColumns: string[] = ['position', 'roleName', 'memberName', 'headQuarter','startDate', 'endDate', 'acoes'];
   dataSource = new MatTableDataSource<RoleDuty>(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
