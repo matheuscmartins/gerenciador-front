@@ -63,6 +63,7 @@ import { RoleDutyCreateComponent } from './components/roleDuty/roleDuty-create/r
 import { RoleDutyUpdateComponent } from './components/roleDuty/role-duty-update/role-duty-update.component';
 import { MemberPatchListComponent } from './components/memberPatch/memberPatch-list/memberPatch-list.component';
 import { MemberPatchCreateComponent } from './components/memberPatch/memberPatch-create/memberPatch-create.component';
+import { MemberPatchUpdateComponent } from './components/memberPatch/memberPatch-update/memberPatch-update.component';
 
 
 
@@ -92,7 +93,8 @@ import { MemberPatchCreateComponent } from './components/memberPatch/memberPatch
     RoleDutyCreateComponent,
     RoleDutyUpdateComponent,
     MemberPatchListComponent,
-    MemberPatchCreateComponent  
+    MemberPatchCreateComponent,
+    MemberPatchUpdateComponent  
   ],
   imports: [
     BrowserModule,

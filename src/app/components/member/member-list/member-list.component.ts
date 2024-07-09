@@ -11,11 +11,9 @@ import { MemberService } from 'src/app/services/member.service';
 })
 export class MemberListComponent implements OnInit {
 
-  ELEMENT_DATA: Member[] = [    
-  ]
+  ELEMENT_DATA: Member[] = [ ]
   displayedColumns: string[] = ['position', 'firstName', 'lastName', 'nickName', 'headQuarter', 'acoes'];
   dataSource = new MatTableDataSource<Member>(this.ELEMENT_DATA);
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(    
@@ -34,6 +32,7 @@ export class MemberListComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     })
   }
+  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HeadQuarterService } from 'src/app/services/headQuarter.service';
 
-
 @Component({
   selector: 'app-headQuarter-delete',
   templateUrl: './headQuarter-delete.component.html',
@@ -31,8 +30,7 @@ export class HeadQuarterDeleteComponent  {
       }
   }
 
-  onConfirmClick(): void {
-     
+  onConfirmClick(): void {     
       this.headQuarterService.delete(this.data.id).subscribe(() =>{      
         this.toastr.success('Sede Removida com Sucesso!', 'Delete');
         this.dialogRef.close(true);
@@ -48,7 +46,7 @@ export class HeadQuarterDeleteComponent  {
           this.router.navigate(['headQuarter']);
         }
       });
-  } 
+    } 
 
   onCancelClick(): void{
     this.dialogRef.close(true);

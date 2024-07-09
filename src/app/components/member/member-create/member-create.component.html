@@ -7,10 +7,12 @@
       alt="Portal BDL"    />
 
     <div class="example-action-buttons">
-      <button class="mat-elevation-z8" mat-button (click)="accordion.openAll()"
-      >Expandir Todos</button>
-      <button class="mat-elevation-z8" mat-button (click)="accordion.closeAll()"
-      >Minimizar Todos</button>
+      <button class="mat-elevation-z8" mat-button (click)="accordion.openAll()">
+          Expandir Todos
+      </button>
+      <button class="mat-elevation-z8" mat-button (click)="accordion.closeAll()">
+        Minimizar Todos
+      </button>
     </div>
     <br />
 
@@ -32,8 +34,7 @@
             required
             matInput
             placeholder="Primeiro Nome"
-            maxlength="99"
-          />
+            maxlength="99"/>
           <mat-icon matSuffix>description</mat-icon>
           <mat-hint>100</mat-hint>
         </mat-form-field>
@@ -47,8 +48,7 @@
             required
             matInput
             placeholder="Sobre Nome"
-            maxlength="99"
-          />
+            maxlength="99"/>
           <mat-icon matSuffix>description</mat-icon>
           <mat-hint>100</mat-hint>
         </mat-form-field>
@@ -61,8 +61,7 @@
             [formControl]="nickName"            
             matInput
             placeholder="Apelido"
-            maxlength="20"
-          />
+            maxlength="20"/>
           <mat-icon matSuffix>description</mat-icon>
           <mat-hint>20</mat-hint>
         </mat-form-field>
@@ -131,8 +130,7 @@
             mask="(00)0000-0000"
             matInput
             placeholder="(00)0000-0000"
-            maxlength="13"
-          />
+            maxlength="13"/>
           <mat-icon matSuffix>call</mat-icon>
         </mat-form-field>
 
@@ -166,7 +164,7 @@
           <mat-label>Data de Nascimento</mat-label>
           <input name="birthDatePicker" matInput required           
           readonly   
-          [formControl]="date"       
+          [formControl]="birthDateForm"       
           [matDatepicker]="birthDatePicker"           
           (dateChange)="addBirthDate( $event.target.value)"/>
           <mat-datepicker-toggle
@@ -176,7 +174,7 @@
         </mat-form-field>
 
         <mat-form-field
-        class="midWidth"
+         class="midWidth"
           appearance="fill"
           mat-raised-button
           matTooltip="Tipo sanguíneo"
@@ -195,7 +193,7 @@
           </mat-select>
         </mat-form-field>
       </mat-expansion-panel>
-      <br />
+      <br/>
 
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -351,7 +349,6 @@
           </mat-paginator>
         </div>
       </mat-expansion-panel>
-
       <br />
 
       <mat-expansion-panel>
@@ -470,11 +467,11 @@
 
         <mat-form-field appearance="fill" class="midWidth">
           <mat-label>Data de Admissão</mat-label>
-          <input matInput required [matDatepicker]="admissionDatePicker" 
-           matInput required 
+          <input matInput required 
+           [matDatepicker]="admissionDatePicker"            
            [formControl]="admissionDateForm"  
-          readonly    
-          (dateChange)="addAdmissionDate( $event.value)" />
+           readonly    
+           (dateChange)="addAdmissionDate( $event.value)" />
           <mat-datepicker-toggle
             matSuffix
             [for]="admissionDatePicker"></mat-datepicker-toggle>
@@ -484,10 +481,10 @@
         <mat-form-field class="midWidth" appearance="fill">
           <mat-label>Data de Desligamento</mat-label>
           <input matInput [matDatepicker]="shutdowDatePicker" 
-          name="shutdowDatePicker" matInput  
-          [formControl]="shutdowDateForm"  
-          readonly     
-          (dateChange)="addShutdowDate($event.value)" />
+            name="shutdowDatePicker" matInput  
+            [formControl]="shutdowDateForm"  
+            readonly     
+            (dateChange)="addShutdowDate($event.value)"/>
           <mat-datepicker-toggle
             matSuffix
             [for]="shutdowDatePicker">

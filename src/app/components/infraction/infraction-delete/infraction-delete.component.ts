@@ -27,13 +27,12 @@ export class InfractionDeleteComponent {
       this.message = data.message || this.message;
       if (data.buttonText) {
         this.confirmButtonText = data.buttonText.ok || this.confirmButtonText;
-       this.cancelButtonText = data.buttonText.cancel || this.cancelButtonText;
+        this.cancelButtonText = data.buttonText.cancel || this.cancelButtonText;
         }
       }
     }
 
-      onConfirmClick(): void {
-     
+      onConfirmClick(): void {     
         this.infractionService.delete(this.data.id).subscribe(() =>{      
           this.toastr.success('Advertência Removida com Sucesso!', 'Delete');
           this.dialogRef.close(true);

@@ -15,7 +15,6 @@ import { DateAdapter } from '@angular/material/core';
 import { BloodTypeService } from 'src/app/services/bloodType.service';
 import { BloodType } from 'src/app/models/bloodType';
 
-
 @Component({
   selector: 'app-member-update',
   templateUrl: './member-update.component.html',
@@ -147,10 +146,10 @@ export class MemberUpdateComponent implements OnInit {
       this.admissionDateStart = new Date(Number(ano), Number(mes) - 1, Number(dia)); 
 
       if(this.member.shutdowDate != null){
-      [dia, mes, ano] = this.member.shutdowDate.split('/');
-      this.shutdowDateStart = new Date(Number(ano), Number(mes) - 1, Number(dia));                
-    }
-    this.bringProfiles(); 
+        [dia, mes, ano] = this.member.shutdowDate.split('/');
+        this.shutdowDateStart = new Date(Number(ano), Number(mes) - 1, Number(dia));                
+      }
+      this.bringProfiles(); 
     })
   }
 
@@ -186,6 +185,7 @@ export class MemberUpdateComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceAddress.filter = filterValue.trim().toLowerCase();
   }
+
   applyFilterHeadQuarter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceHeadQuarter.filter = filterValue.trim().toLowerCase();
@@ -206,8 +206,8 @@ export class MemberUpdateComponent implements OnInit {
             this.toastr.error(ex.error.message);
           }
         });         
-    }  
-  }
+      }  
+  } 
 
   selectAddress(id: any, logradouroNumber : string, cityUf: string, postcode: string): void{   
     this.member.address.id = id;
@@ -222,11 +222,13 @@ export class MemberUpdateComponent implements OnInit {
     this.cityName.setValue("");
     this.addressPostCode.setValue("");
   }
+
   selectHeadQuarter(id: any, description: string, city: string): void{   
     this.member.headQuarter.id = id;
     this.headQuarterDescription.setValue(description);    
     this.headQuarterCity.setValue(city);   
   }
+
   clearHeadQuarter(): void{
     this.member.headQuarter.id = null;
     this.headQuarterDescription.setValue("");  
@@ -234,19 +236,22 @@ export class MemberUpdateComponent implements OnInit {
     this.admissionDateForm.setValue(""); 
     this.shutdowDateForm.setValue("");
   }
+
   addBirthDate(date: Date): void{
     if(date != null){
-    this.member.birthDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });       
+      this.member.birthDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });       
    }
   }
+
   addAdmissionDate(date: Date): void{
     if(date != null){
-    this.member.admissionDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });    
+      this.member.admissionDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });    
    }
   }
+
   addShutdowDate(date: Date): void{
     if(date != null){
-    this.member.shutdowDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });    
+      this.member.shutdowDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });    
    }
   }
 
@@ -258,6 +263,7 @@ export class MemberUpdateComponent implements OnInit {
   addBloodType(bloodTypeId: any): void{   
     this.member.bloodType.id = bloodTypeId;    
   }
+
   addPerfil(profile: any): void {  
     if(this.member.profile.includes(profile)) {
       this.member.profile.splice(this.member.profile.indexOf(profile), 1);
@@ -297,7 +303,8 @@ export class MemberUpdateComponent implements OnInit {
         DESLIGADO: true        
       });
     }    
-   }   
+   }
+      
    parseProfiles(): void{
     if(this.member.profile.find(x=>x == "ADMIN")){
       this.member.profile[this.member.profile.indexOf("ADMIN")] = "0";

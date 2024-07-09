@@ -6,19 +6,18 @@ import { AddressService } from 'src/app/services/address.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddressDeleteComponent } from '../address-delete/address-delete.component';
 
-
 @Component({
   selector: 'app-address-list',
   templateUrl: './address-list.component.html',
   styleUrls: ['./address-list.component.css']  
 })
+
 export class AdressListComponent implements OnInit {
 
   ELEMENT_DATA: Address[] = [    
   ]
   displayedColumns: string[] = ['position', 'name', 'weight', 'city', 'symbol', 'acoes'];
   dataSource = new MatTableDataSource<Address>(this.ELEMENT_DATA);
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(    
@@ -37,6 +36,7 @@ export class AdressListComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     })
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

@@ -70,7 +70,7 @@ export class MemberCreateComponent implements OnInit {
   phone: FormControl = new FormControl(null, Validators.minLength(4));  
   familiarPhone1: FormControl = new FormControl(null, Validators.minLength(4));  
   familiarPhone2: FormControl = new FormControl(null, Validators.minLength(4)); 
-  date:  FormControl = new FormControl(null);
+  birthDateForm:  FormControl = new FormControl(null, Validators.required);
   bloodTypeMatSelected: FormControl = new FormControl(null); 
   bloodTypeList: BloodType [];
   
@@ -86,7 +86,7 @@ export class MemberCreateComponent implements OnInit {
   displayedColumnsHeadQuarter: string[] = ['position', 'description', 'city', 'acoes'];
   dataSourceHeadQuarter = new MatTableDataSource<HeadQuarter>(this.ELEMENT_DATA_HeadQuarter);  
   headQuarterCity: FormControl = new FormControl(null, Validators.required);
-  admissionDateForm: FormControl = new FormControl(null); 
+  admissionDateForm: FormControl = new FormControl(null,Validators.required); 
   shutdowDateForm: FormControl = new FormControl(null);
   
   //acess fields
@@ -143,6 +143,7 @@ export class MemberCreateComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceAddress.filter = filterValue.trim().toLowerCase();
   }
+  
   applyFilterHeadQuarter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceHeadQuarter.filter = filterValue.trim().toLowerCase();

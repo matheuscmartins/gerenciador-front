@@ -14,8 +14,7 @@ import { InfractionDeleteComponent } from '../infraction-delete/infraction-delet
 })
 export class InfractionListComponent implements OnInit {
 
-  ELEMENT_DATA: Infraction[] = [    
-  ]
+  ELEMENT_DATA: Infraction[] = [ ]
   displayedColumns: string[] = ['position', 'name', 'headQuarter','infractionType', 'infractionDate', 'acoes'];
   dataSource = new MatTableDataSource<Infraction>(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -36,6 +35,7 @@ export class InfractionListComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     })
   }
+  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

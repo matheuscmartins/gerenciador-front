@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, NgModel, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Address } from 'src/app/models/address';
@@ -16,6 +16,7 @@ import { UfService } from 'src/app/services/uf.service';
   templateUrl: './address-create.component.html',
   styleUrls: ['./address-create.component.css']
 })
+
 export class AddressCreateComponent implements OnInit {  
 
   address: Address = {
@@ -65,6 +66,7 @@ export class AddressCreateComponent implements OnInit {
       }
     });
   }
+
   addCity(cityId: any): void{   
     this.address.city.id = cityId;    
   }
@@ -73,23 +75,25 @@ export class AddressCreateComponent implements OnInit {
     return this.logradouro.valid && this.number.valid 
     && this.postCode.valid && this.cityMatSelected.valid
   }
+
   countryFindAll(){
     this.countryService.findAll().subscribe(resposta =>{       
      this.countryList = resposta 
     })
   }
+
   ufFindByCountryId(countryId: any ){
     if(countryId!= null){
     this.ufService.findByContryId(countryId).subscribe(resposta =>{     
      this.ufList = resposta      
-    })
-  }
+      })
+    }
   }
   cityFindByUfId(ufId: any ){
     if(ufId!= null){
     this.cityService.findByUfId(ufId).subscribe(resposta =>{     
      this.cityList = resposta 
-    })
-  }
+     })
+    }
   }
 }

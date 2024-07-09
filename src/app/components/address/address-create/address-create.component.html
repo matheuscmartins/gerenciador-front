@@ -1,6 +1,6 @@
 <div class="container mat-elevation-z8">
     <form class="form">
-        <h1 class="fullWidth">Cadastrar Endereço</h1>
+        <h1 class="fullWidth">Cadastrar Novo Endereço</h1>
         <img class="fullWidth" src="assets/img/create/address-create.svg" alt="Portal BDL">
 
         <mat-form-field class="fullWidth" appearance="legacy">
@@ -10,8 +10,8 @@
             name="logradouro"
             [formControl]="logradouro"
             required
-             matInput placeholder="Rua/Av/Travessa"
-             maxlength="99">
+            matInput placeholder="Rua/Av/Travessa"
+            maxlength="99">
             <mat-icon matSuffix>signpost</mat-icon>
             <mat-hint>100</mat-hint>
           </mat-form-field>
@@ -23,8 +23,8 @@
             name="number"
             [formControl]="number"
             required
-              matInput placeholder="Numero"
-              maxlength="10">
+            matInput placeholder="Numero"
+            maxlength="10">
             <mat-icon matSuffix>pin</mat-icon>
             <mat-hint>10</mat-hint>
           </mat-form-field>
@@ -37,7 +37,7 @@
             [formControl]="postCode"
             required
             mask="00000-000"
-              matInput placeholder="00000-000">
+            matInput placeholder="00000-000">
             <mat-icon matSuffix>local_post_office</mat-icon>
             <mat-hint>7</mat-hint>
           </mat-form-field>
@@ -48,8 +48,8 @@
             [(ngModel)]="address.addressComplement"
             name="addressComplement"
             [formControl]="addressComplement"            
-              matInput placeholder="Ex. Bloco1/Ap1"
-              maxlength="20">
+            matInput placeholder="Ex. Bloco1/Ap1"
+            maxlength="20">
             <mat-icon matSuffix>description</mat-icon>
             <mat-hint>20</mat-hint>
           </mat-form-field>
@@ -64,9 +64,9 @@
                 name="countryMatSelected"
                 [formControl]="countryMatSelected"
                 (selectionChange)="ufFindByCountryId(countryMatSelected.value)">                
-              <mat-option *ngFor="let countryElement of countryList" 
-              [value]="countryElement.id" > {{countryElement.name}}
-              </mat-option>
+                 <mat-option *ngFor="let countryElement of countryList" 
+                  [value]="countryElement.id" > {{countryElement.name}}
+                </mat-option>
               </mat-select>    
           </mat-form-field>
 
@@ -94,11 +94,11 @@
             <mat-select placeholder="Selecione a Cidade" 
             name="cityMatSelected"
             [formControl]="cityMatSelected" 
-             (selectionChange)="addCity(cityMatSelected.value)" 
+            (selectionChange)="addCity(cityMatSelected.value)" 
             required>   
-            <mat-option *ngFor="let cityElement of cityList" 
-            [value]="cityElement.id" > {{cityElement.name}}
-            </mat-option>           
+              <mat-option *ngFor="let cityElement of cityList" 
+               [value]="cityElement.id" > {{cityElement.name}}
+              </mat-option>           
             </mat-select>            
           </mat-form-field>
         
@@ -106,12 +106,15 @@
           class="button mat-elevation-z10" mat-raised-button color="success"
            (click)="create()"
            mat-raised-button
-            matTooltip="Salvar Endereço"
-            aria-label="Salvar Endereço" >Cadastrar</button>
+           matTooltip="Salvar Endereço"
+           aria-label="Salvar Endereço">
+           Cadastrar
+          </button>
           <button routerLink="../" class="button mat-elevation-z10" 
-          mat-flat-button color="warn"
-          mat-raised-button
+            mat-flat-button color="warn"
+            mat-raised-button
             matTooltip="Cancelar"
-            aria-label="Cancelar" >Cancelar</button>
+            aria-label="Cancelar" >Cancelar
+          </button>
     </form>
 </div>

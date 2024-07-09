@@ -17,7 +17,7 @@ import { DateAdapter } from '@angular/material/core';
 })
 export class InfractionUpdateComponent implements OnInit {
 
-  ELEMENT_DATA: Member[] = [    ]
+  ELEMENT_DATA: Member[] = [ ]
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   infraction: Infraction = {
@@ -49,8 +49,7 @@ export class InfractionUpdateComponent implements OnInit {
     }
     }    
   
-  displayedColumns: string[] = ['position', 'firstName', 'lastName', 'nickName', 'headQuarter','acoes'];
-  
+  displayedColumns: string[] = ['position', 'firstName', 'lastName', 'nickName', 'headQuarter','acoes'];  
   dataSource = new MatTableDataSource<Member>(this.ELEMENT_DATA);
   description: FormControl = new FormControl(null, Validators.minLength(4));  
   memberName: FormControl = new FormControl(null, Validators.required);
@@ -79,6 +78,7 @@ export class InfractionUpdateComponent implements OnInit {
      this.infraction.id = this.activedRoute.snapshot.paramMap.get('id'); 
      this.findbyId();  
   }
+
   findbyId(): void{
     this.infractionService.findById(this.infraction.id).subscribe(resposta =>{      
       this.infraction = resposta;
@@ -123,7 +123,7 @@ export class InfractionUpdateComponent implements OnInit {
             this.toastr.error(ex.error.message);
           }
         });
-    }
+      }
   }
 
   addInfractionDate(date: Date): void{

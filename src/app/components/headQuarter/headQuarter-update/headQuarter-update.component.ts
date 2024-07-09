@@ -50,6 +50,7 @@ export class HeadQuarterUpdateComponent implements OnInit {
     this.findbyId();  
   
   }
+  
   findbyId(): void{
     this.headQuarterService.findById(this.headQuarter.id).subscribe(resposta =>{      
       this.headQuarter = resposta;  

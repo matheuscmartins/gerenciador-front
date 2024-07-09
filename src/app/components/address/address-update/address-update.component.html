@@ -64,7 +64,7 @@
                 [formControl]="countryMatSelected"
                 (selectionChange)="ufFindByCountryId(countryMatSelected.value)">                
                     <mat-option *ngFor="let countryElement of countryList" 
-                    [value]="countryElement.id" > {{countryElement.name}}
+                    [value]="countryElement.id"> {{countryElement.name}}
                     </mat-option>
               </mat-select>    
           </mat-form-field>

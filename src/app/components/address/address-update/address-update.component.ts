@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, NgModel, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Address } from 'src/app/models/address';
@@ -53,10 +53,11 @@ export class AddressUpdateComponent implements OnInit {
     this.address.id = this.activedRoute.snapshot.paramMap.get('id');   
     this.findbyId();      
   }
+
   findbyId(): void{
     this.addressService.findById(this.address.id).subscribe(resposta =>{      
       this.address = resposta;       
-      this.listMatSelecteds();       
+      this.listMatSelected();       
     }) 
   }
 
@@ -74,6 +75,7 @@ export class AddressUpdateComponent implements OnInit {
       }
     });
   }
+
   addCity(cityId: any): void{   
     this.address.city.id = cityId;    
   }
@@ -82,26 +84,30 @@ export class AddressUpdateComponent implements OnInit {
     return this.logradouro.valid && this.number.valid 
     && this.postCode.valid && this.cityMatSelected.valid
   }
+
   countryFindAll(){
     this.countryService.findAll().subscribe(resposta =>{       
      this.countryList = resposta 
     })
   }
+
   ufFindByCountryId(countryId: any ){
     if(countryId!= null){
     this.ufService.findByContryId(countryId).subscribe(resposta =>{     
      this.ufList = resposta      
-    })
+      })
+    }
   }
-  }
+
   cityFindByUfId(ufId: any ){
     if(ufId!= null){
     this.cityService.findByUfId(ufId).subscribe(resposta =>{     
      this.cityList = resposta 
-    })
+      })
+    }
   }
-  }
-  listMatSelecteds(){    
+
+  listMatSelected(){    
     this.countryMatSelected.setValue(this.address.city.uf.country.id);
       this.ufFindByCountryId(this.address.city.uf.country.id);
       this.ufMatSelected.setValue(this.address.city.uf.id);

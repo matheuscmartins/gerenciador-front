@@ -17,7 +17,6 @@ export class HeadQuarterListComponent implements OnInit {
   ]
   displayedColumns: string[] = ['position', 'name', 'city', 'acoes'];
   dataSource = new MatTableDataSource<HeadQuarter>(this.ELEMENT_DATA);
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(    
@@ -36,6 +35,7 @@ export class HeadQuarterListComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     })
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -50,8 +50,7 @@ export class HeadQuarterListComponent implements OnInit {
           ok: 'Deletar',
           cancel: 'Cancelar'
         }
-      }
-      
+      }      
     });
     this.findAll();     
   } 

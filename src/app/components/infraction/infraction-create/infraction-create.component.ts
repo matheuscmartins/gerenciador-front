@@ -85,7 +85,8 @@ export class InfractionCreateComponent implements OnInit {
 
   validaCampos(): boolean{
     return this.description.valid && this.memberName.valid &&
-    this.headQuarter.valid &&  this.headQuarter.valid && this.infractionDateForm.valid && this.infraction.infractionType != null
+    this.headQuarter.valid &&  this.headQuarter.valid && this.infractionDateForm.valid 
+    && this.infraction.infractionType != null
   }
 
   applyFilter(event: Event) {

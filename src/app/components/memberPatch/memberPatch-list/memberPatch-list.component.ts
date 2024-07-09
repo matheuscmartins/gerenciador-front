@@ -11,8 +11,7 @@ import { MemberPatchService } from 'src/app/services/memberPatch.service';
 })
 export class MemberPatchListComponent implements OnInit {
 
-  ELEMENT_DATA: MemberPatch[] = [    
-  ]
+  ELEMENT_DATA: MemberPatch[] = [ ]
   displayedColumns: string[] = ['position', 'name', 'memberName', 'headQuarter','admissionDate', 'acoes'];
   dataSource = new MatTableDataSource<MemberPatch>(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
