@@ -20,8 +20,7 @@ import { BloodType } from 'src/app/models/bloodType';
   templateUrl: './member-create.component.html',
   styleUrls: ['./member-create.component.css']
 })
-export class MemberCreateComponent implements OnInit {
-   
+export class MemberCreateComponent implements OnInit {   
  
   ELEMENT_DATA_Adress: Address[] = [    ]
   @ViewChild(MatPaginator) paginatorAdress: MatPaginator;
@@ -102,12 +101,12 @@ export class MemberCreateComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     public _adapter: DateAdapter<Date>
-  ) {   }
+  ) { }
   
   ngOnInit(): void {
     this.findAllAddress();
     this.findAllHeadQuarter();
-   this. findAllBloodType();
+    this.findAllBloodType();
     this._adapter.setLocale('en-GB');
   }
   
@@ -126,6 +125,7 @@ export class MemberCreateComponent implements OnInit {
       this.dataSourceHeadQuarter.paginator = this.paginatorHeadQuarter;
     })
   }
+
   findAllBloodType(){
     this.bloodTypeService.findAll().subscribe(resposta =>{
       this.bloodTypeList = resposta;
@@ -171,11 +171,13 @@ export class MemberCreateComponent implements OnInit {
     this.cityName.setValue("");
     this.addressPostCode.setValue("");
   }
+
   selectHeadQuarter(id: any, description: string, city: string): void{   
     this.member.headQuarter.id = id;
     this.headQuarterDescription.setValue(description);    
     this.headQuarterCity.setValue(city);   
   }
+
   clearHeadQuarter(): void{
     this.member.headQuarter.id = null;
     this.headQuarterDescription.setValue("");  
@@ -189,11 +191,13 @@ export class MemberCreateComponent implements OnInit {
     this.member.admissionDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });    
    }
   }
+
   addShutdowDate(date: Date): void{
     if(date != null){
     this.member.shutdowDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });    
    }
   }
+  
   clearShutdowDate():void{
     this.member.shutdowDate = null;
     this.shutdowDateForm.setValue("");

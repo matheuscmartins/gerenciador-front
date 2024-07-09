@@ -1,0 +1,151 @@
+<div class="container mat-elevation-z8">
+    <form class="form">
+        <h1 class="fullWidth">Cadastrar Graduação</h1>
+        <img class="fullWidth" src="assets/img/create/address-create.svg" alt="Portal BDL">
+
+        <mat-form-field
+        class="midWidth"
+          appearance="fill"
+          mat-raised-button
+          matTooltip="Graduação"
+          aria-label="patch">
+          <mat-label>Selecione a Graduação</mat-label>
+          <mat-select required
+            placeholder="Selecione a Graduação"
+            name="PatchMatSelected"
+            [formControl]="patchMatSelected"
+            (selectionChange)="addPatch(patchMatSelected.value)">
+            <mat-option
+              *ngFor="let patchElement of patchList"
+              [value]="patchElement.id">
+              {{patchElement.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>        
+
+         <mat-form-field appearance="fill" class="midWidth">
+          <mat-label>Data da Graduação</mat-label>
+          <input matInput required [matDatepicker]="admissionDatePicker" 
+           matInput required 
+           [formControl]="admissionDateForm"  
+          readonly    
+          (dateChange)="addAdmissionDate($event.value)" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="admissionDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #admissionDatePicker color="primary"></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Evento/Local da Graduação</mat-label>
+            <input 
+            [(ngModel)]="memberPatch.description"
+            name="description"
+            [formControl]="description"
+            required
+             matInput placeholder="Evento/Local da Graduação"
+             maxlength="99">
+            <mat-icon matSuffix>description</mat-icon>
+            <mat-hint>100</mat-hint>
+          </mat-form-field>  
+
+          <mat-form-field appearance="fill" class="midWidth">
+            <mat-label>Associado selecionado</mat-label>
+            <input matInput placeholder="Associado não selecionado" 
+            name="memberName"
+            [formControl]="memberName"
+            readonly/>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="midWidth">
+            <mat-label>Sede selecionada</mat-label>
+            <input matInput placeholder="Sede não selecionada" 
+            name="headQuarter"
+            [formControl]="headQuarter"
+            readonly 
+            />
+          </mat-form-field>            
+          
+          <button mat-mini-fab  class="clearButton mat-elevation-z8" 
+                    color="warn" aria-label="limpar"
+                    mat-raised-button
+                    matTooltip="Limpar Associado"
+                    aria-label="Limpar Associado"
+                    (click)="clearMember()">                    
+                    <mat-icon>clear</mat-icon>
+          </button>
+
+          <mat-form-field appearance="standard" class="fullWidth">
+            <mat-label>Pesquisar Associado</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Nome/SobreNome/Apelido" #input>
+            <mat-icon matSuffix>search</mat-icon>            
+          </mat-form-field>          
+
+          <div class=" container-list mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">  
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> id </th>
+                <td mat-cell *matCellDef="let element">{{element.id}}</td>
+              </ng-container>      
+              
+              <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef> Nome </th>
+                <td mat-cell *matCellDef="let element">{{element.firstName}}</td>
+              </ng-container>      
+            
+              <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef>Sobre Nome</th>
+                <td mat-cell *matCellDef="let element">{{element.lastName}}</td>
+              </ng-container>      
+              
+              <ng-container matColumnDef="nickName">
+                <th mat-header-cell *matHeaderCellDef> Apelido </th>
+                <td mat-cell *matCellDef="let element"> 
+                 {{element.nickName}}</td>
+              </ng-container>
+    
+              <ng-container matColumnDef="headQuarter">
+                <th mat-header-cell *matHeaderCellDef> Sede </th>
+                <td mat-cell *matCellDef="let element"> {{element.headQuarter.description}} </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="acoes">
+                <th  mat-header-cell *matHeaderCellDef> Ações </th>
+                <td  mat-cell *matCellDef="let element"> 
+                  <div >
+                    <button  mat-mini-fab 
+                    class="mat-elevation-z8" placeholder="Selecionar"
+                    color="success" aria-label="Selecionar"
+                    (click)="selectMember(element.id, element.firstName +' - ' + element.lastName
+                    , element.headQuarter.description)" >
+                      <mat-icon mat-raised-button
+                      matTooltip="Selecionar este Associado"
+                      aria-label="Selecionar Associado" >done_outline</mat-icon>
+                    </button>
+                  </div>                   
+                  
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 50]"
+                           showFirstLastButtons 
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>  
+          <button [disabled]="!validaCampos()"
+          class="button mat-elevation-z10" mat-raised-button color="success"
+          mat-raised-button
+            matTooltip="Salvar Graduação"
+            aria-label="Salvar Graduação"
+           (click)="create()">Cadastrar</button>
+          <button routerLink="../" class="button mat-elevation-z10" 
+          mat-flat-button color="warn"
+          mat-raised-button
+            matTooltip="Cancelar"
+            aria-label="Cancelar" >Cancelar</button>
+    </form>
+</div>

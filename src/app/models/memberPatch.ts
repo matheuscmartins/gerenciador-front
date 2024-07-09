@@ -4,7 +4,7 @@ import { Patch } from "./patch";
 export interface MemberPatch{
     id?: any;
     description: string;   
-    admissionDate: Date;
+    admissionDate: string;
     member: Member;
     patch: Patch ;
 }
