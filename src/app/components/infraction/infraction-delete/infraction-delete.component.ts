@@ -21,7 +21,7 @@ export class InfractionDeleteComponent {
     private dialogRef: MatDialogRef<InfractionDeleteComponent>,
     private infractionService: InfractionService,
     private toastr: ToastrService,
-    private router: Router,
+    private router: Router
   ) { 
     if(data){
       this.message = data.message || this.message;
@@ -32,8 +32,8 @@ export class InfractionDeleteComponent {
       }
     }
 
-      onConfirmClick(): void {     
-        this.infractionService.delete(this.data.id).subscribe(() =>{      
+    onConfirmClick(): void {     
+      this.infractionService.delete(this.data.id).subscribe(() =>{      
           this.toastr.success('Advertência Removida com Sucesso!', 'Delete');
           this.dialogRef.close(true);
           this.router.navigate(['infraction']);
@@ -47,7 +47,7 @@ export class InfractionDeleteComponent {
             this.toastr.error(ex.error.message);
             this.router.navigate(['infraction']);
           }
-        });
+      });
     } 
   
     onCancelClick(): void{

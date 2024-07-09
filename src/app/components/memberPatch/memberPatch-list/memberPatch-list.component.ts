@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MemberPatch } from 'src/app/models/memberPatch';
 import { MemberPatchService } from 'src/app/services/memberPatch.service';
+import { MemberPatchDeleteComponent } from '../memberPatch-delete/memberPatch-delete.component';
 
 @Component({
   selector: 'app-memberPatch-list',
@@ -17,7 +19,8 @@ export class MemberPatchListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private service: MemberPatchService
+    private service: MemberPatchService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +38,20 @@ export class MemberPatchListComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  openDialog(id: any) {
+    const dialogRef = this.dialog.open(MemberPatchDeleteComponent,{
+      data:{
+        id: id,
+        message: 'Você tem Certeza que quer Deletar?',
+        buttonText: {
+          ok: 'Deletar',
+          cancel: 'Cancelar'
+        }
+      }      
+    }) ;  
+    this.findAll();
   }
 
 }
