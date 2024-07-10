@@ -22,6 +22,7 @@ import { RoleDutyUpdateComponent } from './components/roleDuty/role-duty-update/
 import { MemberPatchListComponent } from './components/memberPatch/memberPatch-list/memberPatch-list.component';
 import { MemberPatchCreateComponent } from './components/memberPatch/memberPatch-create/memberPatch-create.component';
 import { MemberPatchUpdateComponent } from './components/memberPatch/memberPatch-update/memberPatch-update.component';
+import { TravelControlListComponent } from './components/travelControl/travelControl-list/travelControl-list.component';
 
 const routes: Routes = [
   {
@@ -47,7 +48,8 @@ const routes: Routes = [
       {path: 'roleDuty/update/:id', component: RoleDutyUpdateComponent},
       {path: 'memberPatch', component: MemberPatchListComponent},
       {path: 'memberPatch/create', component: MemberPatchCreateComponent},
-      {path: 'memberPatch/update/:id', component: MemberPatchUpdateComponent}
+      {path: 'memberPatch/update/:id', component: MemberPatchUpdateComponent},
+      {path: 'travelControl', component: TravelControlListComponent}
     ]
   }
 ];
