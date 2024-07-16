@@ -66,6 +66,7 @@ import { MemberPatchCreateComponent } from './components/memberPatch/memberPatch
 import { MemberPatchUpdateComponent } from './components/memberPatch/memberPatch-update/memberPatch-update.component';
 import { MemberPatchDeleteComponent } from './components/memberPatch/memberPatch-delete/memberPatch-delete.component';
 import { TravelControlListComponent } from './components/travelControl/travelControl-list/travelControl-list.component';
+import { TravelControlCreateComponent } from './components/travelControl/travelControl-create/travelControl-create.component';
 
 
 
@@ -98,7 +99,8 @@ import { TravelControlListComponent } from './components/travelControl/travelCon
     MemberPatchCreateComponent,
     MemberPatchUpdateComponent,
     MemberPatchDeleteComponent,
-    TravelControlListComponent  
+    TravelControlListComponent,
+    TravelControlCreateComponent  
   ],
   imports: [
     BrowserModule,

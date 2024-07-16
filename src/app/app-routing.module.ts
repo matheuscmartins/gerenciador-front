@@ -23,6 +23,7 @@ import { MemberPatchListComponent } from './components/memberPatch/memberPatch-l
 import { MemberPatchCreateComponent } from './components/memberPatch/memberPatch-create/memberPatch-create.component';
 import { MemberPatchUpdateComponent } from './components/memberPatch/memberPatch-update/memberPatch-update.component';
 import { TravelControlListComponent } from './components/travelControl/travelControl-list/travelControl-list.component';
+import { TravelControlCreateComponent } from './components/travelControl/travelControl-create/travelControl-create.component';
 
 const routes: Routes = [
   {
@@ -49,7 +50,8 @@ const routes: Routes = [
       {path: 'memberPatch', component: MemberPatchListComponent},
       {path: 'memberPatch/create', component: MemberPatchCreateComponent},
       {path: 'memberPatch/update/:id', component: MemberPatchUpdateComponent},
-      {path: 'travelControl', component: TravelControlListComponent}
+      {path: 'travelControl', component: TravelControlListComponent},
+      {path: 'travelControl/create', component: TravelControlCreateComponent}
     ]
   }
 ];

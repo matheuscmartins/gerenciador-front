@@ -12,7 +12,7 @@ export class NavComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.router.navigate(['memberPatch'])
+    this.router.navigate(['travelControl'])
   }
   
 }
