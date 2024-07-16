@@ -8,6 +8,7 @@
   <mat-form-field appearance="standard">
     <mat-label>Pesquisa</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Descrição/Cidade" #input>
+    <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
   
     <div class="mat-elevation-z8">
@@ -33,8 +34,8 @@
             <td mat-cell *matCellDef="let element"> 
             <a routerLink="update/{{element.id}}">
               <i mat-raised-button
-              matTooltip="Alterar este Registro"
-              aria-label="Alterar sede" 
+              matTooltip="Editar esta Sede"
+              aria-label="Editar Sede" 
               class="material-icons edit">edit</i>
             </a>
             <!-- 

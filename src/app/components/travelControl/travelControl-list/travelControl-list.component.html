@@ -1,1 +1,102 @@
-<p>travelControl-list works!</p>
+<div class="container">
+    <h1>Listando Viagens</h1>
+    <button class="mat-elevation-z8" routerLink="create"
+    mat-raised-button
+    matTooltip="Criar uma nova Viagem"
+    aria-label="criar Viagem" 
+    mat-button>Nova Viagem</button>
+
+    <mat-form-field appearance="standard">      
+      <mat-label>Pesquisa</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Data/Local/Associado" #input>
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    
+      <div class="mat-elevation-z8">
+        <mat-form-field appearance="fill" class="morLessWidth ">
+          <mat-label>Selcione um intervalo de datas</mat-label>
+          <mat-date-range-input readonly [rangePicker]="dateRangepicker">
+            <input 
+            [formControl]="startDateForm"
+            [value]="startDateStart"
+             readonly matStartDate placeholder="Data incio">
+            <input (dateChange)="findbyHeadQuarterIdAndPeriod()"
+            [formControl]="endDateForm"
+            [value]="endDateStart"
+             readonly matEndDate placeholder="Data fim">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="dateRangepicker"></mat-datepicker-toggle>
+          <mat-date-range-picker #dateRangepicker></mat-date-range-picker>
+        </mat-form-field>
+
+          <table mat-table [dataSource]="dataSource">  
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> id </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>      
+            
+            <ng-container matColumnDef="travelDate">
+              <th mat-header-cell *matHeaderCellDef> Data da Viagem </th>
+              <td mat-cell *matCellDef="let element"> {{element.travelDate}} </td>
+            </ng-container>      
+          
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef> Numero </th>
+              <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+            </ng-container>      
+            
+            <ng-container matColumnDef="location">
+              <th mat-header-cell *matHeaderCellDef> Origem e Destino </th>
+              <td mat-cell *matCellDef="let element"> 
+                {{element.departureLocation}} / {{element.arrivalLocation}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Associado </th>
+              <td mat-cell *matCellDef="let element"> {{element.member.firstName}}
+                {{element.member.lastName}}
+             </td>
+            </ng-container>
+
+            <ng-container matColumnDef="km">
+                <th mat-header-cell *matHeaderCellDef> Km's Rodados </th>
+                <td mat-cell *matCellDef="let element"> {{element.km}} </td>
+              </ng-container>
+
+            <ng-container matColumnDef="kmControl">
+                <th mat-header-cell *matHeaderCellDef> Contagem de Km </th>
+                <td mat-cell *matCellDef="let element"> {{element.kmControl}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="acoes">
+              <th mat-header-cell *matHeaderCellDef> Ações </th>
+              <td mat-cell *matCellDef="let element"> 
+              <a  routerLink="update/{{element.id}}" >             
+                 <i mat-raised-button
+                 matTooltip="Editar Esta Viagem"
+                 aria-label="Editar Viagem"          
+                  class="material-icons edit">edit</i>
+              </a>
+  
+              <!-- 
+              <a routerLink="">
+                <i class="material-icons delete" 
+                    mat-raised-button
+                    (click)="openDialog(element.id)"
+                    matTooltip="Deletar Este Viagem"
+                    aria-label="Deletar Viagem" >
+                  delete
+                </i>
+              </a> -->
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        
+          <mat-paginator [pageSizeOptions]="[10, 20, 70]"
+                         showFirstLastButtons 
+                         aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>      
+  </div>

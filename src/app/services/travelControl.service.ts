@@ -28,4 +28,7 @@ export class TravelControlService {
   delete(id: any): Observable<TravelControl>{
     return this.http.delete<TravelControl>(`${API_CONFIG.baseUrl}/viagens/${id}`);
   }
+  findbyHeadQuarterIdAndPeriod(id: any, startDate: string, endDate: string): Observable<TravelControl[]>{
+    return this.http.get<TravelControl[]>(`${API_CONFIG.baseUrl}/viagens/sede/${id}/periodo/${startDate}/${endDate}`);
+  }
 }
