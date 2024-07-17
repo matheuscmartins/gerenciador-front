@@ -4,11 +4,11 @@
         <img class="fullWidth" src="assets/img/create/address-create.svg" alt="Portal BDL">
 
         <section class="section" >
-          <mat-checkbox  (change)="infractionType($event.checked, '0')" class="margin" color="primary"  [checked]="escrita">
+          <mat-checkbox (change)="infractionType($event.checked, '0')" class="margin" color="primary" [checked]="escrita">
             Escrita</mat-checkbox>
-          <mat-checkbox  (change)="infractionType($event.checked, '1')" class="margin" color="primary" [checked]="suspensao">
+          <mat-checkbox (change)="infractionType($event.checked, '1')" class="margin" color="primary" [checked]="suspensao">
             Suspensão</mat-checkbox> 
-          <mat-checkbox   (change)="infractionType($event.checked, '2')"  class="margin" color="primary" [checked]="verbal">
+          <mat-checkbox (change)="infractionType($event.checked, '2')"  class="margin" color="primary" [checked]="verbal">
             Verbal</mat-checkbox>
           <mat-checkbox (change)="infractionType($event.checked, '3')" class="margin" color="primary" [checked]="desligamento">
             Desligamento</mat-checkbox>
