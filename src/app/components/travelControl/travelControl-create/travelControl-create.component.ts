@@ -76,7 +76,7 @@ export class TravelControlCreateComponent implements OnInit {
   ngOnInit(): void {
     this.findAllMember();
     this._adapter.setLocale('en-GB');
-    this.travelControl.kmControl = '0'
+    this.travelControl.kmControl = '0';
   }
 
   findAllMember(){

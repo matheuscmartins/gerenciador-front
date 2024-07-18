@@ -68,9 +68,7 @@ import { MemberPatchDeleteComponent } from './components/memberPatch/memberPatch
 import { TravelControlListComponent } from './components/travelControl/travelControl-list/travelControl-list.component';
 import { TravelControlCreateComponent } from './components/travelControl/travelControl-create/travelControl-create.component';
 import { NumberOnlyDirective } from './directives/number-only.directive';
-import { TravelControlUpdateComponent } from './components/travelControl/travel-control-update/travel-control-update.component';
-
-
+import { TravelControlUpdateComponent } from './components/travelControl/travelControl-update/travelControl-update.component';
 
 @NgModule({
   declarations: [
@@ -103,8 +101,9 @@ import { TravelControlUpdateComponent } from './components/travelControl/travel-
     MemberPatchDeleteComponent,
     TravelControlListComponent,
     TravelControlCreateComponent,
-    NumberOnlyDirective,
-    TravelControlUpdateComponent  
+    TravelControlUpdateComponent,  
+    NumberOnlyDirective
+    
   ],
   imports: [
     BrowserModule,

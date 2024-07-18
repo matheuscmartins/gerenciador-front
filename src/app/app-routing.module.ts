@@ -24,6 +24,7 @@ import { MemberPatchCreateComponent } from './components/memberPatch/memberPatch
 import { MemberPatchUpdateComponent } from './components/memberPatch/memberPatch-update/memberPatch-update.component';
 import { TravelControlListComponent } from './components/travelControl/travelControl-list/travelControl-list.component';
 import { TravelControlCreateComponent } from './components/travelControl/travelControl-create/travelControl-create.component';
+import { TravelControlUpdateComponent } from './components/travelControl/travelControl-update/travelControl-update.component';
 
 const routes: Routes = [
   {
@@ -51,7 +52,8 @@ const routes: Routes = [
       {path: 'memberPatch/create', component: MemberPatchCreateComponent},
       {path: 'memberPatch/update/:id', component: MemberPatchUpdateComponent},
       {path: 'travelControl', component: TravelControlListComponent},
-      {path: 'travelControl/create', component: TravelControlCreateComponent}
+      {path: 'travelControl/create', component: TravelControlCreateComponent},
+      {path: 'travelControl/update/:id', component: TravelControlUpdateComponent}
     ]
   }
 ];
