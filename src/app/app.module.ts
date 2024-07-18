@@ -68,6 +68,7 @@ import { MemberPatchDeleteComponent } from './components/memberPatch/memberPatch
 import { TravelControlListComponent } from './components/travelControl/travelControl-list/travelControl-list.component';
 import { TravelControlCreateComponent } from './components/travelControl/travelControl-create/travelControl-create.component';
 import { NumberOnlyDirective } from './directives/number-only.directive';
+import { TravelControlUpdateComponent } from './components/travelControl/travel-control-update/travel-control-update.component';
 
 
 
@@ -102,7 +103,8 @@ import { NumberOnlyDirective } from './directives/number-only.directive';
     MemberPatchDeleteComponent,
     TravelControlListComponent,
     TravelControlCreateComponent,
-    NumberOnlyDirective  
+    NumberOnlyDirective,
+    TravelControlUpdateComponent  
   ],
   imports: [
     BrowserModule,
