@@ -69,6 +69,7 @@ import { TravelControlListComponent } from './components/travelControl/travelCon
 import { TravelControlCreateComponent } from './components/travelControl/travelControl-create/travelControl-create.component';
 import { NumberOnlyDirective } from './directives/number-only.directive';
 import { TravelControlUpdateComponent } from './components/travelControl/travelControl-update/travelControl-update.component';
+import { TravelControlDeleteComponent } from './components/travelControl/travelControl-delete/travelControl-delete.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import { TravelControlUpdateComponent } from './components/travelControl/travelC
     TravelControlListComponent,
     TravelControlCreateComponent,
     TravelControlUpdateComponent,  
+    TravelControlDeleteComponent,
     NumberOnlyDirective
     
   ],

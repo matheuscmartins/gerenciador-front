@@ -1,0 +1,14 @@
+<p>
+    {{message}}
+</p>
+
+<button class="mat-elevation-z8" mat-raised-button color="success"
+(click)="onConfirmClick()" tabindex="1">
+{{confirmButtonText}}
+</button>
+<button class="mat-elevation-z8" mat-raised-button mat-dialog-close 
+    color="warn"
+    (click)="onCancelClick()"
+    tabindex="-1">
+    {{cancelButtonText}}
+</button>

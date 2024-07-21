@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DateAdapter } from '@angular/material/core';
 import { FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { TravelControlDeleteComponent } from '../travelControl-delete/travelControl-delete.component';
 //import { AddressDeleteComponent } from '../address-delete/address-delete.component';
 
 @Component({
@@ -48,19 +49,21 @@ export class TravelControlListComponent implements OnInit {
   } */
 
   findbyHeadQuarterIdAndPeriod(){
-     this.service.findbyHeadQuarterIdAndPeriod(1, this.startDateStart.toLocaleDateString('fr-CA'),
-     this.endDateStart.toLocaleDateString('fr-CA')).subscribe(resposta =>{
-      this.ELEMENT_DATA = resposta
-      this.dataSource = new MatTableDataSource<TravelControl>(resposta);
-      this.dataSource.paginator = this.paginator;
-    }) 
+    if(this.startDateForm.value != null && this.endDateForm.value != null){
+      this.service.findbyHeadQuarterIdAndPeriod(1, this.startDateForm.value.toLocaleDateString('fr-CA'),
+        this.endDateForm.value.toLocaleDateString('fr-CA')).subscribe(resposta =>{
+        this.ELEMENT_DATA = resposta;
+        this.dataSource = new MatTableDataSource<TravelControl>(resposta);
+        this.dataSource.paginator = this.paginator;
+      }); 
+    }
   }
   
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
- /*
+ 
   openDialog(id: any) {
     const dialogRef = this.dialog.open(TravelControlDeleteComponent,{
       data:{
@@ -72,7 +75,7 @@ export class TravelControlListComponent implements OnInit {
         }
       }
     });  
-    this.findAll();   
-  } */
+    this.findbyHeadQuarterIdAndPeriod();      
+  } 
 
 }
