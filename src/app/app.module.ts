@@ -70,6 +70,8 @@ import { TravelControlCreateComponent } from './components/travelControl/travelC
 import { NumberOnlyDirective } from './directives/number-only.directive';
 import { TravelControlUpdateComponent } from './components/travelControl/travelControl-update/travelControl-update.component';
 import { TravelControlDeleteComponent } from './components/travelControl/travelControl-delete/travelControl-delete.component';
+import { FeedListComponent } from './components/feed/feed-list/feed-list.component';
+import { FeedDeleteComponent } from './components/feed/feed-delete/feed-delete.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +106,9 @@ import { TravelControlDeleteComponent } from './components/travelControl/travelC
     TravelControlCreateComponent,
     TravelControlUpdateComponent,  
     TravelControlDeleteComponent,
-    NumberOnlyDirective
+    NumberOnlyDirective,
+    FeedListComponent,
+    FeedDeleteComponent
     
   ],
   imports: [

@@ -1,33 +1,33 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { TravelControl } from 'src/app/models/travelControl';
-import { TravelControlService } from 'src/app/services/travelControl.service';
-import { MatDialog } from '@angular/material/dialog';
-import { DateAdapter } from '@angular/material/core';
-import { FormControl } from '@angular/forms';
-import { TravelControlDeleteComponent } from '../travelControl-delete/travelControl-delete.component';
+import { Feed } from 'src/app/models/feed';
+import { FeedService } from 'src/app/services/feed.service';
+import { FeedDeleteComponent } from '../feed-delete/feed-delete.component';
 
 @Component({
-  selector: 'app-travelControl-list',
-  templateUrl: './travelControl-list.component.html',
-  styleUrls: ['./travelControl-list.component.css']
+  selector: 'app-feed-list',
+  templateUrl: './feed-list.component.html',
+  styleUrls: ['./feed-list.component.css']
 })
-export class TravelControlListComponent implements OnInit {
+export class FeedListComponent implements OnInit {
 
-  ELEMENT_DATA: TravelControl[] = [    
+  ELEMENT_DATA: Feed[] = [    
   ]
-  displayedColumns: string[] = ['position', 'travelDate', 'location', 'name', 'km', 'kmControl', 'acoes'];
-  dataSource = new MatTableDataSource<TravelControl>(this.ELEMENT_DATA);
+  displayedColumns: string[] = ['position', 'postDate', 'reunionDate', 'title', 'acoes'];
+  dataSource = new MatTableDataSource<Feed>(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  
+
   startDateStart: Date = new Date(Number('2024'), Number('01') - 1, Number('01'));
   endDateStart: Date = new Date();
   startDateForm: FormControl = new FormControl(this.startDateStart); 
   endDateForm: FormControl = new FormControl (this.endDateStart);
 
   constructor(
-    private service: TravelControlService,
+    private service: FeedService,
     private dialog: MatDialog,
     public _adapter: DateAdapter<Date>
   ) { }
@@ -36,33 +36,24 @@ export class TravelControlListComponent implements OnInit {
     this.findbyHeadQuarterIdAndPeriod();
     this._adapter.setLocale('en-GB');
   }
-
-  /* findAll(){
-    this.service.findAll().subscribe(resposta =>{
-      this.ELEMENT_DATA = resposta
-      this.dataSource = new MatTableDataSource<TravelControl>(resposta);
-      this.dataSource.paginator = this.paginator;
-    })
-  } */
-
   findbyHeadQuarterIdAndPeriod(){
     if(this.startDateForm.value != null && this.endDateForm.value != null){
       this.service.findbyHeadQuarterIdAndPeriod(1, this.startDateForm.value.toLocaleDateString('fr-CA'),
         this.endDateForm.value.toLocaleDateString('fr-CA')).subscribe(resposta =>{
         this.ELEMENT_DATA = resposta;
-        this.dataSource = new MatTableDataSource<TravelControl>(resposta);
+        this.dataSource = new MatTableDataSource<Feed>(resposta);
         this.dataSource.paginator = this.paginator;
       }); 
     }
   }
-  
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
- 
-  openDialog(id: any) {
-    const dialogRef = this.dialog.open(TravelControlDeleteComponent,{
+
+   openDialog(id: any) {
+    const dialogRef = this.dialog.open(FeedDeleteComponent,{
       data:{
         id: id ,
         message: 'Você tem Certeza que quer Deletar?',
@@ -73,6 +64,6 @@ export class TravelControlListComponent implements OnInit {
       }
     });  
     this.findbyHeadQuarterIdAndPeriod();      
-  } 
+  }  
 
 }

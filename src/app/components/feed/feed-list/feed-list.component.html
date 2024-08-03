@@ -1,10 +1,10 @@
 <div class="container">
-    <h1>Listando Viagens</h1>
+    <h1>Listando Postagens</h1>
     <button class="mat-elevation-z8" routerLink="create"
     mat-raised-button
-    matTooltip="Criar uma nova Viagem"
-    aria-label="criar Viagem" 
-    mat-button>Nova Viagem</button>
+    matTooltip="Criar uma nova Postagem"
+    aria-label="criar Postagem" 
+    mat-button>Nova Postagem</button>
 
     <mat-form-field appearance="standard">      
       <mat-label>Pesquisa</mat-label>
@@ -35,37 +35,26 @@
               <td mat-cell *matCellDef="let element"> {{element.id}} </td>
             </ng-container>      
             
-            <ng-container matColumnDef="travelDate">
-              <th mat-header-cell *matHeaderCellDef> Data da Viagem </th>
-              <td mat-cell *matCellDef="let element"> {{element.travelDate}} </td>
+            <ng-container matColumnDef="postDate">
+              <th mat-header-cell *matHeaderCellDef> Data da Postagem </th>
+              <td mat-cell *matCellDef="let element"> {{element.postDate}} </td>
             </ng-container>      
           
-            <ng-container matColumnDef="weight">
-              <th mat-header-cell *matHeaderCellDef> Numero </th>
-              <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+            <ng-container matColumnDef="reunionDate">
+              <th mat-header-cell *matHeaderCellDef> Data da Reunião </th>
+              <td mat-cell *matCellDef="let element"> {{element.reunionDate}} </td>
             </ng-container>      
             
-            <ng-container matColumnDef="location">
-              <th mat-header-cell *matHeaderCellDef> Origem e Destino </th>
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef> Título </th>
               <td mat-cell *matCellDef="let element"> 
-                {{element.departureLocation}} á {{element.arrivalLocation}} </td>
+                {{element.title}} </td>
             </ng-container>
   
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef> Associado </th>
-              <td mat-cell *matCellDef="let element"> {{element.member.firstName}}
-                {{element.member.lastName}}
+            <ng-container matColumnDef="headQuarter">
+              <th mat-header-cell *matHeaderCellDef> Sede </th>
+              <td mat-cell *matCellDef="let element"> {{element.headQuarter.description}}
              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="km">
-                <th mat-header-cell *matHeaderCellDef> Km's Rodados </th>
-                <td mat-cell *matCellDef="let element"> {{element.km}} </td>
-              </ng-container>
-
-            <ng-container matColumnDef="kmControl">
-                <th mat-header-cell *matHeaderCellDef> Contagem de Km </th>
-                <td mat-cell *matCellDef="let element"> {{element.kmControl}} </td>
             </ng-container>
   
             <ng-container matColumnDef="acoes">
@@ -73,18 +62,18 @@
               <td mat-cell *matCellDef="let element"> 
               <a  routerLink="update/{{element.id}}" >             
                  <i mat-raised-button
-                 matTooltip="Editar Esta Viagem"
-                 aria-label="Editar Viagem"          
+                 matTooltip="Editar Esta Postagem"
+                 aria-label="Editar Postagem"          
                   class="material-icons edit">edit</i>
               </a>
               <a routerLink="">
-                <i class="material-icons delete" 
+                 <i class="material-icons delete" 
                     mat-raised-button
                     (click)="openDialog(element.id)"
-                    matTooltip="Deletar Esta Viagem"
-                    aria-label="Deletar Viagem" >
+                    matTooltip="Deletar Esta Postagem"
+                    aria-label="Deletar Postagem" >
                   delete
-                </i>
+                </i> 
               </a> 
               </td>
             </ng-container>
