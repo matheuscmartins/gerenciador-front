@@ -1,8 +1,17 @@
+.container {
+    width: 100%;
+    margin: auto;
+}
 .card{
-    width: 90% ;
-    margin: 1rem auto;
-    background-color:rgb(235, 235, 235) ;
+    width: 90% ;    
+    margin: 2rem auto;
+    background-color:rgb(235, 235, 235) ; 
+    border-radius: 1rem;   
 }
 img{
     height: 20rem;
+}
+h1{
+    width:  100%;
+    text-align: center;
 }

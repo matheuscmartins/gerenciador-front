@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
-import { AdressListComponent } from './components/address/address-list/address-list.component';
+import { AddressListComponent } from './components/address/address-list/address-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AddressCreateComponent } from './components/address/address-create/address-create.component';
@@ -33,7 +33,7 @@ const routes: Routes = [
   {
     path: '',  component: NavComponent, canActivate:[AuthGuard], children:[
       {path: 'home', component: HomeComponent},
-      {path: 'address', component: AdressListComponent},
+      {path: 'address', component: AddressListComponent},
       {path: 'address/create', component: AddressCreateComponent},
       {path: 'address/update/:id', component: AddressUpdateComponent},
       {path: 'headQuarter', component: HeadQuarterListComponent},

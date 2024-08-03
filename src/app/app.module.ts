@@ -31,7 +31,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
-import { AdressListComponent as AddressListComponent } from './components/address/address-list/address-list.component';
+import { AddressListComponent } from './components/address/address-list/address-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ToastrModule } from 'ngx-toastr';

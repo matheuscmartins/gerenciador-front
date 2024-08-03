@@ -12,7 +12,7 @@ import { AddressDeleteComponent } from '../address-delete/address-delete.compone
   styleUrls: ['./address-list.component.css']  
 })
 
-export class AdressListComponent implements OnInit {
+export class AddressListComponent implements OnInit {
 
   ELEMENT_DATA: Address[] = [    
   ]

@@ -1,18 +1,22 @@
-<mat-card class="card mat-elevation-z8">
-    <mat-card-header>      
-      <mat-card-title>Gerenciador BDL</mat-card-title>
-      <mat-card-subtitle>Brigada dos Lobos MC</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p>Acompanhe o lançamento da Nova Harley Davidson 2024 CVO™ ROAD GLIDE™ ST.</p>
-      <p>{{longText}}</p>
-    </mat-card-content>
-    <mat-card-content>
-      <p>
-        Bem vindo ao Portal BDL.           
-      </p>
-    </mat-card-content>
-    <mat-card-actions>      
-    </mat-card-actions>
-  </mat-card>
-  
+<div class="container">
+  <H1>Reuniões e Comunicados</H1>
+        <mat-card class="card mat-elevation-z8" 
+        *ngFor="let element of obs | async">
+          <mat-card-header >      
+          <mat-card-title >{{element.title}}
+          </mat-card-title>
+          <mat-card-subtitle>Data: 
+            {{element.reunionDate}}
+          </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>      
+             <p>{{element.text}}</p>
+             <p class="postData">Postado em: {{element.postDate}}</p>
+          </mat-card-content>  
+        </mat-card>
+    
+  <mat-paginator [pageSizeOptions]="[4, 10, 30]" 
+  showFirstLastButtons 
+  aria-label="Select page of periodic elements">
+</mat-paginator>
+</div>

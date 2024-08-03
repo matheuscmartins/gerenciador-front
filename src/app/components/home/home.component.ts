@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DateAdapter } from '@angular/material/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
+import { Feed } from 'src/app/models/feed';
+import { FeedService } from 'src/app/services/feed.service';
 
 @Component({
   selector: 'app-home',
@@ -6,13 +12,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  feedList: Feed[] = []
+  dataSource = new MatTableDataSource<Feed>(this.feedList);;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  obs: Observable<any>;
 
-  constructor() { }
+  constructor(
+    private feedService: FeedService,
+    public _adapter: DateAdapter<Date>
+  ) { }
 
   ngOnInit(): void {
+    this.findAll();
   }
-  longText = `Com o motor V-Twin Milwaukee-Eight 121 de Alto Desempenho (HO) é 
-  calibrado para produzir mais potência e torque do que o motor Milwaukee-Eight 
-  VVT 121, com um comando de válvulas de alto desempenho, uma admissão de ar de 
-  alto desempenho inspirada em corridas e um elevado corte de giro em 5.900 RPM.`;
+  
+  findAll(): void{
+    this.feedService.findAll().subscribe(resposta =>{
+      this.feedList = resposta;
+      this.dataSource = new MatTableDataSource<Feed>(resposta);
+      this.dataSource.paginator = this.paginator;
+      this.obs = this.dataSource.connect();
+    })
+  }
+  ngOnDestroy() {
+    if (this.dataSource) { 
+      this.dataSource.disconnect(); 
+    }
+  }
+
 }

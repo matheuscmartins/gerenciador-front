@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { TravelControl } from 'src/app/models/travelControl';
@@ -6,9 +6,7 @@ import { TravelControlService } from 'src/app/services/travelControl.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DateAdapter } from '@angular/material/core';
 import { FormControl } from '@angular/forms';
-import { DatePipe } from '@angular/common';
 import { TravelControlDeleteComponent } from '../travelControl-delete/travelControl-delete.component';
-//import { AddressDeleteComponent } from '../address-delete/address-delete.component';
 
 @Component({
   selector: 'app-travelControl-list',
