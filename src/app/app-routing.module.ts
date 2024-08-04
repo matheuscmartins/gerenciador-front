@@ -26,6 +26,8 @@ import { TravelControlListComponent } from './components/travelControl/travelCon
 import { TravelControlCreateComponent } from './components/travelControl/travelControl-create/travelControl-create.component';
 import { TravelControlUpdateComponent } from './components/travelControl/travelControl-update/travelControl-update.component';
 import { FeedListComponent } from './components/feed/feed-list/feed-list.component';
+import { FeedCreateComponent } from './components/feed/feed-create/feed-create.component';
+import { FeedUpdateComponent } from './components/feed/feed-update/feed-update.component';
 
 const routes: Routes = [
   {
@@ -55,7 +57,9 @@ const routes: Routes = [
       {path: 'travelControl', component: TravelControlListComponent},
       {path: 'travelControl/create', component: TravelControlCreateComponent},
       {path: 'travelControl/update/:id', component: TravelControlUpdateComponent},
-      {path: 'feed', component: FeedListComponent}
+      {path: 'feed', component: FeedListComponent},
+      {path: 'feed/create', component: FeedCreateComponent},
+      {path: 'feed/update/:id', component: FeedUpdateComponent}
     ]
   }
 ];

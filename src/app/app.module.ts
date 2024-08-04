@@ -72,6 +72,8 @@ import { TravelControlUpdateComponent } from './components/travelControl/travelC
 import { TravelControlDeleteComponent } from './components/travelControl/travelControl-delete/travelControl-delete.component';
 import { FeedListComponent } from './components/feed/feed-list/feed-list.component';
 import { FeedDeleteComponent } from './components/feed/feed-delete/feed-delete.component';
+import { FeedCreateComponent } from './components/feed/feed-create/feed-create.component';
+import { FeedUpdateComponent } from './components/feed/feed-update/feed-update.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +110,8 @@ import { FeedDeleteComponent } from './components/feed/feed-delete/feed-delete.c
     TravelControlDeleteComponent,
     NumberOnlyDirective,
     FeedListComponent,
+    FeedCreateComponent,
+    FeedUpdateComponent,
     FeedDeleteComponent
     
   ],
