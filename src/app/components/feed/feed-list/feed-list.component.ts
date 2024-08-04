@@ -40,7 +40,8 @@ export class FeedListComponent implements OnInit {
     if(this.startDateForm.value != null && this.endDateForm.value != null){
       this.service.findbyHeadQuarterIdAndPeriod(1, this.startDateForm.value.toLocaleDateString('fr-CA'),
         this.endDateForm.value.toLocaleDateString('fr-CA')).subscribe(resposta =>{
-        this.ELEMENT_DATA = resposta;
+        this.ELEMENT_DATA = resposta.sort((a, b) => 
+          new Date(b.reunionDate).getTime() - new Date(a.reunionDate).getTime());
         this.dataSource = new MatTableDataSource<Feed>(resposta);
         this.dataSource.paginator = this.paginator;
       }); 

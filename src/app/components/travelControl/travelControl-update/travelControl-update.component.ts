@@ -73,7 +73,7 @@ import { TravelControlService } from 'src/app/services/travelControl.service';
     private toastr: ToastrService,
     private router: Router,
     public _adapter: DateAdapter<Date>,
-    private activedRoute : ActivatedRoute,
+    private activedRoute : ActivatedRoute
   ) { }
 
     ngOnInit(): void {
@@ -130,6 +130,7 @@ import { TravelControlService } from 'src/app/services/travelControl.service';
             });
           }
       }
+      
       addTravelDate(date: Date): void{
         if(date != null){
         this.travelControl.travelDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });    

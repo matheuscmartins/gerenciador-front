@@ -49,7 +49,8 @@ export class TravelControlListComponent implements OnInit {
     if(this.startDateForm.value != null && this.endDateForm.value != null){
       this.service.findbyHeadQuarterIdAndPeriod(1, this.startDateForm.value.toLocaleDateString('fr-CA'),
         this.endDateForm.value.toLocaleDateString('fr-CA')).subscribe(resposta =>{
-        this.ELEMENT_DATA = resposta;
+        this.ELEMENT_DATA = resposta.sort((a, b) => 
+          new Date(b.travelDate).getTime() - new Date(a.travelDate).getTime());
         this.dataSource = new MatTableDataSource<TravelControl>(resposta);
         this.dataSource.paginator = this.paginator;
       }); 

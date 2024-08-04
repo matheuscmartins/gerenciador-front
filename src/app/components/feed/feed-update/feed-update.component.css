@@ -1,0 +1,64 @@
+.container{
+    width: 70%;    
+    margin: auto;
+    padding: 1rem 1rem 3rem 1rem;
+    border-radius: .6rem;
+}
+.fullWidth{
+    width: 100%;    
+}
+.container-list {
+    width: 100%;
+    margin: auto;
+    border-radius: 1rem;
+}
+h1{
+    text-align: center;
+}
+img{
+    height: 8rem;
+    margin: auto;
+}
+
+.mat-success {
+    background-color: green;
+    color: #fff;
+    opacity: .8;
+}
+button{
+    width: 40%;
+    margin-top: .8rem;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: .4rem;
+}
+
+mat-icon{
+    opacity: .5;
+}
+.midWidth{
+    align-items: center;
+    width: 40%;
+    padding-right: 3.5%;
+    padding-top: 1%;
+}
+table {
+    width: 100%;
+    align-content: center;
+}
+
+.morLessWidth{    
+        width: 87%; 
+}
+.addButton{
+    width: 3%;    
+}
+.clearButton{
+    width: 3%;  
+   
+}
+.section {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+ }

@@ -28,7 +28,8 @@ export class HomeComponent implements OnInit {
   
   findAll(): void{
     this.feedService.findAll().subscribe(resposta =>{
-      this.feedList = resposta;
+      this.feedList = resposta.sort((a, b) => 
+      new Date(b.reunionDate).getTime() - new Date(a.reunionDate).getTime());
       this.dataSource = new MatTableDataSource<Feed>(resposta);
       this.dataSource.paginator = this.paginator;
       this.obs = this.dataSource.connect();
