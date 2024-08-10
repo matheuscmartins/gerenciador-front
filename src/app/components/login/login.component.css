@@ -13,7 +13,7 @@
     background-color: rgb(235, 235, 235);
     padding: 4rem 1rem ;
     border-radius: 1rem;
-    color: black;
+    color: black;    
 }
 h1{
     width: 100%;
@@ -21,9 +21,10 @@ h1{
     color: black;
 }
 img{
-    height: 10rem;
-    width: 100%;
-    margin: .5rem auto .15rem auto;
+    height: 15rem;
+    width: 80%;
+    margin: .15rem auto 2rem auto;   
+    display: block;
 }
 .full-width{
     width: 100%;

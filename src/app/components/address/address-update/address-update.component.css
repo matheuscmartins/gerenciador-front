@@ -11,8 +11,12 @@ h1{
     text-align: center;
 }
 img{
-    height: 8rem;
-    margin: auto;
+    max-width:245px;
+    max-height:188px;
+    width: auto;
+    height: auto; 
+    margin: 0rem auto 0rem auto;   
+    display: block;
 }
 
 .mat-success {
