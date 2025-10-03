@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Listando Associados</h1>
-    <button class="mat-elevation-z8" routerLink="create"
+    <button *ngIf="authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_DIRETOR'])" class="mat-elevation-z8" routerLink="create"
     mat-raised-button
     matTooltip="Criar um novo Associado"
     aria-label="criar Associado" 
@@ -41,9 +41,9 @@
   
             <ng-container matColumnDef="acoes">
               <th mat-header-cell *matHeaderCellDef> Ações </th>
-              <td mat-cell *matCellDef="let element"> 
-              <a  routerLink="update/{{element.id}}" >             
-                 <i mat-raised-button
+              <td mat-cell *matCellDef="let element" > 
+              <a routerLink="update/{{element.id}}" >             
+                 <i *ngIf="authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_DIRETOR'])" mat-raised-button
                  matTooltip="Editar Este Associado"
                  aria-label="Editar Associado"          
                   class="material-icons edit">edit</i>

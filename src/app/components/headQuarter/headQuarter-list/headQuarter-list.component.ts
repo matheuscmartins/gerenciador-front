@@ -5,6 +5,7 @@ import { HeadQuarter } from 'src/app/models/headQuarter';
 import { HeadQuarterService } from 'src/app/services/headQuarter.service';
 import {MatDialog} from '@angular/material/dialog';
 import { HeadQuarterDeleteComponent } from '../headQuarter-delete/headQuarter-delete.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-headQuarter-list',
@@ -22,6 +23,7 @@ export class HeadQuarterListComponent implements OnInit {
   constructor(    
     private service: HeadQuarterService,
     private dialog: MatDialog,
+     public authService: AuthService
       ) { }
 
   ngOnInit(): void {
@@ -33,6 +35,7 @@ export class HeadQuarterListComponent implements OnInit {
       this.ELEMENT_DATA = resposta
       this.dataSource = new MatTableDataSource<HeadQuarter>(resposta);
       this.dataSource.paginator = this.paginator;
+      console.log(resposta);
     })
   }
 

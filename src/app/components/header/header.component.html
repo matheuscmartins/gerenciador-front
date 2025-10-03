@@ -22,8 +22,11 @@
 
       <button mat-icon-button class="mat-elevation-z8" [matMenuTriggerFor]="profileMenu" aria-label="profile">
         <mat-icon >manage_accounts</mat-icon>
-      </button>
+      </button>      
       <mat-menu class="mat-elevation-z8 profile" #profileMenu="matMenu">
+        <nav *ngIf="user" >
+        <span mat-menu-item> {{ user.sub }}</span>       
+        </nav>
         <button  mat-menu-item>
           <mat-icon >person_apron</mat-icon>
           <span >Perfil</span>

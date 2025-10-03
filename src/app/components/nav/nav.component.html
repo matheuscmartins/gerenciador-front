@@ -6,11 +6,11 @@
         <i class="material-icons">home</i>
         Home
       </a>
-      <a mat-list-item routerLink="address">
+      <a *ngIf="authService.hasAnyRole(['ROLE_ADMIN'])" mat-list-item routerLink="address">
         <i class="material-icons">markunread_mailbox</i>
         Endereços
       </a>
-      <a mat-list-item routerLink="feed">
+      <a *ngIf="authService.hasAnyRole(['ROLE_ADMIN'])" mat-list-item routerLink="feed">
         <i class="material-icons">post_add</i>
         Comunicados
       </a>
@@ -18,23 +18,23 @@
         <i class="material-icons">flag</i>
         Sedes
       </a>
-      <a mat-list-item routerLink="infraction">
+      <a *ngIf="authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_DIRETOR'])" mat-list-item routerLink="infraction">
         <i class="material-icons">assignment_late</i>
         Advertências
       </a>
-       <a mat-list-item routerLink="member">
+       <a  mat-list-item routerLink="member">
         <i class="material-icons">sports_motorsports</i>
         Membros
       </a>
-       <a mat-list-item routerLink="memberPatch">
+       <a *ngIf="authService.hasAnyRole(['ROLE_ADMIN'])" mat-list-item routerLink="memberPatch">
         <i class="material-icons">school</i>
         Graduações
       </a>
-      <a mat-list-item routerLink="roleDuty">
+      <a *ngIf="authService.hasAnyRole(['ROLE_ADMIN'])" mat-list-item routerLink="roleDuty">
         <i class="material-icons">stars</i>
         Cargos
       </a>
-       <a mat-list-item routerLink="travelControl">
+       <a *ngIf="authService.hasAnyRole(['ROLE_ADMIN'])" mat-list-item routerLink="travelControl">
         <i class="material-icons">motorcycle</i>
         Controle de Viagens
       </a>       

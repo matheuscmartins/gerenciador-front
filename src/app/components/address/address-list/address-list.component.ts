@@ -26,14 +26,14 @@ export class AddressListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.findAll();
+    this.findAllSummary();
   }
  
-  findAll(){
-    this.service.findAll().subscribe(resposta =>{
+  findAllSummary(){
+    this.service.findAllSummary().subscribe(resposta =>{
       this.ELEMENT_DATA = resposta
       this.dataSource = new MatTableDataSource<Address>(resposta);
-      this.dataSource.paginator = this.paginator;
+      this.dataSource.paginator = this.paginator;      
     })
   }
 
@@ -53,7 +53,7 @@ export class AddressListComponent implements OnInit {
         }
       }
     });  
-    this.findAll();   
+    this.findAllSummary();   
   }
  
 }

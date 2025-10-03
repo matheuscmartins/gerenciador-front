@@ -53,6 +53,7 @@ export class HeadQuarterCreateComponent implements OnInit {
       this.ELEMENT_DATA = resposta;      
       this.dataSource = new MatTableDataSource<Address>(resposta);
       this.dataSource.paginator = this.paginator;
+      console.log(resposta);
     })
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Member } from 'src/app/models/member';
+import { AuthService } from 'src/app/services/auth.service';
 import { MemberService } from 'src/app/services/member.service';
 
 @Component({
@@ -17,8 +18,8 @@ export class MemberListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(    
-    private service: MemberService
-    
+    private service: MemberService,
+    public authService: AuthService    
   ) { }
 
   ngOnInit(): void {

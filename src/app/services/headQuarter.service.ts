@@ -18,7 +18,7 @@ export class HeadQuarterService {
   }
   findAll(): Observable<HeadQuarter[]> {
     return this.http.get<HeadQuarter[]>(`${API_CONFIG.baseUrl}/sedes`);
-  }
+  }  
   create(headQuarter: HeadQuarter): Observable<HeadQuarter>{
     return this.http.post<HeadQuarter>(`${API_CONFIG.baseUrl}/sedes`, headQuarter)
   }

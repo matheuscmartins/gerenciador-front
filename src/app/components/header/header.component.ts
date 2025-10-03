@@ -9,13 +9,19 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  user: any;
   constructor(
     private router: Router,
     private authService: AuthService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService) { 
+      
+    }
 
   ngOnInit(): void {
+   this.authService.user$.subscribe(user => {
+    this.user = user;
+    console.log('Usuário atualizado:', this.user.sub);
+  });
   }
   
   logout(){

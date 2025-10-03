@@ -74,6 +74,7 @@ import { FeedListComponent } from './components/feed/feed-list/feed-list.compone
 import { FeedDeleteComponent } from './components/feed/feed-delete/feed-delete.component';
 import { FeedCreateComponent } from './components/feed/feed-create/feed-create.component';
 import { FeedUpdateComponent } from './components/feed/feed-update/feed-update.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -152,7 +153,7 @@ import { FeedUpdateComponent } from './components/feed/feed-update/feed-update.c
     }),
     NgxMaskModule.forRoot()
   ],
-    providers: [AuthInterceptorProvider, DatePipe],    
+    providers: [AuthInterceptorProvider, DatePipe, AuthService],     
     bootstrap: [AppComponent],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ] 
 })

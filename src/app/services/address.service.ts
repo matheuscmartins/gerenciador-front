@@ -19,6 +19,9 @@ export class AddressService {
   findAll(): Observable<Address[]> {
     return this.http.get<Address[]>(`${API_CONFIG.baseUrl}/enderecos`);
   }
+  findAllSummary(): Observable<Address[]> {
+    return this.http.get<Address[]>(`${API_CONFIG.baseUrl}/enderecos/summary`);
+  }
   create(address: Address): Observable<Address>{
     return this.http.post<Address>(`${API_CONFIG.baseUrl}/enderecos`, address)
   }
