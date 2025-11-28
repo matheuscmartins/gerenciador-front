@@ -31,4 +31,10 @@ export class TravelControlService {
   findbyHeadQuarterIdAndPeriod(id: any, startDate: string, endDate: string): Observable<TravelControl[]>{
     return this.http.get<TravelControl[]>(`${API_CONFIG.baseUrl}/viagens/sede/${id}/periodo/${startDate}/${endDate}`);
   }
+  FindAllbyPeriod( startDate: string, endDate: string): Observable<TravelControl[]>{
+    return this.http.get<TravelControl[]>(`${API_CONFIG.baseUrl}/viagens/periodo/${startDate}/${endDate}`);
+  }
+  findByMemberIdAndPeriod(id: any, startDate: string, endDate: string): Observable<TravelControl[]>{
+    return this.http.get<TravelControl[]>(`${API_CONFIG.baseUrl}/viagens/membro/${id}/periodo/${startDate}/${endDate}`);
+  }
 }

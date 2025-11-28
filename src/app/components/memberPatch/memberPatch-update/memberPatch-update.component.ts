@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DateAdapter } from '@angular/material/core';
 import { PatchService } from 'src/app/services/patch.service';
 import { Patch } from 'src/app/models/patch';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-memberPatch-update',
@@ -71,13 +72,14 @@ export class MemberPatchUpdateComponent implements OnInit {
     private router: Router,
     public _adapter: DateAdapter<Date>,
     private activedRoute : ActivatedRoute,
-    fb: FormBuilder
+    fb: FormBuilder,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
     this.findAllPatch();
-    this.findAllMember();
-     this._adapter.setLocale('en-GB');
+    this.loadMembersAccordingToRole();
+    this._adapter.setLocale('en-GB');
     this.memberPatch.id = this.activedRoute.snapshot.paramMap.get('id'); 
     this.findbyId();   
   }
@@ -95,6 +97,22 @@ export class MemberPatchUpdateComponent implements OnInit {
     this.patchService.findAll().subscribe(resposta =>{
       this.patchList = resposta;
     })
+  }
+
+  loadMembersAccordingToRole(): void { 
+    if (this.authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_COMANDO'])) {
+      this.findAllMember();
+      return;
+    }
+
+    const headQuarterId = this.authService.getHeadQuarterId();    
+    console.log(headQuarterId);
+    this.memberService.findByHeadQuarterId(headQuarterId).subscribe(resposta =>{
+      this.ELEMENT_DATA = resposta.sort((a, b) => 
+      new Date(b.firstName).getTime() - new Date(a.firstName).getTime());
+      this.dataSource = new MatTableDataSource<Member>(resposta);
+      this.dataSource.paginator = this.paginator;
+      })  
   }
 
   findAllMember(){

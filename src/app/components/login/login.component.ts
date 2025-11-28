@@ -14,30 +14,35 @@ export class LoginComponent implements OnInit {
 
   creds: Credentials = {
     email: '',
-    password:''
+    password: ''
   }
+
   email = new FormControl(null, Validators.email);
   password = new FormControl(null, Validators.minLength(6));
 
   constructor(
     private toast: ToastrService,
     private service: AuthService,
-    private router: Router) { }
+    private router: Router
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  logar() {
+    this.service.authenticate(this.creds).subscribe({
+      next: (response) => {   
+        this.service.successfulLogin(response); // ✅ passa o objeto inteiro  
+        this.toast.success('Login realizado com sucesso!');
+        this.router.navigate(['home']);
+      },
+      error: (err) => {
+        console.error('Erro ao logar:', err);
+        this.toast.error('Usuário e/ou senha inválidos!');
+      },
+    });
+  }  
+
+  validaCampos(): boolean {
+    return this.email.valid && this.password.valid;
   }
-
-  logar(){
-    this.service.authenticate(this.creds).subscribe(resposta =>{
-      this.service.successfulLogin(resposta.headers.get('Authorization').substring(7));  
-      this.router.navigate(['home']);    
-    }, () =>{
-      this.toast.error('Usuario e/ou senha inválidos!');
-    })
-  }
-
-  validaCampos(): boolean{
-    return this.email.valid && this.password.valid    
-  }
-
 }

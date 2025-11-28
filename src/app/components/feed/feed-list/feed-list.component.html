@@ -20,7 +20,7 @@
             [formControl]="startDateForm"
             [value]="startDateStart"
              readonly matStartDate placeholder="Data incio">
-            <input (dateChange)="findbyHeadQuarterIdAndPeriod()"
+            <input (dateChange)="loadFeedsAccordingToRole()"
             [formControl]="endDateForm"
             [value]="endDateStart"
              readonly matEndDate placeholder="Data fim">

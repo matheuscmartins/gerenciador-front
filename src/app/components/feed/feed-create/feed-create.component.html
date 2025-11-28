@@ -7,7 +7,23 @@
             src="assets/img/create/member-create.jpg"
             alt="Portal BDL" />
           </div>
-
+          <section class="section">
+            <mat-checkbox
+              [checked]="publica"
+              (change)="visibility('PUBLICA', $event.checked)"
+              color="primary"
+            >
+              Pública
+            </mat-checkbox>
+          
+            <mat-checkbox
+              [checked]="restrita"
+              (change)="visibility('RESTRITA', $event.checked)"
+              color="primary"
+            >
+              Restrita
+            </mat-checkbox>
+          </section>
         <mat-form-field
         class="midWidth"
           appearance="fill"

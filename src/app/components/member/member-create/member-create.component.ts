@@ -14,6 +14,7 @@ import { HeadQuarterService } from 'src/app/services/headQuarter.service';
 import { DateAdapter } from '@angular/material/core';
 import { BloodTypeService } from 'src/app/services/bloodType.service';
 import { BloodType } from 'src/app/models/bloodType';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-member-create',
@@ -100,7 +101,8 @@ export class MemberCreateComponent implements OnInit {
     private bloodTypeService: BloodTypeService,
     private toastr: ToastrService,
     private router: Router,
-    public _adapter: DateAdapter<Date>
+    public _adapter: DateAdapter<Date>,
+    public authService: AuthService
   ) { }
   
   ngOnInit(): void {

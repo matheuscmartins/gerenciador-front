@@ -47,7 +47,7 @@
               <th mat-header-cell *matHeaderCellDef> Ações </th>
               <td mat-cell *matCellDef="let element"> 
               <a routerLink="update/{{element.id}}" >             
-                 <i mat-raised-button
+                 <i *ngIf="authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_COMANDO'])" mat-raised-button
                     matTooltip="Editar Este Cargo"
                     aria-label="Editar Cargo"          
                     class="material-icons edit">edit

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { RoleDuty } from 'src/app/models/roleDuty';
+import { AuthService } from 'src/app/services/auth.service';
 import { RoleDutyService } from 'src/app/services/roleDuty.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class RoleDutyListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private service: RoleDutyService
+    private service: RoleDutyService,
+    public authService: AuthService 
   ) { }
 
   ngOnInit(): void {

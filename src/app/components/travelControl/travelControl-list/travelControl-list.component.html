@@ -14,13 +14,13 @@
     
       <div class="mat-elevation-z8">
         <mat-form-field appearance="fill" class="morLessWidth ">
-          <mat-label>Selcione um intervalo de datas</mat-label>
+          <mat-label>Selecione um intervalo de datas</mat-label>
           <mat-date-range-input readonly [rangePicker]="dateRangepicker">
             <input 
             [formControl]="startDateForm"
             [value]="startDateStart"
              readonly matStartDate placeholder="Data incio">
-            <input (dateChange)="findbyHeadQuarterIdAndPeriod()"
+            <input (dateChange)="loadTravelsAccordingToRole()"
             [formControl]="endDateForm"
             [value]="endDateStart"
              readonly matEndDate placeholder="Data fim">

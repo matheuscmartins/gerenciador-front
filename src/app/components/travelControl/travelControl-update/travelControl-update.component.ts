@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DateAdapter } from '@angular/material/core';
 import { TravelControl } from 'src/app/models/travelControl';
 import { TravelControlService } from 'src/app/services/travelControl.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -73,14 +74,31 @@ import { TravelControlService } from 'src/app/services/travelControl.service';
     private toastr: ToastrService,
     private router: Router,
     public _adapter: DateAdapter<Date>,
-    private activedRoute : ActivatedRoute
+    private activedRoute : ActivatedRoute,
+    private authService: AuthService
   ) { }
 
     ngOnInit(): void {
-        this.findAllMember();
+      this.loadMembersAccordingToRole();
         this._adapter.setLocale('en-GB');
         this.travelControl.id = this.activedRoute.snapshot.paramMap.get('id'); 
         this.findbyId(); 
+    }
+
+    loadMembersAccordingToRole(): void { 
+      if (this.authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_COMANDO'])) {
+        this.findAllMember();
+        return;
+      }
+  
+      const headQuarterId = this.authService.getHeadQuarterId();    
+      console.log(headQuarterId);
+      this.memberService.findByHeadQuarterId(headQuarterId).subscribe(resposta =>{
+        this.ELEMENT_DATA = resposta.sort((a, b) => 
+        new Date(b.firstName).getTime() - new Date(a.firstName).getTime());
+        this.dataSource = new MatTableDataSource<Member>(resposta);
+        this.dataSource.paginator = this.paginator;
+        })  
     }
 
     findbyId(): void{
@@ -91,7 +109,7 @@ import { TravelControlService } from 'src/app/services/travelControl.service';
             
             this.selectMember(this.travelControl.member.id, this.travelControl.member.firstName + 
                 ' - ' + this.travelControl.member.lastName, this.travelControl.member.headQuarter.description);
-                this.KmControl(false, this.travelControl.kmControl)        
+                this.KmControl( this.travelControl.kmControl, true)        
               })
     }
 
@@ -149,27 +167,31 @@ import { TravelControlService } from 'src/app/services/travelControl.service';
         this.headQuarter.setValue("");    
       }
     
-      KmControl(checked: boolean, KmControl: string): void{
-        if(KmControl != '' && checked){
-          switch (KmControl) {        
-            case '0':
-              this.travelControl.kmControl = KmControl;
-              this.kmcheio = true;
-              this.meiokm = false;
-              break;
-              case '1':
-                this.travelControl.kmControl = KmControl;
-                this.kmcheio = false;
-                this.meiokm = true;
-              break;
-          }
-        }
-        if(!checked){
-          if(this.kmcheio){
-            this.travelControl.kmControl = null;
-        }else {this.travelControl.kmControl = '0';}
+      KmControl(type: string, checked: boolean): void {
+        if (checked) {
+          // Marca o selecionado, desmarca o outro
+          this.travelControl.kmControl = type;
+      
+          if (type === '0') {
             this.kmcheio = true;
             this.meiokm = false;
-        }     
+          } else {
+            this.kmcheio = false;
+            this.meiokm = true;
+          }
+      
+        } else {
+          // Desmarcou? marca automaticamente o oposto
+          if (type === '0') {
+            this.kmcheio = false;
+            this.meiokm = true;
+            this.travelControl.kmControl = '1';
+          } else {
+            this.kmcheio = true;
+            this.meiokm = false;
+            this.travelControl.kmControl = '0';
+          }
+        }
       }
+      
   }

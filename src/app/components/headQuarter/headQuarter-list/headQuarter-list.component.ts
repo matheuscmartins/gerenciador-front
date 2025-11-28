@@ -34,8 +34,7 @@ export class HeadQuarterListComponent implements OnInit {
     this.service.findAll().subscribe(resposta =>{
       this.ELEMENT_DATA = resposta
       this.dataSource = new MatTableDataSource<HeadQuarter>(resposta);
-      this.dataSource.paginator = this.paginator;
-      console.log(resposta);
+      this.dataSource.paginator = this.paginator;      
     })
   }
 

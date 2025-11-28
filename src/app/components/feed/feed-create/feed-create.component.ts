@@ -21,6 +21,7 @@ export class FeedCreateComponent implements OnInit {
     reunionDate: '',
     title: '',
     text: '',
+    feedVisibility: '',
     headQuarter: {      
     }
   }
@@ -30,6 +31,8 @@ export class FeedCreateComponent implements OnInit {
   reunionDateForm: FormControl = new FormControl(null, Validators.required); 
   title: FormControl = new FormControl(null, Validators.minLength(4)); 
   text: FormControl = new FormControl(null, Validators.minLength(4)); 
+  publica: boolean = false;
+  restrita: boolean = false;
   
   constructor(
     private feedService: FeedService,
@@ -42,6 +45,7 @@ export class FeedCreateComponent implements OnInit {
   ngOnInit(): void {
     this.findAllHeadQuarter();
     this._adapter.setLocale('en-GB');
+    this.visibility('PUBLICA', false);
   }
 
   findAllHeadQuarter(){
@@ -53,6 +57,7 @@ export class FeedCreateComponent implements OnInit {
   validaCampos(): boolean{
     return this.title.valid && this.text.valid &&
     this.headQuarterMatSelected.valid &&  this.reunionDateForm.valid 
+    && this.feed.feedVisibility != null
   }
 
   create(): void{  
@@ -64,8 +69,10 @@ export class FeedCreateComponent implements OnInit {
           if(ex.error.errors){
             ex.error.errors.array.forEach(element => {
               this.toastr.error(element.message);
+              console.log('aqui');
             });
           }else{
+            console.log(this.feed.feedVisibility);
             this.toastr.error(ex.error.message);
           }
         });
@@ -79,9 +86,35 @@ export class FeedCreateComponent implements OnInit {
   addReunionDate(date: Date): void{
     if(date != null){
     this.feed.reunionDate = date.toLocaleDateString('en-GB', { timeZone: 'UTC' });  
-    this.feed.postDate = new Date().toLocaleDateString('en-GB', { timeZone: 'UTC' });  
-    console.log(this.feed.postDate);
+    this.feed.postDate = new Date().toLocaleDateString('en-GB', { timeZone: 'UTC' });      
    }
   }
 
+  visibility(type: string, checked: boolean): void {
+    console.log("aqui")
+    if (checked) {
+      // Se marcou um, desmarca o outro
+      this.feed.feedVisibility = type;
+  
+      if (type === 'PUBLICA') {
+        this.publica = true;
+        this.restrita = false;
+      } else {
+        this.publica = false;
+        this.restrita = true;
+      }
+  
+    } else {
+      // Se desmarcou o atual, marca o oposto automaticamente
+      if (type === 'PUBLICA') {
+        this.publica = false;
+        this.restrita = true;
+        this.feed.feedVisibility = 'RESTRITA';
+      } else {
+        this.publica = true;
+        this.restrita = false;
+        this.feed.feedVisibility = 'PUBLICA';
+      }
+    }
+  }
 }

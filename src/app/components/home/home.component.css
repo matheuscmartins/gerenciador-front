@@ -1,17 +1,24 @@
 .container {
     width: 100%;
     margin: auto;
+    max-width: 1000px;
+    padding: 1rem;
 }
 .card{
     width: 90% ;    
     margin: 2rem auto;
     background-color:rgb(235, 235, 235) ; 
     border-radius: 1rem;   
+    padding: 1rem;
 }
 img{
     height: 20rem;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
 }
 h1{
     width:  100%;
     text-align: center;
+    margin-bottom: 1.5rem;
 }

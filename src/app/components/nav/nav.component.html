@@ -1,16 +1,16 @@
 <mat-drawer-container class="container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side">
-    <img src="assets/img/side-image.svg" alt="Imagem de navegação">
+    <img src="assets/img/escudo-image.png" alt="Imagem de navegação">
     <mat-nav-list class="nav-list">
       <a mat-list-item routerLink="home" >
         <i class="material-icons">home</i>
         Home
       </a>
-      <a *ngIf="authService.hasAnyRole(['ROLE_ADMIN'])" mat-list-item routerLink="address">
+      <a mat-list-item routerLink="address">
         <i class="material-icons">markunread_mailbox</i>
         Endereços
       </a>
-      <a *ngIf="authService.hasAnyRole(['ROLE_ADMIN'])" mat-list-item routerLink="feed">
+      <a  mat-list-item routerLink="feed">
         <i class="material-icons">post_add</i>
         Comunicados
       </a>
@@ -18,7 +18,7 @@
         <i class="material-icons">flag</i>
         Sedes
       </a>
-      <a *ngIf="authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_DIRETOR'])" mat-list-item routerLink="infraction">
+      <a mat-list-item routerLink="infraction">
         <i class="material-icons">assignment_late</i>
         Advertências
       </a>
@@ -26,15 +26,15 @@
         <i class="material-icons">sports_motorsports</i>
         Membros
       </a>
-       <a *ngIf="authService.hasAnyRole(['ROLE_ADMIN'])" mat-list-item routerLink="memberPatch">
+       <a  mat-list-item routerLink="memberPatch" >
         <i class="material-icons">school</i>
         Graduações
       </a>
-      <a *ngIf="authService.hasAnyRole(['ROLE_ADMIN'])" mat-list-item routerLink="roleDuty">
+      <a  mat-list-item routerLink="roleDuty" >
         <i class="material-icons">stars</i>
         Cargos
       </a>
-       <a *ngIf="authService.hasAnyRole(['ROLE_ADMIN'])" mat-list-item routerLink="travelControl">
+       <a mat-list-item routerLink="travelControl" >
         <i class="material-icons">motorcycle</i>
         Controle de Viagens
       </a>       

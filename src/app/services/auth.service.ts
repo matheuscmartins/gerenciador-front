@@ -16,67 +16,96 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     this.loadUserFromStorage();
-   }
+  }
 
-   private loadUserFromStorage() {
+  private loadUserFromStorage() {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const user = JSON.parse(storedUser);
-      this.userSubject.next(user);      
+      this.userSubject.next(user);
     }
   }
 
- authenticate(creds: Credentials) {
-    return this.http.post(`${API_CONFIG.baseUrl}/login`, creds, {
-      observe: 'response',
-      responseType: 'text'
-    })
+  authenticate(creds: Credentials) {    
+    return this.http.post<any>(`${API_CONFIG.baseUrl}/login`, creds);
+  } 
+  
+  successfulLogin(loginResponse: any) {   
+    const authToken = loginResponse.token?.replace('Bearer ', '').trim();
+    if (authToken) {
+      localStorage.setItem('token', authToken);
+    }
+
+    const user = {
+      email: loginResponse.email,
+      roles: loginResponse.roles || [],
+      userId: loginResponse.userId || null,
+      headQuarterId: loginResponse.headQuarterId || null
+    };
+    this.setUser(user);
   }
 
-  successfulLogin(authToken: string) {
-    localStorage.setItem('token', authToken);  
-
-     // Recupera os dados do usuário a partir do token e os armazena
-     const user = this.decodeToken(authToken);
-     if (user) {
-       this.setUser(user);
-     }
-  }
-
+  /** 🔹 Retorna se o usuário está autenticado */
   isAuthenticated() {
-    let token = localStorage.getItem('token')
-    if(token != null) {
-      return !this.jwtService.isTokenExpired(token)
+    const token = localStorage.getItem('token');
+    if (token != null) {
+      return !this.jwtService.isTokenExpired(token);
     }
-    return false
+    return false;
   }
+
+  /** 🔹 Salva usuário no storage e notifica observadores */
   setUser(user: any) {
     localStorage.setItem('user', JSON.stringify(user));
-    this.userSubject.next(user);    
+    this.userSubject.next(user);
   }
 
-  getUser(): any {    
+  /** 🔹 Retorna usuário atual */
+  getUser(): any {
     return this.userSubject.value;
   }
+
+  /** 🔹 Retorna lista de roles */
   getRoles(): string[] {
     const user = this.getUser();
     return user && user.roles ? user.roles : [];
   }
-  
+
+  /** 🔹 Verifica se o usuário tem algum dos perfis */
   hasAnyRole(roles: string[]): boolean {
     const user = this.getUser();
     if (!user || !user.roles) return false;
     return roles.some(role => user.roles.includes(role));
   }
+
+  getUserId(): number | null {
+    const user = this.getUser();
+    return user && user.userId ? Number(user.userId) : null;
+  }
+  /** 🔹 Verifica se o usuário possui um perfil específico */
+  hasRole(role: string): boolean {
+    const user = this.getUser();
+    return user && user.roles ? user.roles.includes(role) : false;
+  }
+
+  /** 🔹 Retorna o ID da sede (headQuarter) */
+  getHeadQuarterId(): number | null {
+    const user = this.getUser();
+    return user && user.headQuarterId ? Number(user.headQuarterId) : null;
+  }
+
+  /** 🔹 Faz logout limpando dados locais */
   logout() {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    this.userSubject.next(null);    
+    this.userSubject.next(null);
   }
+
+  /** 🔹 Decodifica o token (opcional, se quiser extrair claims do JWT) */
   private decodeToken(token: string): any {
     try {
       return this.jwtService.decodeToken(token);
-    } catch (error) {     
+    } catch (error) {
       return null;
     }
   }

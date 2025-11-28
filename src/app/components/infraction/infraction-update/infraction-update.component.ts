@@ -9,6 +9,7 @@ import { MemberService } from 'src/app/services/member.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DateAdapter } from '@angular/material/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-infraction-update',
@@ -69,14 +70,30 @@ export class InfractionUpdateComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     public _adapter: DateAdapter<Date>,
-    private activedRoute : ActivatedRoute
+    private activedRoute : ActivatedRoute,
+    private authService: AuthService
   ) { }
   
   ngOnInit(): void {
-    this.findAllMember();
+    this.loadMembersAccordingToRole();
      this._adapter.setLocale('en-GB');
      this.infraction.id = this.activedRoute.snapshot.paramMap.get('id'); 
      this.findbyId();  
+  }
+  loadMembersAccordingToRole(): void { 
+    if (this.authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_COMANDO'])) {
+      this.findAllMember();
+      return;
+    }
+
+    const headQuarterId = this.authService.getHeadQuarterId();    
+    console.log(headQuarterId);
+    this.memberService.findByHeadQuarterId(headQuarterId).subscribe(resposta =>{
+      this.ELEMENT_DATA = resposta.sort((a, b) => 
+      new Date(b.firstName).getTime() - new Date(a.firstName).getTime());
+      this.dataSource = new MatTableDataSource<Member>(resposta);
+      this.dataSource.paginator = this.paginator;
+      })  
   }
 
   findbyId(): void{
@@ -87,7 +104,7 @@ export class InfractionUpdateComponent implements OnInit {
       
       this.selectMember(this.infraction.member.id, this.infraction.member.firstName + 
         ' - ' + this.infraction.member.lastName, this.infraction.member.headQuarter.description)
-        this.infractionType(true, this.infraction.infractionType); 
+        this.infractionType( this.infraction.infractionType, true); 
       })
   }
 
@@ -144,75 +161,25 @@ export class InfractionUpdateComponent implements OnInit {
     this.headQuarter.setValue("");    
   }
     
-  infractionType(checked: boolean, infractionType: string): void{
-    if(infractionType != null && checked){
-      switch (infractionType) {        
-        case 'ESCRITA':
-          this.infraction.infractionType = infractionType;
-          this.escrita= true;
-          this.suspensao = false;
-          this.verbal = false;
-          this.desligamento = false;
-          this.rebaixamento = false;
-          this.expulsao = false;
-          break;
-        case 'SUSPENSAO':
-          this.infraction.infractionType = infractionType;
-          this.escrita= false;
-          this.suspensao = true;
-          this.verbal = false;
-          this.desligamento = false;
-          this.rebaixamento = false;
-          this.expulsao = false;
-          break;
-          case 'VERBAL':
-          this.infraction.infractionType = infractionType;
-          this.escrita= false;
-          this.suspensao = false;
-          this.verbal = true;
-          this.desligamento = false;
-          this.rebaixamento = false;
-          this.expulsao = false;
-          break;
-          case 'DESLIGAMENTO':
-          this.infraction.infractionType = infractionType;
-          this.escrita= false;
-          this.suspensao = false;
-          this.verbal = false;
-          this.desligamento = true;
-          this.rebaixamento = false;
-          this.expulsao = false;
-          break;
-          case 'REBAIXAMENTO':
-          this.infraction.infractionType = infractionType;
-          this.escrita= false;
-          this.suspensao = false;
-          this.verbal = false;
-          this.desligamento = false;
-          this.rebaixamento = true;
-          this.expulsao = false;
-          break;
-          case 'EXPULSAO':
-          this.infraction.infractionType = infractionType;
-          this.escrita= false;
-          this.suspensao = false;
-          this.verbal = false;
-          this.desligamento = false;
-          this.rebaixamento = false;
-          this.expulsao = true;
-          break;   
+  infractionType(type: string, checked: boolean): void {
+    const types = ['ESCRITA', 'SUSPENSAO', 'VERBAL', 'DESLIGAMENTO', 'REBAIXAMENTO', 'EXPULSAO'];
+  
+    if (checked) {
+      // Marca apenas o selecionado, desmarca todos os outros
+      this.infraction.infractionType = type;
+      types.forEach(t => this[t.toLowerCase()] = (t === type));
+  
+    } else {
+      // Se desmarcou VERBAL → marca ESCRITA
+      if (type === 'VERBAL') {
+        this.infraction.infractionType = 'ESCRITA';
+        types.forEach(t => this[t.toLowerCase()] = (t === 'ESCRITA'));
+      } else {
+        // Se desmarcou qualquer outro → marca VERBAL
+        this.infraction.infractionType = 'VERBAL';
+        types.forEach(t => this[t.toLowerCase()] = (t === 'VERBAL'));
       }
     }
-      if(!checked){
-        if(this.verbal){
-          this.infraction.infractionType = null;
-      }else {this.infraction.infractionType = '0';}
-          this.escrita= false;
-          this.suspensao = false;
-          this.verbal = true;
-          this.desligamento = false;
-          this.rebaixamento = false;
-          this.expulsao = false;
-      }
   }
+  
 }

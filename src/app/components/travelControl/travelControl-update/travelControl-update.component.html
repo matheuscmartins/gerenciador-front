@@ -8,12 +8,14 @@
             alt="Portal BDL" />
           </div>
 
-        <section class="section" >
-            <mat-checkbox (change)="KmControl($event.checked, '0')" class="margin" color="primary" [checked]="kmcheio">
-                KM CHEIO</mat-checkbox>
-            <mat-checkbox (change)="KmControl($event.checked, '1')" class="margin" color="primary" [checked]="meiokm">
-                MEIO KM</mat-checkbox>             
-           </section>   
+          <section class="section">
+            <mat-checkbox (change)="KmControl('0', $event.checked)" [checked]="kmcheio" color="primary" class="margin">
+              KM CHEIO
+            </mat-checkbox>          
+            <mat-checkbox (change)="KmControl('1', $event.checked)" [checked]="meiokm" color="primary" class="margin">
+              MEIO KM
+            </mat-checkbox>
+          </section>            
 
          <mat-form-field appearance="fill" class="midWidth">
           <mat-label>Data da Viagem</mat-label>

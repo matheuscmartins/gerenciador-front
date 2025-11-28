@@ -14,6 +14,7 @@ import { HeadQuarterService } from 'src/app/services/headQuarter.service';
 import { DateAdapter } from '@angular/material/core';
 import { BloodTypeService } from 'src/app/services/bloodType.service';
 import { BloodType } from 'src/app/models/bloodType';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-member-update',
@@ -106,7 +107,8 @@ export class MemberUpdateComponent implements OnInit {
     private router: Router,
     public _adapter: DateAdapter<Date>,    
     private activedRoute : ActivatedRoute,
-    fb: FormBuilder
+    fb: FormBuilder,
+    public authService: AuthService
   ) {   
     this.profiles = fb.group({
       ADMIN: false,
@@ -273,6 +275,7 @@ export class MemberUpdateComponent implements OnInit {
   }
 
    bringProfiles(): void{
+  console.log("Profile = " + this.member.profile);
     if(this.member.profile.find(x=>x == "ADMIN")){
       this.profiles.patchValue({
         ADMIN: true        

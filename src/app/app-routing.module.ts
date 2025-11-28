@@ -28,6 +28,7 @@ import { TravelControlUpdateComponent } from './components/travelControl/travelC
 import { FeedListComponent } from './components/feed/feed-list/feed-list.component';
 import { FeedCreateComponent } from './components/feed/feed-create/feed-create.component';
 import { FeedUpdateComponent } from './components/feed/feed-update/feed-update.component';
+import { MyProfileListComponent } from './components/myProfile/myProfile-list/myProfile-list.component';
 
 const routes: Routes = [
   {
@@ -36,30 +37,53 @@ const routes: Routes = [
   {
     path: '',  component: NavComponent, canActivate:[AuthGuard], children:[
       {path: 'home', component: HomeComponent},
-      {path: 'address', component: AddressListComponent},
-      {path: 'address/create', component: AddressCreateComponent},
-      {path: 'address/update/:id', component: AddressUpdateComponent},
+      {path: 'address', component: AddressListComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR'] }},
+      {path: 'address/create', component: AddressCreateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR'] }},
+      {path: 'address/update/:id', component: AddressUpdateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR'] }},
       {path: 'headQuarter', component: HeadQuarterListComponent},
-      {path: 'headQuarter/create', component: HeadQuarterCreateComponent},
-      {path: 'headQuarter/update/:id', component: HeadQuarterUpdateComponent},
+      {path: 'headQuarter/create', component: HeadQuarterCreateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO'] }},
+      {path: 'headQuarter/update/:id', component: HeadQuarterUpdateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO'] }},
       {path: 'member', component: MemberListComponent},
-      {path: 'member/create', component: MemberCreateComponent},     
-      {path: 'member/update/:id', component: MemberUpdateComponent},
-      {path: 'infraction', component: InfractionListComponent},
-      {path: 'infraction/create', component: InfractionCreateComponent},
-      {path: 'infraction/update/:id', component: InfractionUpdateComponent},
-      {path: 'roleDuty', component: RoleDutyListComponent},
-      {path: 'roleDuty/create', component: RoleDutyCreateComponent},
-      {path: 'roleDuty/update/:id', component: RoleDutyUpdateComponent},
-      {path: 'memberPatch', component: MemberPatchListComponent},
-      {path: 'memberPatch/create', component: MemberPatchCreateComponent},
-      {path: 'memberPatch/update/:id', component: MemberPatchUpdateComponent},
-      {path: 'travelControl', component: TravelControlListComponent},
-      {path: 'travelControl/create', component: TravelControlCreateComponent},
-      {path: 'travelControl/update/:id', component: TravelControlUpdateComponent},
-      {path: 'feed', component: FeedListComponent},
-      {path: 'feed/create', component: FeedCreateComponent},
-      {path: 'feed/update/:id', component: FeedUpdateComponent}
+      {path: 'member/create', component: MemberCreateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR'] }},    
+      {path: 'member/update/:id', component: MemberUpdateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR'] }},
+      {path: 'infraction', component: InfractionListComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR'] }},
+      {path: 'infraction/create', component: InfractionCreateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR'] }},
+      {path: 'infraction/update/:id', component: InfractionUpdateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR'] }},
+      {path: 'roleDuty', component: RoleDutyListComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR'] }},
+      {path: 'roleDuty/create', component: RoleDutyCreateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO'] }},
+      {path: 'roleDuty/update/:id', component: RoleDutyUpdateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO'] }},
+      {path: 'memberPatch', component: MemberPatchListComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR'] }},
+      {path: 'memberPatch/create', component: MemberPatchCreateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR'] }},
+      {path: 'memberPatch/update/:id', component: MemberPatchUpdateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR'] }},
+      {path: 'travelControl', component: TravelControlListComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR', 'ROLE_EDITOR']}},
+      {path: 'travelControl/create', component: TravelControlCreateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR', 'ROLE_EDITOR']}},
+      {path: 'travelControl/update/:id', component: TravelControlUpdateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR', 'ROLE_EDITOR']}},
+      {path: 'feed', component: FeedListComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR', 'ROLE_EDITOR'] }},
+      {path: 'feed/create', component: FeedCreateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR', 'ROLE_EDITOR'] }},
+      {path: 'feed/update/:id', component: FeedUpdateComponent, canActivate: [AuthGuard],
+      data: { roles: ['ROLE_ADMIN', 'ROLE_COMANDO', 'ROLE_DIRETOR', 'ROLE_EDITOR'] }},
+      {path: 'myProfile/:id', component: MyProfileListComponent}
     ]
   }
 ];

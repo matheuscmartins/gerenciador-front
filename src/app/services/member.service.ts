@@ -28,4 +28,7 @@ export class MemberService {
   delete(id: any): Observable<Member>{
     return this.http.delete<Member>(`${API_CONFIG.baseUrl}/membros/${id}`);
   }
+  findByHeadQuarterId(id: any): Observable<Member[]>{
+    return this.http.get<Member[]>(`${API_CONFIG.baseUrl}/membros/sede/${id}`);
+  }
 }

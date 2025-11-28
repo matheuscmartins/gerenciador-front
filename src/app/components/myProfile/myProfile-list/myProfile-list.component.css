@@ -1,0 +1,136 @@
+.container{
+    width: 70%;    
+    margin: auto;
+    padding: 1rem 1rem 3rem 1rem;
+    border-radius: .6rem;
+  }
+  .fullWidth{
+    width: 100%;    
+  }
+  .container-list {
+    width: 100%;
+    margin: auto;
+    border-radius: 1rem;
+  }
+  .form2{
+    padding-top: 3rem;
+  }
+  h1{
+    text-align: center;
+  }
+  img{
+    max-width:245px;
+    max-height:188px;
+    width: auto;
+    height: auto; 
+    margin: 0rem auto 0rem auto;   
+    display: block;
+  }
+  
+  .mat-success {
+    background-color: green;
+    color: #fff;
+    opacity: .8;
+  }
+  button{
+    width: 40%;
+    margin-top: .8rem;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: .4rem;
+  }
+  .cbb{
+    margin-left: 8%;
+    margin-right: 4%;
+    color: black;
+  }
+  mat-icon{
+    opacity: .5;
+  }
+  .midWidth{
+    align-items: center;
+    width: 40%;
+    padding-right: 3.5%;
+    padding-top: 1%;
+  }
+  table {
+    width: 100%;
+    align-content: center;
+  }  
+.searching{
+  width: 100%; 
+  padding-top: 1%;
+  padding-left: 1%;
+}
+.morLessWidth{  
+  width: 30%; 
+  padding-top: 1%;
+  padding-left: 1%;
+}
+  .addButton{
+    width: 3%;    
+  }
+  .clearButton{
+    width: 3%;     
+  }
+  .example-headers-align .mat-expansion-panel-header-title,
+  .example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+  }
+  .example-headers-align {
+    margin-left: 8px;
+  }
+  .section {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .profile-container {
+    width: 100%;
+    height: 150px;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0px;
+    right: 346px;
+    width: 254px;
+    height: 148px;
+    background: #0C0C0C1E;
+    border-radius: 50%;
+    opacity: 0;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  .profile-container:hover .overlay {
+    opacity: 1;
+  }  
+  
+  .overlay mat-icon {
+    font-size: 18px;
+  }
+  .profile-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  

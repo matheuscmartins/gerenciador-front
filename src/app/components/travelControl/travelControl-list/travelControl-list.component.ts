@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DateAdapter } from '@angular/material/core';
 import { FormControl } from '@angular/forms';
 import { TravelControlDeleteComponent } from '../travelControl-delete/travelControl-delete.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-travelControl-list',
@@ -20,8 +21,9 @@ export class TravelControlListComponent implements OnInit {
   displayedColumns: string[] = ['position', 'travelDate', 'location', 'name', 'km', 'kmControl', 'acoes'];
   dataSource = new MatTableDataSource<TravelControl>(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  
-  startDateStart: Date = new Date(Number('2024'), Number('01') - 1, Number('01'));
+
+  now = new Date();
+  startDateStart = new Date(this.now.getFullYear(), 0, 1);  
   endDateStart: Date = new Date();
   startDateForm: FormControl = new FormControl(this.startDateStart); 
   endDateForm: FormControl = new FormControl (this.endDateStart);
@@ -29,34 +31,39 @@ export class TravelControlListComponent implements OnInit {
   constructor(
     private service: TravelControlService,
     private dialog: MatDialog,
-    public _adapter: DateAdapter<Date>
+    public _adapter: DateAdapter<Date>,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.findbyHeadQuarterIdAndPeriod();
+    this.loadTravelsAccordingToRole();
     this._adapter.setLocale('en-GB');
   }
 
-  /* findAll(){
-    this.service.findAll().subscribe(resposta =>{
-      this.ELEMENT_DATA = resposta
+  loadTravelsAccordingToRole(): void { 
+    if(this.startDateForm.value != null && this.endDateForm.value != null){
+
+    if (this.authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_COMANDO'])) {
+      this.service.FindAllbyPeriod( this.startDateForm.value.toLocaleDateString('fr-CA'),
+      this.endDateForm.value.toLocaleDateString('fr-CA')).subscribe(resposta =>{
+      this.ELEMENT_DATA = resposta.sort((a, b) => 
+        new Date(b.travelDate).getTime() - new Date(a.travelDate).getTime());
       this.dataSource = new MatTableDataSource<TravelControl>(resposta);
       this.dataSource.paginator = this.paginator;
-    })
-  } */
+       });     
+    }
 
-  findbyHeadQuarterIdAndPeriod(){
-    if(this.startDateForm.value != null && this.endDateForm.value != null){
-      this.service.findbyHeadQuarterIdAndPeriod(1, this.startDateForm.value.toLocaleDateString('fr-CA'),
+    const headQuarterId = this.authService.getHeadQuarterId(); 
+    this.service.findbyHeadQuarterIdAndPeriod(headQuarterId, this.startDateForm.value.toLocaleDateString('fr-CA'),
         this.endDateForm.value.toLocaleDateString('fr-CA')).subscribe(resposta =>{
         this.ELEMENT_DATA = resposta.sort((a, b) => 
           new Date(b.travelDate).getTime() - new Date(a.travelDate).getTime());
         this.dataSource = new MatTableDataSource<TravelControl>(resposta);
         this.dataSource.paginator = this.paginator;
-      }); 
+      });
     }
   }
-  
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -73,7 +80,7 @@ export class TravelControlListComponent implements OnInit {
         }
       }
     });  
-    this.findbyHeadQuarterIdAndPeriod();      
+    this.loadTravelsAccordingToRole();     
   } 
 
 }

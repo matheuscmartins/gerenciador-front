@@ -7,5 +7,6 @@ export interface Feed{
     reunionDate: string;
     title: string;
     text: string;
-    headQuarter: HeadQuarter;    
+    headQuarter: HeadQuarter; 
+    feedVisibility: string;   
 }

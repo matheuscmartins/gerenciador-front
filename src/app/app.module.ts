@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 
 // Imports para componentes do Angular Material
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -75,6 +77,7 @@ import { FeedDeleteComponent } from './components/feed/feed-delete/feed-delete.c
 import { FeedCreateComponent } from './components/feed/feed-create/feed-create.component';
 import { FeedUpdateComponent } from './components/feed/feed-update/feed-update.component';
 import { AuthService } from './services/auth.service';
+import { MyProfileListComponent } from './components/myProfile/myProfile-list/myProfile-list.component';
 
 @NgModule({
   declarations: [
@@ -113,8 +116,8 @@ import { AuthService } from './services/auth.service';
     FeedListComponent,
     FeedCreateComponent,
     FeedUpdateComponent,
-    FeedDeleteComponent
-    
+    FeedDeleteComponent,
+    MyProfileListComponent    
   ],
   imports: [
     BrowserModule,

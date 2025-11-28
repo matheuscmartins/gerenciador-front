@@ -9,6 +9,7 @@ import { MemberService } from 'src/app/services/member.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DateAdapter } from '@angular/material/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-infraction-create',
@@ -57,7 +58,7 @@ export class InfractionCreateComponent implements OnInit {
   infractionDateForm: FormControl = new FormControl(null, Validators.required); 
   escrita: boolean = false;
   suspensao: boolean = false;
-  verbal: boolean = true;
+  verbal: boolean = false;
   desligamento: boolean = false;
   rebaixamento: boolean = false;
   expulsao: boolean = false;
@@ -67,14 +68,32 @@ export class InfractionCreateComponent implements OnInit {
     private infractionService: InfractionService,
     private toastr: ToastrService,
     private router: Router,
-    public _adapter: DateAdapter<Date>
+    public _adapter: DateAdapter<Date>,
+    private authService: AuthService
   ) { }
   
   ngOnInit(): void {
-    this.findAllMember();
+    this.loadMembersAccordingToRole();
      this._adapter.setLocale('en-GB');
+     this.infractionType('ESCRITA', false);
   }
   
+  loadMembersAccordingToRole(): void { 
+    if (this.authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_COMANDO'])) {
+      this.findAllMember();
+      return;
+    }
+
+    const headQuarterId = this.authService.getHeadQuarterId();    
+    console.log(headQuarterId);
+    this.memberService.findByHeadQuarterId(headQuarterId).subscribe(resposta =>{
+      this.ELEMENT_DATA = resposta.sort((a, b) => 
+      new Date(b.firstName).getTime() - new Date(a.firstName).getTime());
+      this.dataSource = new MatTableDataSource<Member>(resposta);
+      this.dataSource.paginator = this.paginator;
+      })  
+  }
+
   findAllMember(){
     this.memberService.findAll().subscribe(resposta =>{
       this.ELEMENT_DATA = resposta;      
@@ -129,75 +148,25 @@ export class InfractionCreateComponent implements OnInit {
     this.headQuarter.setValue("");    
   }
     
-  infractionType(checked: boolean, infractionType: string): void{
-    if(infractionType != null && checked){
-      switch (infractionType) {        
-        case '0':
-          this.infraction.infractionType = infractionType;
-          this.escrita= true;
-          this.suspensao = false;
-          this.verbal = false;
-          this.desligamento = false;
-          this.rebaixamento = false;
-          this.expulsao = false;
-          break;
-        case '1':
-          this.infraction.infractionType = infractionType;
-          this.escrita= false;
-          this.suspensao = true;
-          this.verbal = false;
-          this.desligamento = false;
-          this.rebaixamento = false;
-          this.expulsao = false;
-          break;
-          case '2':
-          this.infraction.infractionType = infractionType;
-          this.escrita= false;
-          this.suspensao = false;
-          this.verbal = true;
-          this.desligamento = false;
-          this.rebaixamento = false;
-          this.expulsao = false;
-          break;
-          case '3':
-          this.infraction.infractionType = infractionType;
-          this.escrita= false;
-          this.suspensao = false;
-          this.verbal = false;
-          this.desligamento = true;
-          this.rebaixamento = false;
-          this.expulsao = false;
-          break;
-          case '4':
-          this.infraction.infractionType = infractionType;
-          this.escrita= false;
-          this.suspensao = false;
-          this.verbal = false;
-          this.desligamento = false;
-          this.rebaixamento = true;
-          this.expulsao = false;
-          break;
-          case '5':
-          this.infraction.infractionType = infractionType;
-          this.escrita= false;
-          this.suspensao = false;
-          this.verbal = false;
-          this.desligamento = false;
-          this.rebaixamento = false;
-          this.expulsao = true;
-          break;   
+  infractionType(type: string, checked: boolean): void {
+    const types = ['ESCRITA', 'SUSPENSAO', 'VERBAL', 'DESLIGAMENTO', 'REBAIXAMENTO', 'EXPULSAO'];
+  
+    if (checked) {
+      // Marca apenas o selecionado, desmarca todos os outros
+      this.infraction.infractionType = type;
+      types.forEach(t => this[t.toLowerCase()] = (t === type));
+  
+    } else {
+      // Se desmarcou VERBAL → marca ESCRITA
+      if (type === 'VERBAL') {
+        this.infraction.infractionType = 'ESCRITA';
+        types.forEach(t => this[t.toLowerCase()] = (t === 'ESCRITA'));
+      } else {
+        // Se desmarcou qualquer outro → marca VERBAL
+        this.infraction.infractionType = 'VERBAL';
+        types.forEach(t => this[t.toLowerCase()] = (t === 'VERBAL'));
       }
     }
-      if(!checked){
-        if(this.verbal){
-          this.infraction.infractionType = null;
-      }else {this.infraction.infractionType = '0';}
-          this.escrita= false;
-          this.suspensao = false;
-          this.verbal = true;
-          this.desligamento = false;
-          this.rebaixamento = false;
-          this.expulsao = false;
-      }
   }
+  
 }

@@ -23,9 +23,25 @@ export class MemberListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.findAll();
+    this.loadMembersAccordingToRole();
   }
- 
+  
+  loadMembersAccordingToRole(): void { 
+    if (this.authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_COMANDO'])) {
+      this.findAll();
+      return;
+    }
+
+    const headQuarterId = this.authService.getHeadQuarterId();    
+    console.log(headQuarterId);
+    this.service.findByHeadQuarterId(headQuarterId).subscribe(resposta =>{
+      this.ELEMENT_DATA = resposta.sort((a, b) => 
+      new Date(b.firstName).getTime() - new Date(a.firstName).getTime());
+      this.dataSource = new MatTableDataSource<Member>(resposta);
+      this.dataSource.paginator = this.paginator;
+      })  
+  }
+
   findAll(){
     this.service.findAll().subscribe(resposta =>{
       this.ELEMENT_DATA = resposta;      

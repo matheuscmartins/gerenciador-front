@@ -356,6 +356,7 @@
           </div>
         </mat-expansion-panel>
         <br />
+
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title> Dados da Sede </mat-panel-title>
@@ -517,7 +518,6 @@
         </button>
 
         </mat-expansion-panel>
-
         <br />
 
         <mat-expansion-panel>
@@ -559,10 +559,10 @@
           </mat-form-field>
           
           <section class="section" required  [formGroup]="profiles">
-            <mat-checkbox formControlName="ADMIN" (click)="addPerfil('ADMIN')" 
-              class="margin" color="primary">Admin</mat-checkbox>
-            <mat-checkbox formControlName="COMANDO" (click)="addPerfil('COMANDO')" 
-              class="margin" color="primary">Comando</mat-checkbox> 
+            <mat-checkbox *ngIf="authService.hasAnyRole(['ROLE_ADMIN'])"
+            (click)="addPerfil(0)" class="margin" color="primary">Admin</mat-checkbox>
+            <mat-checkbox *ngIf="authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_COMANDO'])" 
+            (click)="addPerfil(1)" class="margin" color="primary">Comando</mat-checkbox> 
             <mat-checkbox formControlName="DIRETOR" (click)="addPerfil('DIRETOR')" 
               class="margin" color="primary">Diretor</mat-checkbox>
             <mat-checkbox formControlName="EDITOR" (click)="addPerfil('EDITOR')" 

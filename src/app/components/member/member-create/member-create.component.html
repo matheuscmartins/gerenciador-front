@@ -551,8 +551,10 @@
         </mat-form-field>
         
         <section class="section">
-         <mat-checkbox (click)="addPerfil(0)" class="margin" color="primary">Admin</mat-checkbox>
-         <mat-checkbox (click)="addPerfil(1)" class="margin" color="primary">Comando</mat-checkbox> 
+         <mat-checkbox *ngIf="authService.hasAnyRole(['ROLE_ADMIN'])"
+         (click)="addPerfil(0)" class="margin" color="primary">Admin</mat-checkbox>
+         <mat-checkbox *ngIf="authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_COMANDO'])" 
+         (click)="addPerfil(1)" class="margin" color="primary">Comando</mat-checkbox> 
          <mat-checkbox (click)="addPerfil(2)" class="margin" color="primary">Diretor</mat-checkbox>
          <mat-checkbox (click)="addPerfil(3)" class="margin" color="primary">Editor</mat-checkbox>
          <mat-checkbox (click)="addPerfil(4)" [checked]="true" class="margin" color="primary">Usuario</mat-checkbox>            

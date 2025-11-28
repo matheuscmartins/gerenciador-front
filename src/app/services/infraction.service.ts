@@ -28,4 +28,7 @@ export class InfractionService {
   delete(id: any): Observable<Infraction>{
     return this.http.delete<Infraction>(`${API_CONFIG.baseUrl}/advertencias/${id}`);
   }
+  findByHeadQuarterId(id: any): Observable<Infraction[]>{
+    return this.http.get<Infraction[]>(`${API_CONFIG.baseUrl}/advertencias/sede/${id}`);
+  }
 }

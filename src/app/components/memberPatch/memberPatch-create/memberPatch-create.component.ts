@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DateAdapter } from '@angular/material/core';
 import { PatchService } from 'src/app/services/patch.service';
 import { Patch } from 'src/app/models/patch';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-memberPatch-create',
@@ -68,13 +69,30 @@ export class MemberPatchCreateComponent implements OnInit {
     private patchService: PatchService,
     private toastr: ToastrService,
     private router: Router,
-    public _adapter: DateAdapter<Date>
+    public _adapter: DateAdapter<Date>,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
     this.findAllPatch();
-    this.findAllMember();
-     this._adapter.setLocale('en-GB');
+    this.loadMembersAccordingToRole();
+    this._adapter.setLocale('en-GB');
+  }
+
+  loadMembersAccordingToRole(): void { 
+    if (this.authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_COMANDO'])) {
+      this.findAllMember();
+      return;
+    }
+
+    const headQuarterId = this.authService.getHeadQuarterId();    
+    console.log(headQuarterId);
+    this.memberService.findByHeadQuarterId(headQuarterId).subscribe(resposta =>{
+      this.ELEMENT_DATA = resposta.sort((a, b) => 
+      new Date(b.firstName).getTime() - new Date(a.firstName).getTime());
+      this.dataSource = new MatTableDataSource<Member>(resposta);
+      this.dataSource.paginator = this.paginator;
+      })  
   }
 
   findAllPatch(){

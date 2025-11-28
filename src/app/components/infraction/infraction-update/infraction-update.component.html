@@ -7,21 +7,21 @@
             src="assets/img/create/member-create.jpg"
             alt="Portal BDL" />
           </div>
-
-        <section class="section" >
-          <mat-checkbox  (change)="infractionType($event.checked, 'ESCRITA')" class="margin" color="primary"  [checked]="escrita">
-            Escrita</mat-checkbox>
-          <mat-checkbox  (change)="infractionType($event.checked, 'SUSPENSAO')" class="margin" color="primary" [checked]="suspensao">
-            Suspensão</mat-checkbox> 
-          <mat-checkbox  (change)="infractionType($event.checked, 'VERBAL')"  class="margin" color="primary" [checked]="verbal">
-            Verbal</mat-checkbox>
-          <mat-checkbox (change)="infractionType($event.checked, 'DESLIGAMENTO')" class="margin" color="primary" [checked]="desligamento">
-            Desligamento</mat-checkbox>
-          <mat-checkbox (change)="infractionType($event.checked, 'REBAIXAMENTO')" class="margin" color="primary" [checked]="rebaixamento">
-            Rebaixamento</mat-checkbox>            
-          <mat-checkbox (change)="infractionType($event.checked, 'EXPULSAO')" class="margin" color="primary" [checked]="expulsao">
-            Expulsão</mat-checkbox>
-         </section>
+          
+          <section class="section">
+          <mat-checkbox (change)="infractionType('ESCRITA', $event.checked)" [checked]="escrita" 
+          color="primary">Escrita</mat-checkbox>
+          <mat-checkbox (change)="infractionType('SUSPENSAO', $event.checked)" [checked]="suspensao" 
+          color="primary">Suspensão</mat-checkbox>
+          <mat-checkbox (change)="infractionType('VERBAL', $event.checked)" [checked]="verbal" 
+          color="primary">Verbal</mat-checkbox>
+          <mat-checkbox (change)="infractionType('DESLIGAMENTO', $event.checked)" [checked]="desligamento" 
+          color="primary">Desligamento</mat-checkbox>
+          <mat-checkbox (change)="infractionType('REBAIXAMENTO', $event.checked)" [checked]="rebaixamento" 
+          color="primary">Rebaixamento</mat-checkbox>
+          <mat-checkbox (change)="infractionType('EXPULSAO', $event.checked)" [checked]="expulsao" 
+          color="primary">Expulsão</mat-checkbox>          
+        </section>
 
          <mat-form-field appearance="fill">
           <mat-label>Data da Advertência</mat-label>
