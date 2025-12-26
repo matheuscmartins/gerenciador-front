@@ -26,6 +26,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 
@@ -132,6 +133,7 @@ import { MyProfileListComponent } from './components/myProfile/myProfile-list/my
     MatFormFieldModule,
     MatPaginatorModule,   
     MatCheckboxModule,
+    MatProgressSpinnerModule,
     MatSnackBarModule,
     MatToolbarModule,
     MatSidenavModule,

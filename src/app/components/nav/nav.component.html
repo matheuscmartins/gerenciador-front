@@ -1,54 +1,63 @@
 <mat-drawer-container class="container" autosize>
-  <mat-drawer #drawer class="sidenav" mode="side">
-    <img src="assets/img/escudo-image.png" alt="Imagem de navegação">
+  <!-- mode="over" em mobile, mode="side" em desktop -->
+  <mat-drawer #drawer 
+              class="sidenav" 
+              [mode]="isMobile() ? 'over' : 'side'">
+    <div class="logo-container">
+      <img src="assets/img/escudo-image.png" alt="Logo BDL">
+      <div class="club-name">Brigada Dos Lobos</div>
+    </div>
     <mat-nav-list class="nav-list">
-      <a mat-list-item routerLink="home" >
+      <a class="mat-list-item" mat-list-item routerLink="home" (click)="closeSidenavOnMobile()">
         <i class="material-icons">home</i>
         Home
       </a>
-      <a mat-list-item routerLink="address">
+      <a class="mat-list-item" mat-list-item routerLink="address" (click)="closeSidenavOnMobile()">
         <i class="material-icons">markunread_mailbox</i>
         Endereços
       </a>
-      <a  mat-list-item routerLink="feed">
+      <a class="mat-list-item" mat-list-item routerLink="feed" (click)="closeSidenavOnMobile()">
         <i class="material-icons">post_add</i>
         Comunicados
       </a>
-      <a mat-list-item routerLink="headQuarter">
+      <a class="mat-list-item" mat-list-item routerLink="headQuarter" (click)="closeSidenavOnMobile()">
         <i class="material-icons">flag</i>
         Sedes
       </a>
-      <a mat-list-item routerLink="infraction">
+      <a class="mat-list-item" mat-list-item routerLink="infraction" (click)="closeSidenavOnMobile()">
         <i class="material-icons">assignment_late</i>
         Advertências
       </a>
-       <a  mat-list-item routerLink="member">
+      <a class="mat-list-item" mat-list-item routerLink="member" (click)="closeSidenavOnMobile()">
         <i class="material-icons">sports_motorsports</i>
         Membros
       </a>
-       <a  mat-list-item routerLink="memberPatch" >
+      <a class="mat-list-item" mat-list-item routerLink="memberPatch" (click)="closeSidenavOnMobile()">
         <i class="material-icons">school</i>
         Graduações
       </a>
-      <a  mat-list-item routerLink="roleDuty" >
+      <a class="mat-list-item" mat-list-item routerLink="roleDuty" (click)="closeSidenavOnMobile()">
         <i class="material-icons">stars</i>
         Cargos
       </a>
-       <a mat-list-item routerLink="travelControl" >
-        <i class="material-icons">motorcycle</i>
+      <a class="mat-list-item" mat-list-item routerLink="travelControl" (click)="closeSidenavOnMobile()">
+        <i class="material-icons">two_wheeler</i>
         Controle de Viagens
       </a>       
     </mat-nav-list>
   </mat-drawer>
-
+  
   <div class="sidenav-content">
-    <app-header></app-header>
-    <button class="menu mat-elevation-z8" (click)="drawer.toggle()" mat-icon-button
-    mat-raised-button
-        matTooltip="Menu"
-        aria-label="Expandir o menu navegação">
-      <mat-icon>menu</mat-icon>
-    </button>
+    <app-header>
+      <button class="menu mat-elevation-z8" 
+              (click)="drawer.toggle()" 
+              mat-icon-button
+              mat-raised-button
+              matTooltip="Menu"
+              aria-label="Expandir o menu navegação">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </app-header>
     <router-outlet></router-outlet>
   </div>
 </mat-drawer-container>

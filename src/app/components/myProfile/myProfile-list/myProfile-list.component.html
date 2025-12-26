@@ -1,379 +1,969 @@
 <div class="container mat-elevation-z8">
-    <form class="form">
-      <h1 class="fullWidth">Meu Perfil </h1>
-      <div class="profile-container" (click)="alterarImagem()">
-        <img
-        class="profile-pic"
-        src="assets/img/noProfile.png"
-        alt="Foto de perfil"/>
-        <div class="overlay">
-          <mat-icon>edit</mat-icon>
+  <form class="form">
+    <h1 class="fullWidth">Meu Perfil</h1>
+    
+    <!-- ========================================
+         FOTO DE PERFIL
+         ======================================== -->
+         <div class="profile-wrapper">
+          <div class="profile-container" (click)="alterarImagem()">
+            <img class="profile-pic"
+                 [src]="getProfileImageUrl()"
+                 (error)="onImageError($event)"
+                 alt="Foto de perfil"/>
+            <div class="overlay">
+              <mat-icon>photo_camera</mat-icon>
+            </div>
+            <button class="edit-button" type="button">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </div>
+
+    <!-- Input escondido para upload de arquivo -->
+    <input type="file" 
+           #fileInput 
+           accept="image/*" 
+           (change)="onFileSelected($event)"
+           style="display: none;">
+    
+   <!-- Alerta se há foto não salva -->
+<div *ngIf="hasUnsavedPhoto()" class="unsaved-photo-alert">
+  <mat-icon>info</mat-icon>
+  <span>Você selecionou uma nova foto.</span>
+  <div class="alert-buttons">
+    <button class="salvarFoto" mat-raised-button color="sucess" (click)="salvarFotoPerfil()">
+      Salvar
+    </button>
+    <button class="cancelarFoto"mat-button color="warn" (click)="cancelarFoto()">
+      Cancelar
+    </button>
+  </div>
+</div>
+
+    <!-- Botões de ação do accordion -->
+    <div class="example-action-buttons">
+      <button class="mat-elevation-z8" type="button" mat-button (click)="accordion.openAll()">Expandir Todos</button>
+      <button class="mat-elevation-z8" type="button" mat-button (click)="accordion.closeAll()">Minimizar Todos</button>
+    </div>
+    <br />
+  
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel (opened)="togglePersonal(true)" 
+      (closed)="togglePersonal(false)">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Dados Pessoais </mat-panel-title>
+          <mat-panel-description> {{ panelPersonalOpen ? 'Click para Minimizar dados pessoais' : 'Click para Expandir dados Pessoais' }}
+            <mat-icon>sports_motorsports</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field class="fullWidth" appearance="legacy">
+          <mat-label>Nome</mat-label>
+          <input
+            [(ngModel)]="member.firstName"
+            name="firstName"
+            [formControl]="firstName"              
+            matInput
+            readonly/>
+          <mat-icon matSuffix>description</mat-icon>           
+        </mat-form-field>  
+        <mat-form-field class="fullWidth" appearance="legacy">
+          <mat-label>Sobre Nome</mat-label>
+          <input
+            [(ngModel)]="member.lastName"
+            name="lastName"
+            [formControl]="lastName"
+            matInput
+            readonly/>
+          <mat-icon matSuffix>description</mat-icon>            
+        </mat-form-field>  
+        <mat-form-field class="fullWidth" appearance="legacy">
+          <mat-label>Apelido</mat-label>
+          <input
+            [(ngModel)]="member.nickName"
+            name="nickName"
+            [formControl]="nickName"            
+            matInput              
+            readonly/>
+          <mat-icon matSuffix>description</mat-icon>            
+        </mat-form-field>  
+        <mat-form-field class="fullWidth" appearance="legacy">
+          <mat-label>RG</mat-label>
+          <input
+            [(ngModel)]="member.rg"
+            name="rg"
+            [formControl]="rg"              
+            mask="00.000.000-0"
+            matInput              
+            readonly/>
+            <mat-icon matSuffix>pin</mat-icon>              
+        </mat-form-field>  
+        <mat-form-field class="fullWidth" appearance="legacy">
+          <mat-label>cpf</mat-label>
+          <input
+            [(ngModel)]="member.cpf"
+            name="cpf"
+            [formControl]="cpf"             
+            mask="000.000.000-00"
+            matInput
+            readonly/>
+            <mat-icon matSuffix>pin</mat-icon>              
+        </mat-form-field>  
+        <mat-form-field class="fullWidth" appearance="legacy">
+          <mat-label>cnh</mat-label>
+          <input
+            [(ngModel)]="member.cnh"
+            name="cnh"
+            [formControl]="cnh"            
+            mask="00000000000"
+            matInput              
+            readonly/>
+            <mat-icon matSuffix>pin</mat-icon>              
+        </mat-form-field>
+        <mat-form-field class="fullWidth" appearance="legacy">
+          <mat-label>Celular</mat-label>
+          <input
+            [(ngModel)]="member.celPhone"
+            name="celPhone"
+            [formControl]="celPhone"              
+            mask="(00)00000-0000"
+            matInput
+            readonly/>
+          <mat-icon matSuffix>phone_iphone</mat-icon>
+        </mat-form-field>  
+        <mat-form-field class="fullWidth" appearance="legacy">
+          <mat-label>Tel. Residencial</mat-label>
+          <input
+            [(ngModel)]="member.phone"
+            name="phone"
+            [formControl]="phone"
+            mask="(00)0000-0000"
+            matInput
+            readonly/>
+          <mat-icon matSuffix>call</mat-icon>
+        </mat-form-field>  
+        <mat-form-field class="fullWidth" appearance="legacy">
+          <mat-label>Tel. Recado 1</mat-label>
+          <input
+            [(ngModel)]="member.familiarPhone1"
+            name="familiarPhone1"
+            [formControl]="familiarPhone1"
+            mask="(00)0000-0000"
+            matInput
+            readonly/>
+          <mat-icon matSuffix>contacts</mat-icon>
+        </mat-form-field>  
+        <mat-form-field class="fullWidth" appearance="legacy">
+          <mat-label>Tel. Recado 2</mat-label>
+          <input
+            [(ngModel)]="member.familiarPhone2"
+            name="familiarPhone2"
+            [formControl]="familiarPhone2"
+            mask="(00)0000-0000"
+            matInput
+            readonly/>
+          <mat-icon matSuffix>contacts</mat-icon>
+        </mat-form-field>  
+        <mat-form-field appearance="fill" class="midWidth">
+          <mat-label>Data de Nascimento</mat-label>
+          <input
+            matInput
+            [value] = "birthDateStart | date:'dd/MM/yyyy'"
+            disabled/>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="midWidth">
+          <mat-label>Tipo sanguíneo</mat-label>
+          <input
+            matInput
+            [value]="member.bloodType?.description || 'Não informado'"
+            disabled/>
+        </mat-form-field>
+      </mat-expansion-panel>        
+      <br />
+
+      <mat-expansion-panel (opened)="toggleAddress(true)" 
+      (closed)="toggleAddress(false)">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Dados de Endereço </mat-panel-title>
+          <mat-panel-description> {{ panelAdressOpen ? 'Click para Minimizar dados de Endereço' : 'Click para Expandir dados de Endereço' }}             
+            <mat-icon>markunread_mailbox</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field appearance="fill" class="fullWidth">
+          <mat-label>Logradouro</mat-label>
+          <input
+            matInput              
+            name="addressLogradouro"
+            [formControl]="addressLogradouro"
+            readonly/>
+        </mat-form-field>  
+        <mat-form-field appearance="fill" class="midWidth">
+          <mat-label>Cidade</mat-label>
+          <input
+            matInput              
+            name="cityName"
+            [formControl]="cityName"
+            readonly/>
+        </mat-form-field>  
+        <mat-form-field appearance="fill" class="midWidth">
+          <mat-label>CEP</mat-label>
+          <input
+            matInput              
+            name="addressPostCode"
+            [formControl]="addressPostCode"
+            readonly/>
+        </mat-form-field>  
+      </mat-expansion-panel>          
+      <br />
+
+      <mat-expansion-panel (opened)="toggleHeadQuarter(true)" 
+      (closed)="toggleHeadQuarter(false)">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Dados da Sede </mat-panel-title>
+          <mat-panel-description> {{ panelHeadQuarterOpen ? 'Click para Minimizar dados da Sede' : 'Click para Expandir dados da Sede' }}              
+            <mat-icon>flag</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field appearance="fill" class="midWidth">
+          <mat-label>Sede</mat-label>
+          <input
+            matInput                            
+            name="headQuarterDescription"
+            [formControl]="headQuarterDescription"
+            readonly/>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="midWidth">
+          <mat-label>Cidade da Sede</mat-label>
+          <input
+            matInput              
+            name="headQuarterCity"
+            [formControl]="headQuarterCity"
+            readonly />
+        </mat-form-field>           
+        <mat-form-field appearance="fill" class="midWidth">
+          <mat-label>Data de Admissão</mat-label>
+          <input 
+            matInput  
+            [value]="admissionDateStart | date:'dd/MM/yyyy'"             
+            disabled/>            
+        </mat-form-field>   
+      </mat-expansion-panel>        
+      <br />
+
+      <mat-expansion-panel (opened)="toggleInfraction(true)" 
+      (closed)="toggleInfraction(false)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Dados de Advertências</mat-panel-title>
+          <mat-panel-description> {{ panelInfractionOpen ? 'Click para Minimizar dados de Advertências' : 'Click para Expandir dados de Advertências' }}            
+            <mat-icon>assignment_late</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>         
+
+        <div class="mat-elevation-z8">            
+          <table mat-table [dataSource]="dataSourceInfraction">  
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> id </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>      
+            
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Associado </th>
+              <td mat-cell *matCellDef="let element"> {{element.member.firstName}} {{element.member.lastName}}</td>
+            </ng-container>     
+          
+            <ng-container matColumnDef="infractionType">
+              <th mat-header-cell *matHeaderCellDef> Advertência </th>
+              <td mat-cell *matCellDef="let element"> {{element.infractionType}} </td>
+            </ng-container>     
+            
+            <ng-container matColumnDef="infractionDate">
+              <th mat-header-cell *matHeaderCellDef> Data da Advertência </th>
+              <td mat-cell *matCellDef="let element"> {{element.infractionDate}} </td>
+            </ng-container>                 
+
+            <ng-container matColumnDef="acoes">
+              <th mat-header-cell *matHeaderCellDef> Ações </th>
+              <td mat-cell *matCellDef="let element"> 
+                <i (click)="visualizarAdvertencia(element)"
+                   mat-raised-button
+                   matTooltip="Visualizar Esta Advertência"
+                   aria-label="Visualizar Advertência"          
+                   class="material-icons look">
+                   search
+                </i>
+              </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsInfraction"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsInfraction;"></tr>
+          </table>
+        
+          <mat-paginator [pageSizeOptions]="[5, 10, 50]"
+                         showFirstLastButtons 
+                         aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>  
+
+      </mat-expansion-panel>
+      <br />
+      
+      <mat-expansion-panel (opened)="toggleMemberPatch(true)" 
+      (closed)="toggleMemberPatch(false)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Dados de Graduações</mat-panel-title>
+          <mat-panel-description> {{ panelMemberPatchOpen ? 'Click para Minimizar dados de Graduações' : 'Click para Expandir dados de Graduações' }}            
+            <mat-icon>school</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>         
+
+        <div class="mat-elevation-z8">            
+          <table mat-table [dataSource]="dataSourceMemberPatch">  
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> id </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>      
+            
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Graduação </th>
+              <td mat-cell *matCellDef="let element"> {{element.patch.name}}</td>
+            </ng-container>   
+            
+            <ng-container matColumnDef="memberName">
+              <th mat-header-cell *matHeaderCellDef> Associado </th>
+              <td mat-cell *matCellDef="let element"> {{element.member.firstName}} {{element.member.lastName}}</td>
+            </ng-container> 
+
+            <ng-container matColumnDef="admissionDate">
+              <th mat-header-cell *matHeaderCellDef> Data da Graduação</th>
+              <td mat-cell *matCellDef="let element">  {{element.admissionDate}} </td>
+            </ng-container>                 
+
+            <ng-container matColumnDef="acoes">
+              <th mat-header-cell *matHeaderCellDef> Ações </th>
+              <td mat-cell *matCellDef="let element"> 
+                <i (click)="visualizarGraduacao(element)"
+                   mat-raised-button
+                   matTooltip="Visualizar Esta Graduação"
+                   aria-label="Visualizar Graduação"          
+                   class="material-icons look">
+                   search
+                </i>
+              </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsMemberPatch"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsMemberPatch;"></tr>
+          </table>
+        
+          <mat-paginator [pageSizeOptions]="[5, 10, 50]"
+                         showFirstLastButtons 
+                         aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>  
+
+      </mat-expansion-panel>
+      <br />
+
+      <mat-expansion-panel (opened)="toggleTravels(true)" 
+      (closed)="toggleTravels(false)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Dados de Km's Rodados</mat-panel-title>
+          <mat-panel-description> {{ panelTravelsOpen ? 'Click para Minimizar dados de Kms' : 'Click para Expandir dados de Kms' }}            
+            <mat-icon>two_wheeler</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field appearance="standard" class="searching">      
+          <mat-label>Pesquisa</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Data/Local" #input>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <div class="mat-elevation-z8">
+          <mat-form-field appearance="fill" class="morLessWidth">
+            <mat-label>Selecione um intervalo de datas</mat-label>
+            <mat-date-range-input readonly [rangePicker]="dateRangepicker">
+              <input 
+              [formControl]="travelStartDateForm"
+              [value]="travelStartDateStart"
+               readonly matStartDate placeholder="Data incio">
+              <input (dateChange)="findTravelsByMemberId()"
+              [formControl]="travelEndDateForm"
+              [value]="travelEndDateStart"
+               readonly matEndDate placeholder="Data fim">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="dateRangepicker"></mat-datepicker-toggle>
+            <mat-date-range-picker #dateRangepicker></mat-date-range-picker>
+          </mat-form-field>
+          <table mat-table [dataSource]="dataSourceTravel">  
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> id </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>      
+            
+            <ng-container matColumnDef="travelDate">
+              <th mat-header-cell *matHeaderCellDef> Data da Viagem </th>
+              <td mat-cell *matCellDef="let element"> {{element.travelDate}} </td>
+            </ng-container>      
+          
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef> Numero </th>
+              <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+            </ng-container>      
+            
+            <ng-container matColumnDef="location">
+              <th mat-header-cell *matHeaderCellDef> Origem e Destino </th>
+              <td mat-cell *matCellDef="let element"> 
+                {{element.departureLocation}} á {{element.arrivalLocation}} </td>
+            </ng-container>                 
+
+            <ng-container matColumnDef="km">
+                <th mat-header-cell *matHeaderCellDef> Km's Rodados </th>
+                <td mat-cell *matCellDef="let element"> {{element.km}} </td>
+              </ng-container>
+
+            <ng-container matColumnDef="kmControl">
+                <th mat-header-cell *matHeaderCellDef> Contagem de Km </th>
+                <td mat-cell *matCellDef="let element"> {{element.kmControl}} </td>
+            </ng-container>  
+            
+            <ng-container matColumnDef="acoes">
+              <th mat-header-cell *matHeaderCellDef> Ações </th>
+              <td mat-cell *matCellDef="let element"> 
+                <i (click)="visualizarViagem(element)"
+                   mat-raised-button
+                   matTooltip="Visualizar Esta Viagem"
+                   aria-label="Visualizar Viagem"          
+                   class="material-icons look">
+                   search
+                </i>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsTravel"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsTravel;"></tr>
+          </table>
+        
+          <mat-paginator [pageSizeOptions]="[10, 20, 70]"
+                         showFirstLastButtons 
+                         aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>  
+
+      </mat-expansion-panel>
+      <br />
+
+      <mat-expansion-panel (opened)="toggleAccess(true)" 
+                     (closed)="toggleAccess(false)">
+  <mat-expansion-panel-header>
+    <mat-panel-title> Dados de Acesso </mat-panel-title>
+    <mat-panel-description> 
+      {{ panelAccessOpen ? 'Click para Minimizar dados de Acesso' : 'Click para Expandir dados de Acesso' }}            
+      <mat-icon>key</mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <!-- E-mail (readonly) -->
+  <mat-form-field class="fullWidth" appearance="legacy">
+    <mat-label>E-mail</mat-label>
+    <input
+      [(ngModel)]="member.email"
+      name="email"
+      [formControl]="email"              
+      matInput  
+      readonly/>
+    <mat-icon matSuffix>email</mat-icon>            
+  </mat-form-field>
+
+  <!-- SEÇÃO DE ALTERAÇÃO DE SENHA -->
+  <div class="password-change-section">
+    <h3 class="password-change-title">
+      <mat-icon>lock_reset</mat-icon>
+      Alterar Senha
+    </h3>
+
+    <!-- Senha Atual -->
+    <mat-form-field class="fullWidth" appearance="outline">
+      <mat-label>Senha Atual</mat-label>
+      <input
+        [(ngModel)]="senhaAtual"
+        name="senhaAtual"
+        [formControl]="senhaAtualControl"
+        [type]="hideCurrentPassword ? 'password' : 'text'"
+        matInput
+        placeholder="Digite sua senha atual"
+        autocomplete="current-password"
+        maxlength="99"/>
+      <button mat-icon-button matSuffix 
+              (click)="hideCurrentPassword = !hideCurrentPassword"
+              [attr.aria-label]="'Mostrar senha'"
+              type="button">
+        <mat-icon>{{hideCurrentPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-icon matPrefix>lock_outline</mat-icon>
+      <mat-error *ngIf="senhaAtualControl.hasError('required')">
+        Senha atual é obrigatória
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Nova Senha -->
+    <mat-form-field class="fullWidth" appearance="outline">
+      <mat-label>Nova Senha</mat-label>
+      <input
+        [(ngModel)]="novaSenha"
+        name="novaSenha"
+        [formControl]="novaSenhaControl"
+        [type]="hideNewPassword ? 'password' : 'text'"
+        matInput
+        placeholder="Digite a nova senha"
+        autocomplete="new-password"
+        maxlength="99"/>
+      <button mat-icon-button matSuffix 
+              (click)="hideNewPassword = !hideNewPassword"
+              [attr.aria-label]="'Mostrar senha'"
+              type="button">
+        <mat-icon>{{hideNewPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-icon matPrefix>vpn_key</mat-icon>
+      <mat-error *ngIf="novaSenhaControl.hasError('required')">
+        Nova senha é obrigatória
+      </mat-error>
+      <mat-error *ngIf="novaSenhaControl.hasError('minlength')">
+        Senha deve ter no mínimo 6 caracteres
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Confirmar Nova Senha -->
+    <mat-form-field class="fullWidth" appearance="outline">
+      <mat-label>Confirmar Nova Senha</mat-label>
+      <input
+        [(ngModel)]="confirmaSenha"
+        name="confirmaSenha"
+        [formControl]="confirmaSenhaControl"
+        [type]="hideConfirmPassword ? 'password' : 'text'"
+        matInput
+        placeholder="Digite novamente a nova senha"
+        autocomplete="new-password"
+        maxlength="99"/>
+      <button mat-icon-button matSuffix 
+              (click)="hideConfirmPassword = !hideConfirmPassword"
+              [attr.aria-label]="'Mostrar senha'"
+              type="button">
+        <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-icon matPrefix>check_circle_outline</mat-icon>
+      <mat-error *ngIf="confirmaSenhaControl.hasError('required')">
+        Confirmação de senha é obrigatória
+      </mat-error>
+      <mat-error *ngIf="confirmaSenhaControl.hasError('mustMatch')">
+        As senhas não conferem
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Indicador de força da senha -->
+    <div *ngIf="novaSenha" class="password-strength">
+      <div class="strength-bar" [ngClass]="getPasswordStrength()"></div>
+      <span class="strength-text">{{ getPasswordStrengthText() }}</span>
+    </div>
+  </div>
+</mat-expansion-panel>
+
+    <!-- Botões -->
+    <button [disabled]="!validaCamposPassword()"
+            class="button mat-elevation-z10" 
+            mat-raised-button 
+            color="success"
+            matTooltip="Atualizar Senha"
+            aria-label="Atualizar Senha"
+            (click)="updatePassword()">      
+      Atualizar Senha
+    </button>
+
+    <button
+      routerLink="/home"
+      class="button mat-elevation-z10"
+      mat-flat-button
+      color="warn"
+      mat-raised-button
+      matTooltip="Cancelar"
+      aria-label="Cancelar">
+      Cancelar
+    </button>
+        </mat-accordion>
+      </form>
+
+      <!-- ========================================
+          MODAL DE VISUALIZAÇÃO DE ADVERTÊNCIA
+          ======================================== -->
+      <div class="modal-overlay" *ngIf="showInfractionModal" (click)="fecharModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+          
+          <!-- Header do Modal -->
+          <div class="modal-header" >
+            <div class="header-content">
+              <mat-icon class="header-icon">assignment_late</mat-icon>
+              <div class="header-text">
+                <h2>Detalhes da Advertência</h2>
+                <span class="header-subtitle">Visualização completa</span>
+              </div>
+            </div>
+            <button  class="close-button" (click)="fecharModal()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+
+          <!-- Corpo do Modal -->
+          <div class="modal-body">
+            
+            
+            <!-- Badge do Tipo -->
+            <div class="infraction-badge" [ngClass]="getInfractionClass()">
+              <mat-icon>{{ getInfractionIcon() }}</mat-icon>
+              <span>{{ selectedInfraction?.infractionType }}</span>
+            </div>
+
+            <!-- Dados do Associado -->
+            <div class="info-section">
+              <h3 class="section-title">
+                <mat-icon>person</mat-icon>
+                Dados do Associado
+              </h3>
+              <div class="info-grid">
+                <div class="info-item">
+                  <label>Nome Completo</label>
+                  <div class="info-value">
+                    <mat-icon>badge</mat-icon>
+                    {{ selectedInfraction?.member?.firstName }} {{ selectedInfraction?.member?.lastName }}
+                  </div>
+                </div>
+                <div class="info-item">
+                  <label>Sede</label>
+                  <div class="info-value">
+                    <mat-icon>flag</mat-icon>
+                    {{ selectedInfraction?.member?.headQuarter?.description || 'Não informado' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tipo de Advertência -->
+            <div class="info-section">
+              <h3 class="section-title">
+                <mat-icon>category</mat-icon>
+                Tipo de Advertência
+              </h3>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Tipo</mat-label>
+                <input matInput 
+                      [value]="selectedInfraction?.infractionType" 
+                      readonly>
+                      <mat-icon matPrefix class="prefix-icon {{ getInfractionClass() }}">
+                        {{ getInfractionIcon() }}
+                      </mat-icon>
+              </mat-form-field>
+            </div>
+
+            <!-- Data da Advertência -->
+            <div class="info-section">
+              <h3 class="section-title">
+                <mat-icon>event</mat-icon>
+                Data da Advertência
+              </h3>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Data</mat-label>
+                <input matInput 
+                      [value]="selectedInfraction?.infractionDate" 
+                      readonly>
+                <mat-icon matPrefix>calendar_today</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <!-- Descrição/Texto da Transgressão -->
+            <div class="info-section">
+              <h3 class="section-title">
+                <mat-icon>description</mat-icon>
+                Descrição da Transgressão
+              </h3>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Texto da Transgressão</mat-label>
+                <textarea matInput 
+                          [value]="selectedInfraction?.description || 'Sem descrição'"
+                          rows="6"
+                          readonly>
+                </textarea>
+                <mat-icon matPrefix>note</mat-icon>
+              </mat-form-field>
+            </div>
+
+          </div>      
+
         </div>
       </div>
-      <div class="example-action-buttons">
-        <button class="mat-elevation-z8" mat-button (click)="accordion.openAll()">Expandir Todos</button>
-        <button class="mat-elevation-z8" mat-button (click)="accordion.closeAll()">Minimizar Todos</button>
-      </div>
-      <br />
-  
-      <mat-accordion class="example-headers-align" multi>
-        <mat-expansion-panel (opened)="togglePersonal(true)" 
-        (closed)="togglePersonal(false)">
-          <mat-expansion-panel-header>
-            <mat-panel-title> Dados Pessoais </mat-panel-title>
-            <mat-panel-description> {{ panelPersonalOpen ? 'Click para Minimizar dados pessoais' : 'Click para Expandir dados Pessoais' }}
-              <mat-icon>account_circle</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <mat-form-field class="fullWidth" appearance="legacy">
-            <mat-label>Nome</mat-label>
-            <input
-              [(ngModel)]="member.firstName"
-              name="firstName"
-              [formControl]="firstName"              
-              matInput
-              readonly/>
-            <mat-icon matSuffix>description</mat-icon>           
-          </mat-form-field>  
-          <mat-form-field class="fullWidth" appearance="legacy">
-            <mat-label>Sobre Nome</mat-label>
-            <input
-              [(ngModel)]="member.lastName"
-              name="lastName"
-              [formControl]="lastName"
-              matInput
-              readonly/>
-            <mat-icon matSuffix>description</mat-icon>            
-          </mat-form-field>  
-          <mat-form-field class="fullWidth" appearance="legacy">
-            <mat-label>Apelido</mat-label>
-            <input
-              [(ngModel)]="member.nickName"
-              name="nickName"
-              [formControl]="nickName"            
-              matInput              
-              readonly/>
-            <mat-icon matSuffix>description</mat-icon>            
-          </mat-form-field>  
-          <mat-form-field class="fullWidth" appearance="legacy">
-            <mat-label>RG</mat-label>
-            <input
-              [(ngModel)]="member.rg"
-              name="rg"
-              [formControl]="rg"              
-              mask="00.000.000-0"
-              matInput              
-              readonly/>
-              <mat-icon matSuffix>pin</mat-icon>              
-          </mat-form-field>  
-          <mat-form-field class="fullWidth" appearance="legacy">
-            <mat-label>cpf</mat-label>
-            <input
-              [(ngModel)]="member.cpf"
-              name="cpf"
-              [formControl]="cpf"             
-              mask="000.000.000-00"
-              matInput
-              readonly/>
-              <mat-icon matSuffix>pin</mat-icon>              
-          </mat-form-field>  
-          <mat-form-field class="fullWidth" appearance="legacy">
-            <mat-label>cnh</mat-label>
-            <input
-              [(ngModel)]="member.cnh"
-              name="cnh"
-              [formControl]="cnh"            
-              mask="00000000000"
-              matInput              
-              readonly/>
-              <mat-icon matSuffix>pin</mat-icon>              
-          </mat-form-field>
-          <mat-form-field class="fullWidth" appearance="legacy">
-            <mat-label>Celular</mat-label>
-            <input
-              [(ngModel)]="member.celPhone"
-              name="celPhone"
-              [formControl]="celPhone"              
-              mask="(00)00000-0000"
-              matInput
-              readonly/>
-            <mat-icon matSuffix>phone_iphone</mat-icon>
-          </mat-form-field>  
-          <mat-form-field class="fullWidth" appearance="legacy">
-            <mat-label>Tel. Residencial</mat-label>
-            <input
-              [(ngModel)]="member.phone"
-              name="phone"
-              [formControl]="phone"
-              mask="(00)0000-0000"
-              matInput
-              readonly/>
-            <mat-icon matSuffix>call</mat-icon>
-          </mat-form-field>  
-          <mat-form-field class="fullWidth" appearance="legacy">
-            <mat-label>Tel. Recado 1</mat-label>
-            <input
-              [(ngModel)]="member.familiarPhone1"
-              name="familiarPhone1"
-              [formControl]="familiarPhone1"
-              mask="(00)0000-0000"
-              matInput
-              readonly/>
-            <mat-icon matSuffix>contacts</mat-icon>
-          </mat-form-field>  
-          <mat-form-field class="fullWidth" appearance="legacy">
-            <mat-label>Tel. Recado 2</mat-label>
-            <input
-              [(ngModel)]="member.familiarPhone2"
-              name="familiarPhone2"
-              [formControl]="familiarPhone2"
-              mask="(00)0000-0000"
-              matInput
-              readonly/>
-            <mat-icon matSuffix>contacts</mat-icon>
-          </mat-form-field>  
-          <mat-form-field appearance="fill" class="midWidth">
-            <mat-label>Data de Nascimento</mat-label>
-            <input name="birthDate" matInput      
-              [value]="birthDateStart"
-              readonly   
-              [matDatepicker]="birthDatePicker"  
-              [formControl]="birthDateForm" />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="$any(birthDatePicker)"></mat-datepicker-toggle>
-            <mat-datepicker  #birthDatePicker color="primary"            
-            ></mat-datepicker>
-          </mat-form-field>  
-          <mat-form-field
-          class="midWidth"
-            appearance="fill"
-            mat-raised-button
-            matTooltip="Tipo sanguíneo"
-            aria-label="bloodType">
-            <mat-label>Tipo sanguíneo</mat-label>
-            <mat-select              
-              name="bloodTypeMatSelected"
-              [formControl]="bloodTypeMatSelected">
-              <mat-option 
-                *ngFor="let bloodTypeElement of bloodTypeList"
-                [value]="bloodTypeElement.id">
-                {{bloodTypeElement.description}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </mat-expansion-panel>        
-        <br />
-  
-        <mat-expansion-panel (opened)="toggleAddress(true)" 
-        (closed)="toggleAddress(false)">
-          <mat-expansion-panel-header>
-            <mat-panel-title> Dados de Endereço </mat-panel-title>
-            <mat-panel-description> {{ panelAdressOpen ? 'Click para Minimizar dados de Endereço' : 'Click para Expandir dados de Endereço' }}             
-              <mat-icon>signpost</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <mat-form-field appearance="fill" class="fullWidth">
-            <mat-label>Logradouro</mat-label>
-            <input
-              matInput              
-              name="addressLogradouro"
-              [formControl]="addressLogradouro"
-              readonly/>
-          </mat-form-field>  
-          <mat-form-field appearance="fill" class="midWidth">
-            <mat-label>Cidade</mat-label>
-            <input
-              matInput              
-              name="cityName"
-              [formControl]="cityName"
-              readonly/>
-          </mat-form-field>  
-          <mat-form-field appearance="fill" class="midWidth">
-            <mat-label>CEP</mat-label>
-            <input
-              matInput              
-              name="addressPostCode"
-              [formControl]="addressPostCode"
-              readonly/>
-          </mat-form-field>  
-        </mat-expansion-panel>          
-        <br />
-
-        <mat-expansion-panel (opened)="toggleHeadQuarter(true)" 
-        (closed)="toggleHeadQuarter(false)">
-          <mat-expansion-panel-header>
-            <mat-panel-title> Dados da Sede </mat-panel-title>
-            <mat-panel-description> {{ panelHeadQuarterOpen ? 'Click para Minimizar dados da Sede' : 'Click para Expandir dados da Sede' }}              
-              <mat-icon>flag</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <mat-form-field appearance="fill" class="midWidth">
-            <mat-label>Sede</mat-label>
-            <input
-              matInput                            
-              name="headQuarterDescription"
-              [formControl]="headQuarterDescription"
-              readonly/>
-          </mat-form-field>
-          <mat-form-field appearance="fill" class="midWidth">
-            <mat-label>Cidade da Sede</mat-label>
-            <input
-              matInput              
-              name="headQuarterCity"
-              [formControl]="headQuarterCity"
-              readonly />
-          </mat-form-field>           
-          <mat-form-field appearance="fill" class="midWidth">
-            <mat-label>Data de Admissão</mat-label>
-            <input name="admissionDate"
-              matInput [matDatepicker]="admissionDatePicker" 
-              [value]="admissionDateStart"             
-              [formControl]="admissionDateForm"  
-              readonly/>
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="admissionDatePicker">
-            </mat-datepicker-toggle>
-            <mat-datepicker #admissionDatePicker color="primary"></mat-datepicker>
-          </mat-form-field>   
-        </mat-expansion-panel>        
-        <br />
-
-        <mat-expansion-panel (opened)="toggleTravels(true)" 
-        (closed)="toggleTravels(false)">
-          <mat-expansion-panel-header>
-            <mat-panel-title> Dados de Km's Rodados </mat-panel-title>
-            <mat-panel-description> {{ panelTravelsOpen ? 'Click para Minimizar dados de Kms' : 'Click para Expandir dados de  Kms' }}            
-              <mat-icon>signpost</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <mat-form-field appearance="standard" class="searching">      
-            <mat-label>Pesquisa</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Data/Local" #input>
-            <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field>
-
-          <div class="mat-elevation-z8">
-            <mat-form-field appearance="fill" class="morLessWidth">
-              <mat-label>Selecione um intervalo de datas</mat-label>
-              <mat-date-range-input readonly [rangePicker]="dateRangepicker">
-                <input 
-                [formControl]="travelStartDateForm"
-                [value]="travelStartDateStart"
-                 readonly matStartDate placeholder="Data incio">
-                <input (dateChange)="findTravelsByMemberId()"
-                [formControl]="travelEndDateForm"
-                [value]="travelEndDateStart"
-                 readonly matEndDate placeholder="Data fim">
-              </mat-date-range-input>
-              <mat-datepicker-toggle matSuffix [for]="dateRangepicker"></mat-datepicker-toggle>
-              <mat-date-range-picker #dateRangepicker></mat-date-range-picker>
-            </mat-form-field>
-            <table mat-table [dataSource]="dataSource">  
-              <ng-container matColumnDef="position">
-                <th mat-header-cell *matHeaderCellDef> id </th>
-                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-              </ng-container>      
+    <!-- ========================================
+          MODAL DE VISUALIZAÇÃO DE GRADUAÇÃO
+          ======================================== -->
+          <div class="modal-overlay" *ngIf="showMemberPatchModal" (click)="fecharModalGraduacao()">
+            <div class="modal-content" (click)="$event.stopPropagation()">
               
-              <ng-container matColumnDef="travelDate">
-                <th mat-header-cell *matHeaderCellDef> Data da Viagem </th>
-                <td mat-cell *matCellDef="let element"> {{element.travelDate}} </td>
-              </ng-container>      
-            
-              <ng-container matColumnDef="weight">
-                <th mat-header-cell *matHeaderCellDef> Numero </th>
-                <td mat-cell *matCellDef="let element"> {{element.number}} </td>
-              </ng-container>      
+              <!-- Header do Modal -->
+              <div class="modal-header">
+                <div class="header-content">
+                  <mat-icon class="header-icon">school</mat-icon>
+                  <div class="header-text">
+                    <h2>Detalhes da Graduação</h2>
+                    <span class="header-subtitle">Visualização completa</span>
+                  </div>
+                </div>
+                <button class="close-button" (click)="fecharModalGraduacao()">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+        
+              <!-- Corpo do Modal -->
+              <div class="modal-body">
+                
+                <!-- Badge da Graduação -->
+                <div class="graduation-badge">
+                  <mat-icon>school</mat-icon>
+                  <span>{{ selectedMemberPatch?.patch?.name }}</span>
+                </div>
+        
+                <!-- Dados do Associado -->
+                <div class="info-section">
+                  <h3 class="section-title">
+                    <mat-icon>person</mat-icon>
+                    Dados do Associado
+                  </h3>
+                  <div class="info-grid">
+                    <div class="info-item">
+                      <label>Nome Completo</label>
+                      <div class="info-value">
+                        <mat-icon>badge</mat-icon>
+                        {{ selectedMemberPatch?.member?.firstName }} {{ selectedMemberPatch?.member?.lastName }}
+                      </div>
+                    </div>
+                    <div class="info-item">
+                      <label>Sede</label>
+                      <div class="info-value">
+                        <mat-icon>flag</mat-icon>
+                        {{ selectedMemberPatch?.member?.headQuarter?.description || 'Não informado' }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        
+                <!-- Nome da Graduação -->
+                <div class="info-section">
+                  <h3 class="section-title">
+                    <mat-icon>military_tech</mat-icon>
+                    Graduação
+                  </h3>
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Nome da Graduação</mat-label>
+                    <input matInput 
+                          [value]="selectedMemberPatch?.patch?.name" 
+                          readonly>
+                    <mat-icon matPrefix>school</mat-icon>
+                  </mat-form-field>
+                </div>
+        
+                <!-- Data da Graduação -->
+                <div class="info-section">
+                  <h3 class="section-title">
+                    <mat-icon>event</mat-icon>
+                    Data da Graduação
+                  </h3>
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Data</mat-label>
+                    <input matInput 
+                          [value]="selectedMemberPatch?.admissionDate" 
+                          readonly>
+                    <mat-icon matPrefix>calendar_today</mat-icon>
+                  </mat-form-field>
+                </div>
+        
+                <!-- Evento/Local da Graduação -->
+                <div class="info-section">
+                  <h3 class="section-title">
+                    <mat-icon>place</mat-icon>
+                    Evento/Local da Graduação
+                  </h3>
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Descrição do Evento</mat-label>
+                    <textarea matInput 
+                              [value]="selectedMemberPatch?.description || 'Sem descrição'"
+                              rows="6"
+                              readonly>
+                    </textarea>
+                    <mat-icon matPrefix>note</mat-icon>
+                  </mat-form-field>
+                </div>
+        
+              </div>
+        
+            </div>
+          </div>
+        
+    <!-- ========================================
+          MODAL DE VISUALIZAÇÃO DE VIAGEM
+          ======================================== -->
+          <div class="modal-overlay" *ngIf="showTravelModal" (click)="fecharModalViagem()">
+            <div class="modal-content" (click)="$event.stopPropagation()">
               
-              <ng-container matColumnDef="location">
-                <th mat-header-cell *matHeaderCellDef> Origem e Destino </th>
-                <td mat-cell *matCellDef="let element"> 
-                  {{element.departureLocation}} á {{element.arrivalLocation}} </td>
-              </ng-container>                 
-  
-              <ng-container matColumnDef="km">
-                  <th mat-header-cell *matHeaderCellDef> Km's Rodados </th>
-                  <td mat-cell *matCellDef="let element"> {{element.km}} </td>
-                </ng-container>
-  
-              <ng-container matColumnDef="kmControl">
-                  <th mat-header-cell *matHeaderCellDef> Contagem de Km </th>
-                  <td mat-cell *matCellDef="let element"> {{element.kmControl}} </td>
-              </ng-container>  
-              
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-          
-            <mat-paginator [pageSizeOptions]="[10, 20, 70]"
-                           showFirstLastButtons 
-                           aria-label="Select page of periodic elements">
-            </mat-paginator>
-          </div>  
-
-        </mat-expansion-panel>
-        <br />
-
-        <mat-expansion-panel (opened)="toggleAccess(true)" 
-        (closed)="toggleAccess(false)">
-          <mat-expansion-panel-header>
-            <mat-panel-title> Dados de Acesso </mat-panel-title>
-            <mat-panel-description> {{ panelAccessOpen ? 'Click para Minimizar dados de Acesso' : 'Click para Expandir dados de Acesso' }}            
-              <mat-icon>key</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-  
-          <mat-form-field class="fullWidth" appearance="legacy">
-            <mat-label>E-mail</mat-label>
-            <input
-              [(ngModel)]="member.email"
-              name="email"
-              [formControl]="email"              
-              matInput  
-              readonly/>
-            <mat-icon matSuffix>email</mat-icon>            
-          </mat-form-field>
-  
-          <mat-form-field class="fullWidth" appearance="legacy">
-            <mat-label>Senha</mat-label>
-            <input
-              [(ngModel)]="member.password"
-              name="password"
-              [formControl]="password"
-              required
-              matInput
-              type="password"
-              placeholder="Ex.. 1234"
-              maxlength="99"/>
-            <mat-icon matSuffix>password</mat-icon>
-            <mat-hint>100</mat-hint>
-          </mat-form-field>
-        </mat-expansion-panel>
-  <!--
-        <button
-          [disabled]="!validaCampos()"
-          class="button mat-elevation-z10"
-          mat-raised-button
-          color="success"
-          mat-raised-button
-          matTooltip="Salvar Associado"
-          aria-label="Salvar Associado"
-            (click)="update()" >
-          Atualizar
-        </button> -->
-
-        <button
-          routerLink="/home"
-          class="button mat-elevation-z10"
-          mat-flat-button
-          color="warn"
-          mat-raised-button
-          matTooltip="Cancelar"
-          aria-label="Cancelar">
-          Cancelar
-        </button>
-      </mat-accordion>
-    </form>
-  </div>
-  
+              <!-- Header do Modal -->
+              <div class="modal-header">
+                <div class="header-content">
+                  <mat-icon class="header-icon">two_wheeler</mat-icon>
+                  <div class="header-text">
+                    <h2>Detalhes da Viagem</h2>
+                    <span class="header-subtitle">Visualização completa</span>
+                  </div>
+                </div>
+                <button class="close-button" (click)="fecharModalViagem()">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+        
+              <!-- Corpo do Modal -->
+              <div class="modal-body">
+                
+                <!-- Badge da Viagem -->
+                <div class="travel-badge">
+                  <mat-icon>two_wheeler</mat-icon>
+                  <span>Detalhes da Viagem</span>
+                </div>
+        
+                <!-- Dados do Associado -->
+                <div class="info-section">
+                  <h3 class="section-title">
+                    <mat-icon>person</mat-icon>
+                    Dados do Associado
+                  </h3>
+                  <div class="info-grid">
+                    <div class="info-item">
+                      <label>Nome Completo</label>
+                      <div class="info-value">
+                        <mat-icon>badge</mat-icon>
+                        {{ selectedTravel?.member?.firstName }} {{ selectedTravel?.member?.lastName }}
+                      </div>
+                    </div>
+                    <div class="info-item">
+                      <label>Sede</label>
+                      <div class="info-value">
+                        <mat-icon>flag</mat-icon>
+                        {{ selectedTravel?.member?.headQuarter?.description || 'Não informado' }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        
+                <!-- Data da Viagem -->
+                <div class="info-section">
+                  <h3 class="section-title">
+                    <mat-icon>event</mat-icon>
+                    Data da Viagem
+                  </h3>
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Data</mat-label>
+                    <input matInput 
+                          [value]="selectedTravel?.travelDate" 
+                          readonly>
+                    <mat-icon matPrefix>calendar_today</mat-icon>
+                  </mat-form-field>
+                </div>
+        
+                <!-- Locais de Partida e Chegada -->
+                <div class="info-section">
+                  <h3 class="section-title">
+                    <mat-icon>route</mat-icon>
+                    Trajeto da Viagem
+                  </h3>
+                  <div class="route-container">
+                    <div class="route-item">
+                      <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Local de Partida</mat-label>
+                        <input matInput 
+                              [value]="selectedTravel?.departureLocation" 
+                              readonly>
+                        <mat-icon matPrefix>location_on</mat-icon>
+                      </mat-form-field>
+                    </div>
+                    <div class="route-arrow">
+                      <mat-icon>arrow_forward</mat-icon>
+                    </div>
+                    <div class="route-item">
+                      <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Local de Chegada</mat-label>
+                        <input matInput 
+                              [value]="selectedTravel?.arrivalLocation" 
+                              readonly>
+                        <mat-icon matPrefix>place</mat-icon>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+        
+                <!-- Quilometragem -->
+                <div class="info-section">
+                  <h3 class="section-title">
+                    <mat-icon>speed</mat-icon>
+                    Quilometragem
+                  </h3>
+                  <div class="km-container">
+                    <div class="km-card">
+                      <div class="km-label">Total de KM Rodados</div>
+                      <div class="km-value">{{ selectedTravel?.km || 0 }} km</div>
+                    </div>
+                    
+                    <!-- Card de KM CHEIO - Só exibe se for KM Cheio -->
+                    <div *ngIf="isFullKm()" class="km-type-card full-km">
+                      <mat-icon>check_circle</mat-icon>
+                      <div class="km-type-info">
+                        <div class="km-type-label">KM CHEIO</div>
+                        <div class="km-type-description">
+                          Conta 100% do KM rodado
+                        </div>
+                        <div class="km-computed">
+                          KM Computado: <strong>{{ getComputedKm() }} km</strong>
+                        </div>
+                      </div>
+                    </div>
+                
+                    <!-- Card de MEIO KM - Só exibe se for Meio KM -->
+                    <div *ngIf="!isFullKm()" class="km-type-card half-km">
+                      <mat-icon>adjust</mat-icon>
+                      <div class="km-type-info">
+                        <div class="km-type-label">MEIO KM</div>
+                        <div class="km-type-description">
+                          Conta 50% do KM rodado
+                        </div>
+                        <div class="km-computed">
+                          KM Computado: <strong>{{ getComputedKm() }} km</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        
+                <!-- Descrição/Evento/Tipo da Viagem -->
+                <div class="info-section">
+                  <h3 class="section-title">
+                    <mat-icon>description</mat-icon>
+                    Descrição da Viagem
+                  </h3>
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Descrição/Evento/Tipo de Viagem</mat-label>
+                    <textarea matInput 
+                              [value]="selectedTravel?.description || 'Sem descrição'"
+                              rows="6"
+                              readonly>
+                    </textarea>
+                    <mat-icon matPrefix>note</mat-icon>
+                  </mat-form-field>
+                </div>
+        
+              </div>
+        
+            </div>
+          </div>
+        
+        </div>

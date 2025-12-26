@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class InfractionListComponent implements OnInit {
 
-  ELEMENT_DATA: Infraction[] = [ ]
+  ELEMENT_DATA: Infraction[] = []
   displayedColumns: string[] = ['position', 'name', 'headQuarter','infractionType', 'infractionDate', 'acoes'];
   dataSource = new MatTableDataSource<Infraction>(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;

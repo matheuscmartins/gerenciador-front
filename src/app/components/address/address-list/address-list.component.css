@@ -1,6 +1,7 @@
 .container {
     width: 90%;
     margin: auto;
+    padding: 1rem;
 }
 table {
     width: 100%;
@@ -15,9 +16,29 @@ table {
     width:  100%;
     text-align: center;
   }
-  .edit{
+  .edit {
     color: rgb(58, 57, 57);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }  
+  .edit:hover {
+    transform: scale(1.5);
+    color: #030303; 
+  }  
+  .edit:active {
+    transform: scale(1.1); 
   }
   .delete{
     color: red;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+  .delete:hover {
+    transform: scale(1.5);
+    color: #bb0404; 
+  }  
+  .delete:active {
+    transform: scale(1.1); 
   }

@@ -1,20 +1,38 @@
 .container {
-    width: 90%;
-    margin: auto;
+  width: 90%;
+  margin: auto;
+  padding: 1rem;
 }
+
 table {
-    width: 100%;
-  }
-  mat-form-field{
-    width: 100%;
-  }
-  button{
-    width: 100%;    
-  }
-  h1{
-    width:  100%;
-    text-align: center;
-  }
-  .edit{
-    color: rgb(58, 57, 57);
-  }
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  width: 100%;    
+}
+
+h1 {
+  width: 100%;
+  text-align: center;
+}
+
+.edit {
+  color: rgb(58, 57, 57);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.edit:hover {
+  transform: scale(1.5);
+  color: #030303; 
+}
+
+.edit:active {
+  transform: scale(1.1); 
+}

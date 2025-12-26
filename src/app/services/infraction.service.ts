@@ -31,4 +31,7 @@ export class InfractionService {
   findByHeadQuarterId(id: any): Observable<Infraction[]>{
     return this.http.get<Infraction[]>(`${API_CONFIG.baseUrl}/advertencias/sede/${id}`);
   }
+  findByMemberId(id: any): Observable<Infraction[]>{
+    return this.http.get<Infraction[]>(`${API_CONFIG.baseUrl}/advertencias/membro/${id}`);
+  }
 }

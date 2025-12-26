@@ -1,39 +1,184 @@
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 1.5rem 2rem;
+  padding-left: 5rem;
+  background: linear-gradient(135deg, #000 0%, #060606 50%, #b3b0b0 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  min-height: 80px;
+}
+
+h1 {
+  margin: 0;
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 0.6rem 2.5rem;
+  border-radius: 5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.profileMenu {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);  
+  color: white;  
+  background: linear-gradient(200deg, rgb(4, 4, 4) 0%, rgb(68, 68, 68) 26%, rgb(196, 196, 196) 100%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  z-index: 1000;  
+}
+
+.profileMenu:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.profileMenu .mat-icon {
+  color: #ffffff !important;  
+}
+
+.profileMenu:active {
+  transform: translateY(-50%) scale(1.05);
+}
+
+/* ========================================
+   MENU DROPDOWN
+   ======================================== */
+::ng-deep .mat-mdc-menu-panel {
+  background: #1e293b !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+::ng-deep .mat-mdc-menu-item {
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+::ng-deep .mat-mdc-menu-item .mat-icon {
+  color: rgba(255, 255, 255, 0.7) !important;
+  margin-right: 8px;
+}
+
+::ng-deep .mat-mdc-menu-item:hover .mat-icon {
+  color: white !important;
+}
+
+/* Info do usuário */
+.user-info {
+  padding: 0.7rem 1.5rem;
+  font-size: 0.95rem;
+  color: rgba(0, 0, 0, 0.9); 
+  cursor: default;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.enterProfile {
+  color: rgba(0, 0, 0, 0.9) !important; 
+}
+
+.enterProfile .mat-icon {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.enterProfile:hover {
+  background: rgb(231, 231, 231) !important;
+}
+
+.logout {
+  color: #ff6b6b !important;
+  margin-top: 4px;
+}
+
+.logout:hover {
+  background: rgba(255, 107, 107, 0.15) !important;
+}
+
+.logout .mat-icon {
+  color: #ff6b6b !important;
+}
+
+/* ========================================
+   RESPONSIVO - MOBILE
+   ======================================== */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem 1.5rem;
+    padding-left: 4rem;
+    min-height: 70px;
   }
   
   h1 {
-    margin: 0;
-    border: 1px solid rgb(148, 148, 148);
-    padding: 0.4rem 2rem;
-    border-radius: 5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }  
+    font-size: 1.3rem;
+    padding: 0.5rem 1.5rem;
+    letter-spacing: 1.5px;
+  }
   
-  button[mat-icon-button] {
-    position: absolute;
-    right: 2rem;
-    top: 50%;
-    transform: translateY(-50%);
+  .profileMenu {
+    right: 0.8rem;
   }
-  mat-menu {
-    border-radius: 3rem;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .container {
+    padding: 0.8rem 1rem;
+    padding-left: 3.5rem;
+    min-height: 60px;
   }
+  
+  h1 {
+    font-size: 1rem;
+    padding: 0.4rem 1rem;
+    letter-spacing: 1px;
+  }
+  
+  .profileMenu {
+    right: 0.5rem;
+    width: 36px;
+    height: 36px;
+  }
+  
+  .profileMenu .mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* Menu dropdown mobile */
+  ::ng-deep .mat-mdc-menu-panel {
+    max-width: 90vw !important;
+  }
+  
   .user-info {
-    padding: 0.7rem 1.5rem;
-    font-size: 0.95rem;
-    color: #333;
-    cursor: default;
-    text-align: center;
-    border-bottom: 1px solid #e0e0e0;
+    font-size: 0.85rem;
+    padding: 0.6rem 1rem;
+    word-break: break-word;
   }
-  
-  .user-info:hover {
-    background: transparent; /* nada de efeito hover */
+}
+
+/* Mobile muito pequeno */
+@media (max-width: 360px) {
+  h1 {
+    font-size: 0.9rem;
+    padding: 0.3rem 0.8rem;
   }
-  
-  
+}

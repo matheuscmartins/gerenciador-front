@@ -28,4 +28,7 @@ export class MemberPatchService {
   delete(id: any): Observable<MemberPatch>{
     return this.http.delete<MemberPatch>(`${API_CONFIG.baseUrl}/membrospatchs/${id}`);
   }
+  findByMemberId(id: any): Observable<MemberPatch[]> {
+    return this.http.get<MemberPatch[]>(`${API_CONFIG.baseUrl}/membrospatchs/membro/${id}`);
+  }
 }

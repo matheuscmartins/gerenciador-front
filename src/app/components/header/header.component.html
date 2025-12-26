@@ -1,23 +1,30 @@
-
 <div class="container">
-    <h1 class="mat-elevation-z8" > Gerenciador BDL</h1>  
-      <button mat-icon-button class="mat-elevation-z8" [matMenuTriggerFor]="profileMenu" aria-label="profile">
-        <mat-icon >manage_accounts</mat-icon>
-      </button>      
-      <mat-menu class="mat-elevation-z8 profile" #profileMenu="matMenu">
-        <nav *ngIf="user" >
+  <!-- Conteúdo projetado (botão de menu) aparece aqui -->
+  <ng-content></ng-content>
+  
+  <h1 class="mat-elevation-z8">Gerenciador BDL</h1>  
+  
+  <button mat-icon-button 
+          class="profileMenu"
+          [matMenuTriggerFor]="profileMenu" 
+          aria-label="profile">
+      <mat-icon>manage_accounts</mat-icon>
+  </button>      
+  <div class="profile"> 
+  <mat-menu  #profileMenu="matMenu">
+      <nav *ngIf="user">
           <div class="user-info" disabled>
-            {{ user.email }}
+              {{ user.email }}
           </div>
-               
-        </nav>
-        <button  mat-menu-item routerLink="myProfile/{{user.userId}}">
+      </nav>
+      <button class="enterProfile" mat-menu-item routerLink="myProfile/{{user.userId}}">
           <mat-icon>face</mat-icon>
-          <span >Perfil</span>
-        </button>        
-        <button mat-menu-item (click)="logout()">
+          <span>Perfil</span>
+      </button>        
+      <button class="logout" mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
           <span>Logout</span>
-        </button>
-      </mat-menu>
+      </button>
+  </mat-menu>
+</div>
 </div>

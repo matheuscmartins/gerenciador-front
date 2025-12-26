@@ -1,31 +1,86 @@
-<div class="container ">
-    <form class="form mat-elevation-z8">
-        <h1> Portal - BDL</h1>
-        <img src="assets/img/login-image.jpg" alt="Portal BDL">
+<div class="container">
+  <form class="form mat-elevation-z8">
+      <!-- Header Section -->
+      <div class="form-header">
+          <img src="assets/img/login-image.jpg" alt="Portal BDL">
+          <h1>Portal BDL</h1>
+          <p class="subtitle">Faça login para continuar</p>
+      </div>
 
-        <mat-form-field class="full-width" appearance="fill">
+      <!-- Email Field -->
+      <mat-form-field class="full-width" appearance="outline">
           <mat-label>E-mail</mat-label>
           <input 
-          [formControl]="email"
-          required
-          [(ngModel)]="creds.email" 
-          name="email" 
-          matInput placeholder="Ex. email@mail.com" >
-        </mat-form-field>
+              [formControl]="email"
+              required
+              [(ngModel)]="creds.email" 
+              name="email" 
+              matInput 
+              type="email"
+              placeholder="seu@email.com"
+              autocomplete="email"
+              (keyup.enter)="logar()">
+          <mat-icon matPrefix>email</mat-icon>
+          <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+              Por favor, insira um e-mail válido
+          </mat-error>
+          <mat-error *ngIf="email.hasError('required')">
+              E-mail é <strong>obrigatório</strong>
+          </mat-error>
+      </mat-form-field>
 
-        <mat-form-field class="full-width" appearance="fill">
-            <mat-label>Senha</mat-label>
-            <input 
-            [formControl]="password"
-          required
-          [(ngModel)]="creds.password" 
-            name="password" 
-            type="password" 
-            matInput placeholder="Ex. 123456" >
-          </mat-form-field>
-        <button 
-        (click)="logar()"
-        [disabled]="!validaCampos()" class="full-width mat-elevation-z8" 
-        mat-stroked-button color="primary">Login</button>
-      </form>      
+      <!-- Password Field -->
+      <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input 
+              [formControl]="password"
+              required
+              [(ngModel)]="creds.password" 
+              name="password" 
+              [type]="hidePassword ? 'password' : 'text'" 
+              matInput 
+              placeholder="Digite sua senha"
+              autocomplete="current-password"
+              (keyup.enter)="logar()">
+          <mat-icon matPrefix>lock</mat-icon>
+          <button 
+              mat-icon-button 
+              matSuffix 
+              (click)="hidePassword = !hidePassword"
+              type="button"
+              [attr.aria-label]="'Esconder senha'"
+              [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="password.hasError('minlength')">
+              A senha deve ter no mínimo <strong>6 caracteres</strong>
+          </mat-error>
+          <mat-error *ngIf="password.hasError('required')">
+              Senha é <strong>obrigatória</strong>
+          </mat-error>
+      </mat-form-field>
+
+      <!-- Remember Me Checkbox -->
+      <div class="form-options">
+          <mat-checkbox color="primary" [(ngModel)]="rememberMe" name="rememberMe">
+              Lembrar-me
+          </mat-checkbox>
+          <a href="#" class="forgot-password" (click)="$event.preventDefault(); forgotPassword()">
+              Esqueceu a senha?
+          </a>
+      </div>
+
+      <!-- Login Button -->
+      <button 
+          (click)="logar()"
+          [disabled]="!validaCampos() || isLoading" 
+          class="full-width login-button mat-elevation-z2" 
+          mat-raised-button 
+          color="primary"
+          type="button">
+          <mat-spinner *ngIf="isLoading" diameter="20" class="button-spinner"></mat-spinner>
+          <span *ngIf="!isLoading">Entrar</span>
+          <span *ngIf="isLoading">Entrando...</span>
+      </button>      
+  </form>      
 </div>

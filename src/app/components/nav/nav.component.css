@@ -1,27 +1,229 @@
-.container{
+.container {
     height: 100%;
 }
 
-.sidenav{
+.sidenav {
     width: 13rem;
-    color:white;    
-    background: linear-gradient(119deg, rgba(2, 2, 2, 0) 0%, rgb(7, 7, 7) 17%, rgb(109, 109, 109) 100%);
-    border-radius: 0.5rem;
+    color: white;    
+    background: linear-gradient(135deg, #060606 0%, #000 50%, #8a8a8a 100%);
+    border-radius: 0;
+    overflow-x: hidden;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
 }
 
-img{
-    width: 99%;
-    height: 10rem;
-    border-radius: 0.3rem;
+/* Logo container */
+.logo-container {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+    padding: 1.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+    text-align: center;
+    border-radius: 56%;
 }
-.sidenav a{
-    color: white;    
+
+.logo-container::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
 }
-.sidenav i{
-    margin-right: .6rem;  
+
+img {
+    width: 80%;
+    height: auto;
+    max-height: 7rem;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+    filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.3));
+    transition: all 0.3s ease;
 }
+
+img:hover {
+    filter: drop-shadow(0 6px 20px rgba(255, 255, 255, 0.5));
+    transform: scale(1.05);
+}
+
+.club-name {
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+/* Lista de navegação */
+.nav-list {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 0.5rem;
+}
+
+/* Scrollbar customizada */
+.nav-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.nav-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.nav-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.nav-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.sidenav a {
+    color: white;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.sidenav i {
+    margin-right: .6rem;
+    transition: transform 0.3s ease;
+}
+
+.sidenav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding-left: 0.3rem;
+}
+
+.sidenav a:hover i {
+    transform: translateX(3px);
+}
+
+.sidenav a:active,
+.sidenav a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-left: 3px solid #ffffff;
+}
+
+.sidenav a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background-color: #ffffff;
+    transition: width 0.3s ease;
+}
+
+.sidenav a:hover::before {
+    width: 3px;
+}
+
+/* Conteúdo do sidenav */
+.sidenav-content {
+    height: 100%;
+}
+
+/* Botão de menu */
 .menu {
-    margin: 1rem 0 0 1rem;
-    color:white;
-    background: linear-gradient(119deg, rgba(0,0,0,1) 0%, rgba(32,32,33,1) 26%, rgba(145,145,145,1) 100%);
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    background: linear-gradient(119deg, rgb(22, 22, 22) 0%, rgb(51, 51, 51) 26%, rgb(185, 185, 185) 100%);
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.menu:hover {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.menu:active {
+    transform: translateY(-50%) scale(1.05);
+}
+
+.mat-icon {
+    color: #fefeff;
+}
+
+/* Quando o drawer está aberto - APENAS DESKTOP */
+@media (min-width: 769px) {
+    .mat-drawer-opened ~ .sidenav-content .menu {
+        left: 14rem;
+    }
+}
+
+/* ========================================
+   RESPONSIVO - MOBILE
+   ======================================== */
+
+/* Tablets e Mobile */
+@media (max-width: 768px) {
+    .sidenav {
+        width: 250px; /* Largura do menu mobile */
+    }
+    
+    .logo-container {
+        padding: 1rem 0.5rem;
+    }
+    
+    img {
+        max-height: 5rem;
+    }
+    
+    .club-name {
+        font-size: 0.75rem;
+    }
+    
+    /* Menu sempre overlay em mobile */
+    .mat-drawer {
+        position: fixed !important;
+    }
+    
+    /* Botão de menu sempre visível em mobile */
+    .menu {
+        left: 1rem !important; /* Sempre fixo no canto */
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    .sidenav {
+        width: 220px;
+    }
+    
+    .logo-container {
+        padding: 0.8rem 0.5rem;
+    }
+    
+    img {
+        max-height: 4rem;
+        width: 70%;
+    }
+    
+    .club-name {
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+    }
+    
+    .sidenav a {
+        font-size: 0.9rem;
+        padding: 0.8rem 1rem;
+    }
+    
+    .sidenav i {
+        font-size: 20px;
+        margin-right: 0.5rem;
+    }
 }
